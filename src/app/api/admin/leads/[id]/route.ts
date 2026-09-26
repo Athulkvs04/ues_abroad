@@ -34,7 +34,9 @@ export async function PATCH(
     if (targetCountry !== undefined) updateData.targetCountry = targetCountry;
     if (targetDegree !== undefined) updateData.targetDegree = targetDegree;
     if (englishTest !== undefined) updateData.englishTest = englishTest;
-    if (assignedToId !== undefined) updateData.assignedToId = assignedToId || null;
+    if (assignedToId !== undefined) {
+      updateData.assignedTo = assignedToId ? { connect: { id: assignedToId } } : { disconnect: true };
+    }
     
     if (typeof budgetApprox === "number") updateData.budgetApprox = budgetApprox;
     if (typeof cgpa === "number") updateData.cgpa = cgpa;
