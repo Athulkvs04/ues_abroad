@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Temporary Scripts and Folders
+/*.js
+_prototype/
+_prototypezip.zip
+_temp_proto/
+/v3/

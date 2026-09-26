@@ -1,0 +1,238 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  SUPER_ADMIN
+  EDITOR
+  LEAD_VIEWER
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  COUNSELLING_SCHEDULED
+  APPLICATION_IN_PROGRESS
+  ENROLLED
+  ARCHIVED
+}
+
+model User {
+  id           String     @id @default(uuid())
+  email        String     @unique
+  passwordHash String
+  name         String
+  role         Role       @default(EDITOR)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  assignedLeads Lead[]
+  auditLogs    AuditLog[]
+}
+
+model Lead {
+  id            String     @id @default(uuid())
+  name          String
+  email         String
+  phone         String
+  source        String     // e.g., "START_MY_JOURNEY", "COURSE_FINDER", "ACCOMMODATION", "FOREX", "RESOURCE_VAULT"
+  status        LeadStatus @default(NEW)
+  score         Int        @default(0)
+  targetCountry String?
+  targetDegree  String?
+  budgetApprox  Float?
+  cgpa          Float?
+  englishTest   String?    // e.g., "IELTS_7.0", "NOT_TAKEN"
+  metadata      Json?      // Complete quiz responses, UTM tags, & anonymous session ID
+  assignedToId  String?
+  assignedTo    User?      @relation(fields: [assignedToId], references: [id])
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  notes         LeadNote[]
+}
+
+model LeadNote {
+  id        String   @id @default(uuid())
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  content   String
+  author    String
+  createdAt DateTime @default(now())
+}
+
+model Country {
+  id                 String       @id @default(uuid())
+  name               String       @unique
+  slug               String       @unique
+  overview           String       @db.Text
+  whyStudyHere       String       @db.Text
+  avgTuitionYearly   Float
+  avgLivingYearly    Float
+  postStudyVisaYears Int
+  currencySymbol     String       @default("$")
+  heroImageUrl       String?
+  isPublished        Boolean      @default(true)
+  universities       University[]
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+}
+
+model University {
+  id                  String   @id @default(uuid())
+  countryId           String
+  country             Country  @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  name                String
+  slug                String   @unique
+  locationCity        String
+  globalRanking       Int?
+  overview            String   @db.Text
+  admissionReqs       String   @db.Text
+  scholarshipInfo     String   @db.Text
+  approxTuitionYearly Float
+  approxLivingYearly  Float
+  isPartner           Boolean  @default(false)
+  logoUrl             String?
+  bannerUrl           String?
+  isPublished         Boolean  @default(true)
+  courses             Course[]
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model Course {
+  id             String     @id @default(uuid())
+  universityId   String
+  university     University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+  title          String
+  slug           String     @unique
+  degreeLevel    String     // e.g., "BACHELOR", "MASTER", "MBA", "PHD"
+  durationMonths Int
+  tuitionFee     Float
+  intakeMonths   String[]   // e.g., ["September", "January"]
+  overview       String     @db.Text
+  isPublished    Boolean    @default(true)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+model PrepExam {
+  id               String   @id @default(uuid())
+  examName         String   @unique // e.g., "IELTS", "TOEFL", "GRE", "GERMAN"
+  slug             String   @unique
+  overview         String   @db.Text
+  examPattern      Json     // Structured sections, timing, scoring
+  roadmap          Json     // Step-by-step preparation timeline
+  youtubeLinks     Json     // Curated array of { title, url, author }
+  officialSiteUrl  String
+  mockTestUrl      String
+  recommendedBooks Json     // Array of { title, author, isbn }
+  faqs             Json     // Array of { question, answer }
+  isPublished      Boolean  @default(true)
+  updatedAt        DateTime @updatedAt
+}
+
+model Resource {
+  id            String   @id @default(uuid())
+  title         String
+  slug          String   @unique
+  category      String   // e.g., "SOP_GUIDE", "VISA_CHECKLIST", "IELTS_CHEAT_SHEET"
+  description   String   @db.Text
+  fileUrl       String
+  isGated       Boolean  @default(true)
+  downloadCount Int      @default(0)
+  createdAt     DateTime @default(now())
+}
+
+model Blog {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  excerpt     String   @db.Text
+  content     String   @db.Text
+  coverImage  String?
+  author      String   @default("UES Abroad Team")
+  isPublished Boolean  @default(true)
+  publishedAt DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Seminar {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  description String   @db.Text
+  eventDate   DateTime
+  location    String   // e.g., "Online Webinar" or "Mumbai Office"
+  speakerName String
+  bannerUrl   String?
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+model Testimonial {
+  id          String   @id @default(uuid())
+  studentName String
+  university  String
+  course      String
+  country     String
+  content     String   @db.Text
+  imageUrl    String?  // AI placeholder until real photo available
+  rating      Int      @default(5)
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+model AccommodationLead {
+  id             String   @id @default(uuid())
+  studentName    String
+  email          String
+  phone          String
+  targetCountry  String
+  targetCity     String
+  budgetMonthly  Float
+  moveInDate     DateTime
+  roomPreference String   // e.g., "STUDIO", "SHARED_DORM", "HOMESTAY"
+  notes          String?  @db.Text
+  status         String   @default("PENDING")
+  createdAt      DateTime @default(now())
+}
+
+model ForexReferral {
+  id           String   @id @default(uuid())
+  name         String
+  phone        String
+  email        String?
+  fromCurrency String   // e.g., "INR"
+  toCurrency   String   // e.g., "EUR"
+  amountApprox Float
+  status       String   @default("REFERRAL_SENT")
+  createdAt    DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  action    String   // e.g., "UPDATE_TUITION_FEE", "DELETE_LEAD", "EXPORT_CSV"
+  entity    String   // e.g., "University", "Lead"
+  entityId  String
+  details   Json?
+  createdAt DateTime @default(now())
+}
+
+model SiteSettings {
+  id                     String   @id @default("default")
+  agencyName             String   @default("UES Abroad")
+  whatsappNumber         String   @default("919876543210")
+  phone                  String   @default("+91 98765 43210")
+  supportEmail           String   @default("support@uesabroad.com")
+  address                String   @default("123 Education Hub, MG Road, Bangalore, India")
+  consultationBookingUrl String   @default("/contact")
+  announcementBannerText String?
+  announcementBannerActive Boolean @default(false)
+  updatedAt              DateTime @updatedAt
+}

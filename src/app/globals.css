@@ -1,26 +1,65 @@
 @import "tailwindcss";
+@config "../../tailwind.config.ts";
+@import "./prototype.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --font-outfit: "Outfit", sans-serif;
+    --font-inter: "Inter", sans-serif;
+  }
+
+  body {
+    @apply bg-light-bg text-slate-800 dark:bg-dark-bg dark:text-slate-100 font-body antialiased transition-colors duration-300;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-semibold tracking-tight;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Glassmorphism Surface Components */
+  .glass-card {
+    @apply bg-white/70 dark:bg-dark-card/70 backdrop-blur-md border border-slate-200/60 dark:border-dark-border/60 shadow-glass rounded-2xl transition-all duration-300;
+  }
+
+  .glass-card-hover {
+    @apply bg-white/70 dark:bg-dark-card/70 backdrop-blur-md border border-slate-200/60 dark:border-dark-border/60 shadow-glass rounded-2xl transition-all duration-300 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-premium hover:-translate-y-1;
+  }
+
+  .glass-panel {
+    @apply bg-white/85 dark:bg-dark-surface/85 backdrop-blur-lg border border-slate-200 dark:border-dark-border shadow-xl rounded-2xl;
+  }
+
+  /* Button Primitives */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3.5 rounded-xl font-medium text-white bg-primary hover:bg-primary-dark shadow-md hover:shadow-premium transition-all duration-300 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center px-6 py-3.5 rounded-xl font-medium text-slate-900 bg-accent hover:bg-accent-dark shadow-md hover:shadow-glow transition-all duration-300 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-6 py-3.5 rounded-xl font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300 active:scale-[0.98] disabled:opacity-50;
+  }
+
+  /* Form Input Styling */
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl bg-white dark:bg-dark-surface border border-slate-300 dark:border-dark-border text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-slate-700 rounded-full hover:bg-slate-400 dark:hover:bg-slate-600 transition-colors;
 }
