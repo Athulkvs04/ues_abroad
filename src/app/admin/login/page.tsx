@@ -61,31 +61,27 @@ function AdminLoginForm() {
   };
 
   return (
-    <div className="min-h-screen bg-dark-bg flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Background Glows */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
-
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 relative overflow-hidden">
       <div className="w-full max-w-md relative z-10 animate-fadeIn">
         {/* Brand Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary-dark text-white font-heading font-bold text-2xl shadow-premium mb-4">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white font-heading font-bold text-2xl shadow-sm mb-4">
             UES
           </div>
-          <h1 className="text-3xl font-heading font-bold text-white tracking-tight">
+          <h1 className="text-3xl font-heading font-bold text-slate-900 tracking-tight">
             Admin Console
           </h1>
-          <p className="text-slate-400 text-sm mt-1">
-            Sign in to manage {tenant.name} leads, universities, and settings
+          <p className="text-slate-600 text-sm mt-1.5">
+            Sign in to manage {tenant.name} student leads, universities, and settings
           </p>
         </div>
 
         {/* Login Card */}
-        <Card glass padding="lg" className="border-slate-800/80 shadow-glass-lg">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-sm">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {authError && (
-              <div className="p-3.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-400 text-sm flex items-start gap-2.5">
-                <ShieldAlert className="w-5 h-5 shrink-0 text-rose-500 mt-0.5" />
+              <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm flex items-start gap-2.5">
+                <ShieldAlert className="w-5 h-5 shrink-0 text-rose-600 mt-0.5" />
                 <span>{authError}</span>
               </div>
             )}
@@ -94,7 +90,7 @@ function AdminLoginForm() {
               label="Admin Email"
               type="email"
               placeholder="admin@uesabroad.com"
-              leftIcon={<Mail className="w-5 h-5" />}
+              leftIcon={<Mail className="w-5 h-5 text-slate-400" />}
               error={errors.email?.message}
               {...register("email")}
             />
@@ -103,7 +99,7 @@ function AdminLoginForm() {
               label="Password"
               type="password"
               placeholder="••••••••"
-              leftIcon={<Lock className="w-5 h-5" />}
+              leftIcon={<Lock className="w-5 h-5 text-slate-400" />}
               error={errors.password?.message}
               {...register("password")}
             />
@@ -123,16 +119,16 @@ function AdminLoginForm() {
           </form>
 
           {/* Development Notice */}
-          <div className="mt-6 pt-5 border-t border-slate-800 text-center">
+          <div className="mt-6 pt-5 border-t border-slate-100 text-center">
             <p className="text-xs text-slate-500">
-              🛠️ <strong className="text-slate-400">Dev Credentials:</strong>{" "}
-              <code>admin@uesabroad.com</code> / <code>admin123</code>
+              🛠️ <strong className="text-slate-700">Dev Credentials:</strong>{" "}
+              <code className="bg-slate-100 px-1.5 py-0.5 rounded text-slate-800">admin@uesabroad.com</code> / <code className="bg-slate-100 px-1.5 py-0.5 rounded text-slate-800">admin123</code>
             </p>
           </div>
-        </Card>
+        </div>
 
-        <p className="text-center text-xs text-slate-600 mt-6">
-          &copy; {new Date().getFullYear()} {tenant.legalName}. Protected by Kodvex Security.
+        <p className="text-center text-xs text-slate-500 mt-6">
+          &copy; {new Date().getFullYear()} {tenant.legalName}. Protected by UES Abroad Security.
         </p>
       </div>
     </div>
@@ -143,8 +139,8 @@ export default function AdminLoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-dark-bg flex items-center justify-center p-4">
-          <Spinner size="lg" className="text-primary" />
+        <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+          <Spinner size="lg" className="text-emerald-600" />
         </div>
       }
     >

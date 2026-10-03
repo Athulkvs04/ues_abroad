@@ -99,34 +99,34 @@ export default function AdminSettingsPage() {
   }
 
   return (
-    <div className="max-w-4xl space-y-8 animate-fadeIn">
+    <div className="max-w-4xl space-y-8 animate-fadeIn pb-12">
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-heading font-bold text-white flex items-center gap-3">
-            <Settings className="w-8 h-8 text-primary-light" />
+          <h1 className="text-2xl sm:text-3xl font-heading font-bold text-slate-900 flex items-center gap-3">
+            <Settings className="w-8 h-8 text-emerald-600" />
             <span>White-Label Site Settings</span>
           </h1>
-          <p className="text-slate-400 text-sm mt-1">
+          <p className="text-slate-600 text-sm mt-1">
             Manage UES Abroad brand contact numbers, WhatsApp CTAs, and announcement banners in real-time.
           </p>
         </div>
-        <Badge variant="accent" size="md">
-          Live CMS Sync Active
-        </Badge>
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 text-xs font-semibold shadow-xs">
+          <span>Live CMS Sync Active</span>
+        </div>
       </div>
 
       {/* Notifications */}
       {successMessage && (
-        <div className="p-4 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-sm flex items-center gap-3 animate-fadeIn">
-          <CheckCircle2 className="w-5 h-5 shrink-0" />
+        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-center gap-3 animate-fadeIn shadow-xs">
+          <CheckCircle2 className="w-5 h-5 shrink-0 text-emerald-600" />
           <span>{successMessage}</span>
         </div>
       )}
 
       {errorMessage && (
-        <div className="p-4 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-400 text-sm flex items-center gap-3 animate-fadeIn">
-          <AlertCircle className="w-5 h-5 shrink-0" />
+        <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-sm flex items-center gap-3 animate-fadeIn shadow-xs">
+          <AlertCircle className="w-5 h-5 shrink-0 text-rose-600" />
           <span>{errorMessage}</span>
         </div>
       )}
@@ -134,12 +134,12 @@ export default function AdminSettingsPage() {
       {/* Settings Form */}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Section 1: Contact & Branding */}
-        <Card glass padding="lg" className="border-slate-800 space-y-6">
-          <div className="border-b border-slate-800 pb-4">
-            <h2 className="text-lg font-heading font-semibold text-white">
-              🏢 Brand Identity & Contact Lines
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
+          <div className="border-b border-slate-100 pb-4">
+            <h2 className="text-lg font-heading font-bold text-slate-900">
+              Brand Identity & Contact Lines
             </h2>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-1">
               These details appear across the public header, footer, contact page, and email notifications.
             </p>
           </div>
@@ -155,7 +155,7 @@ export default function AdminSettingsPage() {
             <Input
               label="WhatsApp Number (with Country Code)"
               placeholder="919876543210"
-              leftIcon={<MessageSquare className="w-4 h-4 text-emerald-400" />}
+              leftIcon={<MessageSquare className="w-4 h-4 text-emerald-600" />}
               error={errors.whatsappNumber?.message}
               helperText="Digits only without '+' symbol (e.g. 919876543210)"
               {...register("whatsappNumber")}
@@ -164,7 +164,7 @@ export default function AdminSettingsPage() {
             <Input
               label="Public Phone Number"
               placeholder="+91 98765 43210"
-              leftIcon={<Phone className="w-4 h-4 text-sky-400" />}
+              leftIcon={<Phone className="w-4 h-4 text-sky-600" />}
               error={errors.phone?.message}
               {...register("phone")}
             />
@@ -173,7 +173,7 @@ export default function AdminSettingsPage() {
               label="Support / Inquiries Email"
               type="email"
               placeholder="support@uesabroad.com"
-              leftIcon={<Mail className="w-4 h-4 text-amber-400" />}
+              leftIcon={<Mail className="w-4 h-4 text-amber-600" />}
               error={errors.supportEmail?.message}
               {...register("supportEmail")}
             />
@@ -182,7 +182,7 @@ export default function AdminSettingsPage() {
           <Input
             label="Headquarters Address"
             placeholder="123 Education Hub, MG Road, Bangalore, India"
-            leftIcon={<MapPin className="w-4 h-4 text-rose-400" />}
+            leftIcon={<MapPin className="w-4 h-4 text-rose-600" />}
             error={errors.address?.message}
             {...register("address")}
           />
@@ -190,22 +190,22 @@ export default function AdminSettingsPage() {
           <Input
             label="Consultation Booking URL"
             placeholder="/contact"
-            leftIcon={<LinkIcon className="w-4 h-4 text-purple-400" />}
+            leftIcon={<LinkIcon className="w-4 h-4 text-teal-600" />}
             error={errors.consultationBookingUrl?.message}
             helperText="Internal route (e.g. /contact) or external Calendly/HubSpot link"
             {...register("consultationBookingUrl")}
           />
-        </Card>
+        </div>
 
         {/* Section 2: Announcement Banner */}
-        <Card glass padding="lg" className="border-slate-800 space-y-6">
-          <div className="border-b border-slate-800 pb-4 flex items-center justify-between">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
+          <div className="border-b border-slate-100 pb-4 flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-heading font-semibold text-white flex items-center gap-2">
-                <Megaphone className="w-5 h-5 text-accent" />
+              <h2 className="text-lg font-heading font-bold text-slate-900 flex items-center gap-2">
+                <Megaphone className="w-5 h-5 text-emerald-600" />
                 <span>Site-Wide Announcement Banner</span>
               </h2>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-slate-500 mt-1">
                 Displays a prominent promotional bar at the very top of all public pages when activated.
               </p>
             </div>
@@ -217,8 +217,8 @@ export default function AdminSettingsPage() {
                 checked={bannerActive}
                 onChange={(e) => setValue("announcementBannerActive", e.target.checked, { shouldDirty: true })}
               />
-              <div className="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-              <span className="ml-3 text-sm font-medium text-slate-300 select-none">
+              <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+              <span className="ml-3 text-sm font-medium text-slate-700 select-none">
                 {bannerActive ? "Active" : "Disabled"}
               </span>
             </label>
@@ -231,7 +231,7 @@ export default function AdminSettingsPage() {
             disabled={!bannerActive}
             {...register("announcementBannerText")}
           />
-        </Card>
+        </div>
 
         {/* Save Actions */}
         <div className="flex items-center justify-end gap-4 pt-2">
