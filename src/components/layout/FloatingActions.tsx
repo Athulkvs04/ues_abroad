@@ -34,7 +34,7 @@ export function FloatingActions() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-2.5 items-end">
+    <div className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col gap-2.5 items-end">
       {/* 1. Floating WhatsApp CTA (Faithful to prototype with subtle pulse animation) */}
       <motion.div
         whileHover={{ scale: 1.08 }}

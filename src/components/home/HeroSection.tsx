@@ -39,8 +39,8 @@ export function HeroSection({ onOpenConsultModal }: HeroSectionProps) {
           <div className="showcase-frame relative overflow-hidden">
             <div className="abstract-mesh-grid" />
             <Image 
-              src="/student_hero.png" 
-              alt="Student" 
+              src="/student_campus_hero.jpg" 
+              alt="Student on campus" 
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               priority
@@ -58,7 +58,7 @@ export function HeroSection({ onOpenConsultModal }: HeroSectionProps) {
           </div>
 
           <div className="floating-glass-card fc-2 card-tilt">
-            <div className="card-glow-indicator violet" />
+            <div className="card-glow-indicator amber" />
             <div>
               <strong>Upcoming Seminar</strong>
               <span className="meta">US Visa Prep: <strong>In 2 hours</strong></span>

@@ -13,7 +13,7 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
   const [eligCountry, setEligCountry] = useState("usa");
   const [eligCgpa, setEligCgpa] = useState("");
   const [eligIelts, setEligIelts] = useState("");
-  const [eligResult, setEligResult] = useState<{ matchRate: number; unis: string[]; color: string; ieltsVal: string } | null>(null);
+  const [eligResult, setEligResult] = useState<{ matchRate: number; color: string; ieltsVal: string; uniCards: { name: string; flag: string; rank: string; tuition: string; inr: string; courses: string[] }[] } | null>(null);
 
   // Tab 2 State
   const [calcCountry, setCalcCountry] = useState("usa");
@@ -43,33 +43,69 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
     const cgpaNum = parseFloat(eligCgpa) || 7.5;
     const ieltsNum = parseFloat(eligIelts) || 6.5;
 
-    let matchRate = 65;
+    const uniMap: Record<string, Record<string, { name: string; flag: string; rank: string; tuition: string; inr: string; courses: string[] }[]>> = {
+      high: {
+        germany: [
+          { name: "TU Munich", flag: "🇩🇪", rank: "37 QS", tuition: "€0 / yr", inr: "₹0 (Free)", courses: ["Robotics", "Automotive Eng"] },
+          { name: "RWTH Aachen", flag: "🇩🇪", rank: "106 QS", tuition: "€0 / yr", inr: "₹0 (Free)", courses: ["Mechanical Eng", "CS"] },
+        ],
+        uk: [
+          { name: "University of Oxford", flag: "🇬🇧", rank: "3 QS", tuition: "£36,000 / yr", inr: "≈ ₹38L / yr", courses: ["Computer Science", "MBA"] },
+          { name: "Imperial College London", flag: "🇬🇧", rank: "6 QS", tuition: "£32,000 / yr", inr: "≈ ₹34L / yr", courses: ["FinTech", "Business Analytics"] },
+        ],
+        australia: [
+          { name: "University of Melbourne", flag: "🇦🇺", rank: "14 QS", tuition: "AUD $44,000 / yr", inr: "≈ ₹24L / yr", courses: ["Business Analytics", "IT"] },
+          { name: "UNSW Sydney", flag: "🇦🇺", rank: "19 QS", tuition: "AUD $48,000 / yr", inr: "≈ ₹26L / yr", courses: ["Engineering", "CS"] },
+        ],
+        canada: [
+          { name: "University of Toronto", flag: "🇨🇦", rank: "21 QS", tuition: "CAD $38,000 / yr", inr: "≈ ₹23L / yr", courses: ["Engineering", "MBA"] },
+          { name: "UBC Vancouver", flag: "🇨🇦", rank: "34 QS", tuition: "CAD $35,000 / yr", inr: "≈ ₹21L / yr", courses: ["CS", "Sustainability"] },
+        ],
+        usa: [
+          { name: "Boston University", flag: "🇺🇸", rank: "93 QS", tuition: "$58,000 / yr", inr: "≈ ₹48L / yr", courses: ["Data Science", "CS"] },
+          { name: "Northeastern University", flag: "🇺🇸", rank: "346 QS", tuition: "$54,000 / yr", inr: "≈ ₹45L / yr", courses: ["CS", "STEM OPT"] },
+        ],
+      },
+      mid: {
+        germany: [
+          { name: "TU Berlin", flag: "🇩🇪", rank: "154 QS", tuition: "€0 / yr", inr: "₹0 (Free)", courses: ["Engineering", "Physics"] },
+          { name: "University of Stuttgart", flag: "🇩🇪", rank: "348 QS", tuition: "€0 / yr", inr: "₹0 (Free)", courses: ["Automotive", "Aerospace"] },
+        ],
+        uk: [
+          { name: "University of Manchester", flag: "🇬🇧", rank: "32 QS", tuition: "£24,000 / yr", inr: "≈ ₹25L / yr", courses: ["Business", "CS"] },
+          { name: "King's College London", flag: "🇬🇧", rank: "40 QS", tuition: "£28,000 / yr", inr: "≈ ₹30L / yr", courses: ["Law", "FinTech"] },
+        ],
+        australia: [
+          { name: "Monash University", flag: "🇦🇺", rank: "37 QS", tuition: "AUD $40,000 / yr", inr: "≈ ₹22L / yr", courses: ["Pharmacy", "Engineering"] },
+          { name: "University of Sydney", flag: "🇦🇺", rank: "18 QS", tuition: "AUD $42,000 / yr", inr: "≈ ₹23L / yr", courses: ["Medicine", "Business"] },
+        ],
+        canada: [
+          { name: "McGill University", flag: "🇨🇦", rank: "30 QS", tuition: "CAD $28,000 / yr", inr: "≈ ₹17L / yr", courses: ["Medicine", "Law"] },
+          { name: "University of Waterloo", flag: "🇨🇦", rank: "112 QS", tuition: "CAD $32,000 / yr", inr: "≈ ₹20L / yr", courses: ["CS", "Engineering"] },
+        ],
+        usa: [
+          { name: "Purdue University", flag: "🇺🇸", rank: "99 QS", tuition: "$28,000 / yr", inr: "≈ ₹23L / yr", courses: ["Engineering", "Aviation"] },
+          { name: "UT Austin", flag: "🇺🇸", rank: "67 QS", tuition: "$32,000 / yr", inr: "≈ ₹27L / yr", courses: ["CS", "Business"] },
+        ],
+      },
+      low: {
+        germany: [{ name: "Partner Pathway Programs", flag: "🇩🇪", rank: "Partner", tuition: "€0 - €2,000 / yr", inr: "₹0 - ₹2L", courses: ["Foundation", "Bridge Courses"] }],
+        uk: [{ name: "Global Partner Colleges", flag: "🇬🇧", rank: "Partner", tuition: "£10,000 - £16,000 / yr", inr: "≈ ₹10-17L", courses: ["Pathway", "Foundation"] }],
+        australia: [{ name: "Partner State Universities", flag: "🇦🇺", rank: "Partner", tuition: "AUD $22,000 / yr", inr: "≈ ₹12L", courses: ["Pathway", "Diploma"] }],
+        canada: [{ name: "Canadian Community Colleges", flag: "🇨🇦", rank: "Partner", tuition: "CAD $15,000 / yr", inr: "≈ ₹9L", courses: ["Technology", "Business"] }],
+        usa: [{ name: "State University Network", flag: "🇺🇸", rank: "Partner", tuition: "$18,000 / yr", inr: "≈ ₹15L", courses: ["Liberal Arts", "Business"] }],
+      },
+    };
+
+    let tier: "high" | "mid" | "low" = "low";
+    let matchRate = 68;
     let color = "#ff9800";
-    let unis = ["Boston University", "Arizona State"];
+    if (cgpaNum >= 8.5 && ieltsNum >= 7.5) { tier = "high"; matchRate = 94; color = "#00C853"; }
+    else if (cgpaNum >= 7.5 && ieltsNum >= 6.5) { tier = "mid"; matchRate = 82; color = "#3B5BDB"; }
 
-    if (cgpaNum >= 8.5 && ieltsNum >= 7.5) {
-      matchRate = 94;
-      color = "#00C853";
-      if (eligCountry === "germany") unis = ["TU Munich", "RWTH Aachen", "LMU Munich"];
-      else if (eligCountry === "uk") unis = ["University of Oxford", "Imperial College London"];
-      else if (eligCountry === "australia") unis = ["University of Melbourne", "UNSW Sydney"];
-      else if (eligCountry === "canada") unis = ["University of Toronto", "UBC Vancouver"];
-      else unis = ["MIT", "Stanford University", "Boston University"];
-    } else if (cgpaNum >= 7.5 && ieltsNum >= 6.5) {
-      matchRate = 82;
-      color = "#3B5BDB";
-      if (eligCountry === "germany") unis = ["TU Berlin", "University of Stuttgart"];
-      else if (eligCountry === "uk") unis = ["University of Manchester", "King's College"];
-      else if (eligCountry === "australia") unis = ["Monash University", "University of Sydney"];
-      else if (eligCountry === "canada") unis = ["McGill University", "University of Waterloo"];
-      else unis = ["Purdue University", "NEU Boston", "UT Austin"];
-    } else {
-      matchRate = 68;
-      color = "#ff9800";
-      unis = ["Partner Pathways", "State Universities", "Global Campus"];
-    }
-
-    setEligResult({ matchRate, unis, color, ieltsVal: ieltsNum.toString() });
+    const country = eligCountry as keyof typeof uniMap.high;
+    const uniCards = (uniMap[tier][country] || uniMap[tier].usa);
+    setEligResult({ matchRate, color, ieltsVal: ieltsNum.toString(), uniCards });
   };
 
   const handleCountryChange = (val: string) => {
@@ -222,23 +258,43 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
                   <div className="empty-state text-center p-8">
                     <span className="text-4xl block mb-3">📊</span>
                     <h4 className="text-lg font-bold text-slate-800">Analyze Profile to View Results</h4>
-                    <p className="text-xs text-slate-500 max-w-sm mx-auto mt-1">Fill out your parameters on the left to calculate recommended universities and admission chances.</p>
+                    <p className="text-xs text-slate-500 max-w-sm mx-auto mt-1">Fill in your scores on the left to see matched universities with fees and courses.</p>
                   </div>
                 ) : (
-                  <div className="w-full flex flex-col justify-between h-full">
-                    <div>
-                      <h3 className="pane-title text-slate-900">Admissions Probability</h3>
-                      <div className="text-center py-6">
-                        <span className="text-xs text-slate-500 uppercase font-bold block mb-1">Estimated Match Chance</span>
-                        <h2 className="text-6xl font-extrabold" style={{ color: eligResult.color }}>{eligResult.matchRate}%</h2>
-                      </div>
-                      <div className="space-y-3 text-sm border-t border-slate-100 pt-4">
-                        <div><span className="text-slate-400 font-semibold text-xs uppercase block">Recommended Universities</span><strong className="text-slate-800">{eligResult.unis.join(", ")}</strong></div>
-                        <div><span className="text-slate-400 font-semibold text-xs uppercase block">English Proficiency</span><strong className="text-slate-800">Satisfied (IELTS {eligResult.ieltsVal} meets thresholds)</strong></div>
-                      </div>
+                  <div className="w-full flex flex-col h-full">
+                    {/* Match score bar */}
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="pane-title text-slate-900 mb-0">Matched Universities</h3>
+                      <span className="text-2xl font-extrabold" style={{ color: eligResult.color }}>{eligResult.matchRate}% Match</span>
                     </div>
+                    <div className="w-full h-2 bg-slate-100 rounded-full mb-5 overflow-hidden">
+                      <div className="h-full rounded-full transition-all duration-700" style={{ width: `${eligResult.matchRate}%`, background: eligResult.color }} />
+                    </div>
+
+                    {/* University cards */}
+                    <div className="space-y-3 flex-1 overflow-y-auto">
+                      {eligResult.uniCards.map((u, i) => (
+                        <div key={i} className="p-4 rounded-xl border border-slate-200 bg-slate-50/60 hover:border-primary/40 transition-all">
+                          <div className="flex items-start justify-between gap-2 mb-2">
+                            <div>
+                              <span className="text-base mr-1">{u.flag}</span>
+                              <span className="font-bold text-slate-900 text-sm">{u.name}</span>
+                            </div>
+                            <span className="shrink-0 text-[10px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-lg">🏆 {u.rank}</span>
+                          </div>
+                          <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-xs">
+                            <div><span className="text-slate-400">Tuition</span><br /><strong className="text-slate-800">{u.tuition}</strong></div>
+                            <div><span className="text-slate-400">In INR</span><br /><strong className="text-emerald-600">{u.inr}</strong></div>
+                          </div>
+                          <div className="flex flex-wrap gap-1 mt-2">
+                            {u.courses.map((c) => <span key={c} className="text-[10px] font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded-full">{c}</span>)}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
                     <button 
-                      className="btn-primary-glow w-full mt-6" 
+                      className="btn-primary-glow w-full mt-4 shrink-0" 
                       onClick={() => onOpenConsultModal && onOpenConsultModal(`Start My Journey • Profile Match (${eligResult.matchRate}%)`)}
                     >
                       Start My Journey
@@ -295,8 +351,8 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
                       <input type="range" min="0" max="60000" step="1000" value={tuition} onChange={(e) => setTuition(parseInt(e.target.value) || 0)} className="w-full accent-primary" />
                     </div>
                     <div className="slider-group">
-                      <div className="slider-label flex justify-between text-xs font-semibold text-slate-700"><span>Living Expenses</span> <strong className="text-purple-600">{sym}{(living * rate).toLocaleString(calcCurrency === "INR" ? "en-IN" : "en-US")}</strong></div>
-                      <input type="range" min="0" max="25000" step="500" value={living} onChange={(e) => setLiving(parseInt(e.target.value) || 0)} className="w-full accent-purple-600" />
+                      <div className="slider-label flex justify-between text-xs font-semibold text-slate-700"><span>Living Expenses</span> <strong className="text-sky-600">{sym}{(living * rate).toLocaleString(calcCurrency === "INR" ? "en-IN" : "en-US")}</strong></div>
+                      <input type="range" min="0" max="25000" step="500" value={living} onChange={(e) => setLiving(parseInt(e.target.value) || 0)} className="w-full accent-sky-600" />
                     </div>
                     <div className="slider-group">
                       <div className="slider-label flex justify-between text-xs font-semibold text-slate-700"><span>Visa &amp; Insurance</span> <strong className="text-emerald-600">{sym}{(visa * rate).toLocaleString(calcCurrency === "INR" ? "en-IN" : "en-US")}</strong></div>

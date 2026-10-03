@@ -12,8 +12,8 @@ const destinationsData = [
     code: "USA",
     name: "United States", 
     tuition: "$25,000 - $55,000 / yr", 
-    popular: "Computer Science",
-    image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=600&q=80" 
+    popular: "Computer Science & AI",
+    image: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=800&q=80" 
   },
   { 
     id: "canada", 
@@ -21,7 +21,7 @@ const destinationsData = [
     name: "Canada", 
     tuition: "CAD $18,000 - $35,000 / yr", 
     popular: "Business Analytics",
-    image: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=600&q=80" 
+    image: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?auto=format&fit=crop&w=800&q=80" 
   },
   { 
     id: "germany", 
@@ -29,7 +29,7 @@ const destinationsData = [
     name: "Germany", 
     tuition: "€0 (Public Universities)", 
     popular: "Automotive & Robotics",
-    image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=600&q=80" 
+    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80" 
   },
   { 
     id: "uk", 
@@ -37,7 +37,7 @@ const destinationsData = [
     name: "United Kingdom", 
     tuition: "£14,000 - £26,000 / yr", 
     popular: "FinTech & AI",
-    image: "https://images.unsplash.com/photo-1486299267070-83823f5448dd?auto=format&fit=crop&w=600&q=80" 
+    image: "https://images.unsplash.com/photo-1580537659466-0a9bfa916a54?auto=format&fit=crop&w=800&q=80" 
   },
   { 
     id: "australia", 
@@ -45,7 +45,7 @@ const destinationsData = [
     name: "Australia", 
     tuition: "AUD $25,000 - $45,000 / yr", 
     popular: "Cybersecurity & Nursing",
-    image: "https://images.unsplash.com/photo-1523482596117-ccd3f86316b0?auto=format&fit=crop&w=600&q=80" 
+    image: "https://images.unsplash.com/photo-1525921429624-479b6a26d84d?auto=format&fit=crop&w=800&q=80" 
   },
   { 
     id: "ireland", 
@@ -53,7 +53,7 @@ const destinationsData = [
     name: "Ireland", 
     tuition: "€10,000 - €22,000 / yr", 
     popular: "Software Dev & Pharma",
-    image: "https://images.unsplash.com/photo-1590089413906-ac1c783df82b?auto=format&fit=crop&w=600&q=80" 
+    image: "https://images.unsplash.com/photo-1543351611-58f69d7c1781?auto=format&fit=crop&w=800&q=80" 
   },
   { 
     id: "france", 
@@ -61,7 +61,7 @@ const destinationsData = [
     name: "France", 
     tuition: "€3,000 - €15,000 / yr", 
     popular: "Luxury Brand & Management",
-    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=600&q=80" 
+    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80" 
   },
   { 
     id: "new_zealand", 
@@ -69,7 +69,7 @@ const destinationsData = [
     name: "New Zealand", 
     tuition: "NZD $22,000 - $38,000 / yr", 
     popular: "Agribusiness & IT Systems",
-    image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=600&q=80" 
+    image: "https://images.unsplash.com/photo-1507699622108-4be3abd695ad?auto=format&fit=crop&w=800&q=80" 
   },
   { 
     id: "uae", 
@@ -77,7 +77,7 @@ const destinationsData = [
     name: "UAE", 
     tuition: "AED 40,000 - 80,000 / yr", 
     popular: "Global Business & AI",
-    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" 
+    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80" 
   }
 ];
 

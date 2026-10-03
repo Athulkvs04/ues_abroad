@@ -131,23 +131,32 @@ export function ExamCenterSection({ onOpenConsultModal }: ExamCenterSectionProps
   const activeExam = examsData.find((e) => e.id === activeExamId) || examsData[0];
 
   return (
-    <section id="exam-center-section" className="py-20 bg-slate-50/70 border-b border-slate-200/80">
+    <section id="exam-center-section" className="py-24 bg-slate-50/70 border-b border-slate-200/80">
       <div className="container">
-        <div className="section-header">
-          <h2>Global <span className="accent-text">Exam Preparation Hub</span></h2>
-          <p>This is NOT a coaching platform. We provide curated self-study roadmaps, official mock tests, and expert tips to help you ace your entrance exams.</p>
+        <div className="section-header max-w-3xl mx-auto text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold mb-3">
+            <span>Curated Self-Study Roadmaps</span>
+            <span>•</span>
+            <span>Official Test Center Resources</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Global <span className="accent-text">Exam Preparation Hub</span>
+          </h2>
+          <p className="text-slate-600 text-sm sm:text-base mt-3 leading-relaxed">
+            This is NOT a coaching platform. We provide curated self-study roadmaps, official test blueprints, and expert tips to help you ace your entrance exams.
+          </p>
         </div>
 
-        {/* Exam Selection Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mt-8 max-w-4xl mx-auto">
+        {/* Exam Selection Pills - Generous spacing */}
+        <div className="flex flex-wrap items-center justify-center gap-2.5 max-w-5xl mx-auto">
           {examsData.map((exam) => (
             <button
               key={exam.id}
               onClick={() => setActiveExamId(exam.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+              className={`px-4.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                 activeExamId === exam.id
-                  ? "bg-slate-900 text-white shadow-md scale-105"
-                  : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-100"
+                  ? "bg-emerald-700 text-white shadow-sm ring-2 ring-emerald-600/30 scale-[1.02]"
+                  : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 hover:border-slate-300"
               }`}
             >
               {exam.name}
@@ -155,54 +164,70 @@ export function ExamCenterSection({ onOpenConsultModal }: ExamCenterSectionProps
           ))}
         </div>
 
-        {/* Active Exam Hub Card */}
-        <div className="max-w-5xl mx-auto mt-10 bg-white rounded-3xl border border-slate-200/80 shadow-premium overflow-hidden">
-          <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-8 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div>
-              <span className="px-3 py-1 rounded-full bg-primary/20 text-primary-light border border-primary/30 text-xs font-bold uppercase tracking-wider">
+        {/* Active Exam Hub Card - Wide, Light, Airy */}
+        <div className="max-w-6xl mx-auto mt-12 bg-white rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden">
+          {/* Light Executive Header Bar (No dark navy/purple boxes) */}
+          <div className="bg-slate-50/90 border-b border-slate-200/90 p-8 sm:p-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            <div className="space-y-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-800 border border-emerald-200 text-xs font-bold tracking-wide">
                 {activeExam.badge}
               </span>
-              <h3 className="text-3xl font-bold text-white mt-3">{activeExam.name} Preparation Hub</h3>
-              <p className="text-sm text-slate-300 mt-1 max-w-2xl">{activeExam.overview}</p>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                {activeExam.name} Preparation Hub
+              </h3>
+              <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
+                {activeExam.overview}
+              </p>
             </div>
-            <div className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10 text-center min-w-[200px]">
-              <span className="text-[11px] text-slate-400 uppercase font-bold block">Target Score Benchmark</span>
-              <strong className="text-xl text-emerald-400 font-extrabold block mt-1">{activeExam.targetScore}</strong>
+            
+            <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm text-center min-w-[220px] shrink-0">
+              <span className="text-xs text-slate-500 uppercase font-bold tracking-wider block">
+                Target Score Benchmark
+              </span>
+              <strong className="text-xl sm:text-2xl text-emerald-700 font-extrabold block mt-1.5">
+                {activeExam.targetScore}
+              </strong>
             </div>
           </div>
 
-          <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="md:col-span-2 space-y-6">
+          {/* Card Body - Generous Grid Spacing */}
+          <div className="p-8 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
+            {/* Left Content Area */}
+            <div className="lg:col-span-7 xl:col-span-8 space-y-8">
               <div>
-                <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-2 flex items-center gap-2">
+                <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center gap-2">
                   <span>📋</span> Eligibility &amp; Acceptance
                 </h4>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  <strong>Who should take this:</strong> {activeExam.eligibility}<br />
-                  <strong className="mt-1 block">Accepted Destinations:</strong> {activeExam.countries}
-                </p>
+                <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200/80 space-y-3">
+                  <p className="text-sm text-slate-700 leading-relaxed">
+                    <strong className="font-semibold text-slate-900">Who should take this:</strong> {activeExam.eligibility}
+                  </p>
+                  <p className="text-sm text-slate-700 leading-relaxed pt-2 border-t border-slate-200/60">
+                    <strong className="font-semibold text-slate-900">Accepted Destinations:</strong> {activeExam.countries}
+                  </p>
+                </div>
               </div>
 
               <div>
-                <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-2 flex items-center gap-2">
-                  <span>💡</span> Expert Test-Day Tip
+                <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center gap-2">
+                  <span>💡</span> Expert Test-Day Strategy
                 </h4>
-                <div className="p-4 rounded-xl bg-amber-50 border border-amber-200/60 text-amber-900 text-xs font-medium">
+                <div className="p-6 rounded-2xl bg-amber-50/70 border border-amber-200/80 text-amber-950 text-sm leading-relaxed">
                   &quot;{activeExam.tips}&quot;
                 </div>
               </div>
 
               <div>
-                <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center gap-2">
                   <span>📚</span> Free Practice Materials &amp; Mock Drills
                 </h4>
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+                <div className="p-6 rounded-2xl bg-emerald-50/50 border border-emerald-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
                   <div>
-                    <strong className="text-sm font-bold text-slate-900 block">{activeExam.practiceCount}</strong>
-                    <span className="text-xs text-slate-500">Curated by UES Senior Counsellors • Instant PDF Download</span>
+                    <strong className="text-base font-bold text-slate-900 block">{activeExam.practiceCount}</strong>
+                    <span className="text-xs text-slate-600 mt-1 block">Curated by UES Senior Counsellors • Instant PDF Download</span>
                   </div>
                   <button 
-                    className="py-2.5 px-5 rounded-xl bg-primary text-white font-bold text-xs shadow-sm hover:bg-primary/90 transition-all"
+                    className="py-3 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-semibold text-xs shadow-sm hover:shadow transition-all whitespace-nowrap cursor-pointer"
                     onClick={() => onOpenConsultModal && onOpenConsultModal(`Start My Journey • Download ${activeExam.name} Practice Kit`)}
                   >
                     Start My Journey • Get Kit
@@ -212,37 +237,41 @@ export function ExamCenterSection({ onOpenConsultModal }: ExamCenterSectionProps
             </div>
 
             {/* Right Action Column */}
-            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between space-y-6">
-              <div>
-                <h4 className="text-sm font-bold text-slate-900 mb-2">Official Resources</h4>
-                <p className="text-xs text-slate-500 mb-4">Access official registration portals and free YouTube masterclasses from test creators.</p>
+            <div className="lg:col-span-5 xl:col-span-4 bg-slate-50/80 p-7 sm:p-8 rounded-2xl border border-slate-200/90 flex flex-col justify-between space-y-8">
+              <div className="space-y-4">
+                <div>
+                  <h4 className="text-base font-bold text-slate-900">Official Resources</h4>
+                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">Access official registration portals and free YouTube masterclasses from test creators.</p>
+                </div>
                 
-                <div className="space-y-2.5">
+                <div className="space-y-3 pt-2">
                   <a 
                     href={activeExam.officialUrl} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="w-full py-2.5 px-4 rounded-xl bg-white border border-slate-300 text-slate-800 font-bold text-xs flex items-center justify-between hover:bg-slate-100 transition-all"
+                    className="w-full py-3.5 px-4.5 rounded-xl bg-white border border-slate-200 hover:border-slate-300 text-slate-800 font-semibold text-xs flex items-center justify-between hover:bg-slate-50 shadow-sm transition-all"
                   >
                     <span>🌐 Official Registration Website</span>
-                    <span>↗</span>
+                    <span className="text-slate-400">↗</span>
                   </a>
                   <a 
                     href={activeExam.youtubeUrl} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="w-full py-2.5 px-4 rounded-xl bg-red-50 border border-red-200 text-red-700 font-bold text-xs flex items-center justify-between hover:bg-red-100 transition-all"
+                    className="w-full py-3.5 px-4.5 rounded-xl bg-white border border-rose-200 hover:border-rose-300 text-rose-700 font-semibold text-xs flex items-center justify-between hover:bg-rose-50/50 shadow-sm transition-all"
                   >
                     <span>▶️ Official YouTube Preparation</span>
-                    <span>↗</span>
+                    <span className="text-rose-400">↗</span>
                   </a>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-200">
-                <span className="text-[11px] text-slate-500 block mb-2 font-medium">Need score evaluation or waiver guidance?</span>
+              <div className="pt-6 border-t border-slate-200 space-y-3">
+                <span className="text-xs text-slate-600 block font-medium leading-relaxed">
+                  Need a score evaluation or university waiver guidance?
+                </span>
                 <button 
-                  className="w-full py-3 px-4 rounded-xl bg-slate-900 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:bg-primary transition-all flex items-center justify-center gap-2"
+                  className="w-full py-3.5 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-semibold text-sm shadow-sm hover:shadow transition-all flex items-center justify-center gap-2 cursor-pointer"
                   onClick={() => onOpenConsultModal && onOpenConsultModal(`Start My Journey • ${activeExam.name} Counselling`)}
                 >
                   <span>Start My Journey</span>

@@ -9,69 +9,75 @@ interface ExplorerSectionProps {
 const universitiesData = [
   { 
     id: "tum", 
-    code: "DE",
+    flag: "🇩🇪",
     name: "Technical University of Munich", 
     country: "Germany", 
     rank: "37 QS", 
     tuition: "Free (€0)", 
     tuitionVal: 0,
     scholarship: "DAAD Grants", 
-    course: "Engineering"
+    course: "Engineering",
+    banner: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=600&q=80"
   },
   { 
     id: "bu", 
-    code: "US",
+    flag: "🇺🇸",
     name: "Boston University", 
     country: "USA", 
     rank: "93 QS", 
-    tuition: "USD $58,000", 
+    tuition: "USD $58,000 / yr", 
     tuitionVal: 58000,
     scholarship: "Merit Fellowship", 
-    course: "Computer Science"
+    course: "Computer Science",
+    banner: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=600&q=80"
   },
   { 
     id: "melb", 
-    code: "AU",
+    flag: "🇦🇺",
     name: "University of Melbourne", 
     country: "Australia", 
     rank: "14 QS", 
-    tuition: "AUD $44,000", 
+    tuition: "AUD $44,000 / yr", 
     tuitionVal: 44000,
     scholarship: "Group of Eight Award", 
-    course: "Business Analytics"
+    course: "Business Analytics",
+    banner: "https://images.unsplash.com/photo-1525921429624-479b6a26d84d?auto=format&fit=crop&w=600&q=80"
   },
   { 
     id: "oxford", 
-    code: "UK",
+    flag: "🇬🇧",
     name: "University of Oxford", 
     country: "UK", 
     rank: "3 QS", 
-    tuition: "GBP £36,000", 
+    tuition: "GBP £36,000 / yr", 
     tuitionVal: 36000,
     scholarship: "Clarendon Scholarship", 
-    course: "Computer Science"
+    course: "Computer Science",
+    banner: "https://images.unsplash.com/photo-1580537659466-0a9bfa916a54?auto=format&fit=crop&w=600&q=80"
   },
   { 
     id: "toronto", 
-    code: "CA",
+    flag: "🇨🇦",
     name: "University of Toronto", 
     country: "Canada", 
     rank: "21 QS", 
-    tuition: "CAD $38,000", 
+    tuition: "CAD $38,000 / yr", 
     tuitionVal: 38000,
     scholarship: "President's Scholars", 
-    course: "Engineering"
+    course: "Engineering",
+    banner: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?auto=format&fit=crop&w=600&q=80"
   },
   { 
     id: "trinity", 
-    code: "IE",
+    flag: "🇮🇪",
     name: "Trinity College Dublin", 
     country: "Ireland", 
     rank: "81 QS", 
-    tuition: "EUR €20,000", 
+    tuition: "EUR €20,000 / yr", 
     tuitionVal: 20000,
     scholarship: "Global Excellence", 
-    course: "Software Dev"
+    course: "Software Dev",
+    banner: "https://images.unsplash.com/photo-1543351611-58f69d7c1781?auto=format&fit=crop&w=600&q=80"
   }
 ];
 
@@ -205,35 +211,46 @@ export function ExplorerSection({ onOpenConsultModal }: ExplorerSectionProps) {
             filteredUniversities.map((uni) => (
               <div 
                 key={uni.id} 
-                className="uni-explorer-card group bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-premium hover:-translate-y-1 transition-all duration-300 p-6 flex flex-col justify-between h-full"
+                className="uni-explorer-card group bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-premium hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full overflow-hidden"
               >
-                <div>
-                  {/* Top Left Country Code e.g. DE, US, AU matching Screenshot 4 */}
-                  <div className="text-2xl font-black text-slate-700 tracking-tight">
-                    {uni.code}
-                  </div>
+                {/* Campus Photo Banner */}
+                <div className="relative h-36 w-full overflow-hidden">
+                  <img 
+                    src={uni.banner} 
+                    alt={`${uni.name} campus`} 
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
+                  {/* Rank badge overlay */}
+                  <span className="absolute top-3 right-3 px-2.5 py-1 bg-white/90 backdrop-blur-sm text-slate-900 font-bold text-xs rounded-lg shadow-sm">
+                    🏆 {uni.rank}
+                  </span>
+                  <span className="absolute bottom-3 left-3 text-lg">{uni.flag}</span>
+                </div>
 
+                <div className="p-5 flex flex-col flex-1">
                   {/* Bold University Name */}
-                  <h3 className="text-lg font-bold text-slate-900 mt-3 mb-4 group-hover:text-primary transition-colors">
+                  <h3 className="text-base font-bold text-slate-900 mb-3 group-hover:text-primary transition-colors leading-snug">
                     {uni.name}
                   </h3>
 
-                  {/* 3 Neat Lines of Stats matching Screenshot 4 */}
-                  <div className="space-y-2 text-xs font-medium text-slate-600 mb-6">
-                    <div><strong className="text-slate-900">Rank:</strong> {uni.rank}</div>
-                    <div><strong className="text-slate-900">Average Tuition:</strong> {uni.tuition}</div>
-                    <div><strong className="text-slate-900">Scholarship:</strong> {uni.scholarship}</div>
+                  {/* Stats */}
+                  <div className="space-y-1.5 text-xs font-medium text-slate-600 mb-4 flex-1">
+                    <div className="flex justify-between"><span className="text-slate-400">Tuition</span><strong className="text-slate-900">{uni.tuition}</strong></div>
+                    <div className="flex justify-between"><span className="text-slate-400">Scholarship</span><strong className="text-emerald-600">{uni.scholarship}</strong></div>
+                    <div className="flex justify-between"><span className="text-slate-400">Top Course</span><strong className="text-slate-900">{uni.course}</strong></div>
                   </div>
-                </div>
 
-                {/* Bottom CTA Button */}
-                <button 
-                  className="w-full py-2.5 px-4 rounded-xl bg-slate-900 text-white font-bold text-xs uppercase tracking-wider shadow-sm hover:bg-primary transition-colors flex items-center justify-center gap-1.5"
-                  onClick={() => onOpenConsultModal && onOpenConsultModal(`Start My Journey • Explore (${uni.name})`)}
-                >
-                  <span>Explore Guide</span>
-                  <span>→</span>
-                </button>
+                  {/* Bottom CTA Button */}
+                  <button 
+                    className="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-semibold text-xs shadow-sm transition-all flex items-center justify-center gap-1.5 mt-auto cursor-pointer"
+                    onClick={() => onOpenConsultModal && onOpenConsultModal(`Start My Journey • Explore (${uni.name})`)}
+                  >
+                    <span>Explore Guide</span>
+                    <span>→</span>
+                  </button>
+                </div>
               </div>
             ))
           )}

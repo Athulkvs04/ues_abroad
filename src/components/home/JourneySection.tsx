@@ -16,49 +16,56 @@ export function JourneySection() {
             <div className="step-icon">💭</div>
             <div className="step-card glass-card">
               <h3>1. The Dream</h3>
-              <p>Evaluate your profile, select ideal courses, and identify career ambitions.</p>
+              <p>Evaluate your profile, select ideal courses, and identify career ambitions abroad.</p>
             </div>
           </div>
           <div className="journey-step-item">
             <div className="step-icon">🤝</div>
             <div className="step-card glass-card">
               <h3>2. Counselling</h3>
-              <p>Complete documentation assessment and finalize target university shortlists.</p>
+              <p>Complete documentation assessment and finalize target university shortlists with your mentor.</p>
             </div>
           </div>
           <div className="journey-step-item">
             <div className="step-icon">🎓</div>
             <div className="step-card glass-card">
               <h3>3. University Prep</h3>
-              <p>Fine-tune Statement of Purpose (SOP) drafts and source reference credentials.</p>
+              <p>Fine-tune Statement of Purpose drafts, source LORs, and build a strong application portfolio.</p>
             </div>
           </div>
           <div className="journey-step-item">
             <div className="step-icon">✉️</div>
             <div className="step-card glass-card">
               <h3>4. Application</h3>
-              <p>Submit application forms directly to partner universities with waiver codes.</p>
+              <p>Submit applications directly to partner universities with fee waiver codes and tracked deadlines.</p>
             </div>
           </div>
           <div className="journey-step-item">
             <div className="step-icon">📄</div>
             <div className="step-card glass-card">
               <h3>5. Offer Letter</h3>
-              <p>Receive conditional or unconditional letters and process deposit transactions.</p>
+              <p>Receive conditional or unconditional letters and process tuition deposit transactions securely.</p>
             </div>
           </div>
           <div className="journey-step-item">
             <div className="step-icon">🛂</div>
             <div className="step-card glass-card">
               <h3>6. Visa Process</h3>
-              <p>Attend mock interview drills and prepare financial bank files.</p>
+              <p>Attend mock embassy interview drills, prepare financial bank files, and submit visa applications.</p>
+            </div>
+          </div>
+          <div className="journey-step-item">
+            <div className="step-icon">🧳</div>
+            <div className="step-card glass-card">
+              <h3>7. Pre-Departure</h3>
+              <p>Attend our orientation session: packing checklist, forex card setup, international SIM, abroad bank account opening, travel insurance activation, and emergency contact sheet.</p>
             </div>
           </div>
           <div className="journey-step-item">
             <div className="step-icon">✈️</div>
             <div className="step-card glass-card">
-              <h3>7. Fly Abroad</h3>
-              <p>Arrange shared flats, book flight tickets, and attend pre-departure orientations.</p>
+              <h3>8. Arrival & Beyond</h3>
+              <p>Airport pickup coordination, on-campus registration, first-week orientation, and ongoing alumni community support.</p>
             </div>
           </div>
         </div>
