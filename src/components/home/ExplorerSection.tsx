@@ -235,11 +235,11 @@ export function ExplorerSection({ onOpenConsultModal }: ExplorerSectionProps) {
                     {uni.name}
                   </h3>
 
-                  {/* Stats */}
-                  <div className="space-y-1.5 text-xs font-medium text-slate-600 mb-4 flex-1">
-                    <div className="flex justify-between"><span className="text-slate-400">Tuition</span><strong className="text-slate-900">{uni.tuition}</strong></div>
-                    <div className="flex justify-between"><span className="text-slate-400">Scholarship</span><strong className="text-emerald-600">{uni.scholarship}</strong></div>
-                    <div className="flex justify-between"><span className="text-slate-400">Top Course</span><strong className="text-slate-900">{uni.course}</strong></div>
+                  {/* Stats Recessed Well */}
+                  <div className="bg-slate-50/80 rounded-xl p-3 border border-slate-100/80 space-y-2 text-xs font-medium text-slate-600 mb-4 flex-1">
+                    <div className="flex justify-between items-center"><span className="text-slate-400">Tuition</span><strong className="text-slate-900">{uni.tuition}</strong></div>
+                    <div className="flex justify-between items-center"><span className="text-slate-400">Scholarship</span><strong className="text-emerald-600 font-semibold">{uni.scholarship}</strong></div>
+                    <div className="flex justify-between items-center"><span className="text-slate-400">Top Course</span><strong className="text-slate-900">{uni.course}</strong></div>
                   </div>
 
                   {/* Bottom CTA Button */}

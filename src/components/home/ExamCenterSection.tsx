@@ -131,7 +131,7 @@ export function ExamCenterSection({ onOpenConsultModal }: ExamCenterSectionProps
   const activeExam = examsData.find((e) => e.id === activeExamId) || examsData[0];
 
   return (
-    <section id="exam-center-section" className="py-24 bg-slate-50/70 border-b border-slate-200/80">
+    <section id="exam-center-section" className="py-24 bg-white border-b border-slate-200/60">
       <div className="container">
         <div className="section-header max-w-3xl mx-auto text-center mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold mb-3">
@@ -164,10 +164,10 @@ export function ExamCenterSection({ onOpenConsultModal }: ExamCenterSectionProps
           ))}
         </div>
 
-        {/* Active Exam Hub Card - Wide, Light, Airy */}
-        <div className="max-w-6xl mx-auto mt-12 bg-white rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden">
-          {/* Light Executive Header Bar (No dark navy/purple boxes) */}
-          <div className="bg-slate-50/90 border-b border-slate-200/90 p-8 sm:p-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+        {/* Active Exam Hub Card - Layered Slate Surface */}
+        <div className="max-w-6xl mx-auto mt-12 bg-slate-50/70 rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden">
+          {/* Crisp White Executive Header Bar */}
+          <div className="bg-white border-b border-slate-200/80 p-8 sm:p-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div className="space-y-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-800 border border-emerald-200 text-xs font-bold tracking-wide">
                 {activeExam.badge}
@@ -198,7 +198,7 @@ export function ExamCenterSection({ onOpenConsultModal }: ExamCenterSectionProps
                 <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center gap-2">
                   <span>📋</span> Eligibility &amp; Acceptance
                 </h4>
-                <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200/80 space-y-3">
+                <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-3">
                   <p className="text-sm text-slate-700 leading-relaxed">
                     <strong className="font-semibold text-slate-900">Who should take this:</strong> {activeExam.eligibility}
                   </p>
@@ -212,7 +212,7 @@ export function ExamCenterSection({ onOpenConsultModal }: ExamCenterSectionProps
                 <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center gap-2">
                   <span>💡</span> Expert Test-Day Strategy
                 </h4>
-                <div className="p-6 rounded-2xl bg-amber-50/70 border border-amber-200/80 text-amber-950 text-sm leading-relaxed">
+                <div className="p-6 rounded-2xl bg-amber-50/70 border border-amber-200/80 text-amber-950 text-sm leading-relaxed shadow-sm">
                   &quot;{activeExam.tips}&quot;
                 </div>
               </div>
@@ -221,7 +221,7 @@ export function ExamCenterSection({ onOpenConsultModal }: ExamCenterSectionProps
                 <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center gap-2">
                   <span>📚</span> Free Practice Materials &amp; Mock Drills
                 </h4>
-                <div className="p-6 rounded-2xl bg-emerald-50/50 border border-emerald-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+                <div className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-5">
                   <div>
                     <strong className="text-base font-bold text-slate-900 block">{activeExam.practiceCount}</strong>
                     <span className="text-xs text-slate-600 mt-1 block">Curated by UES Senior Counsellors • Instant PDF Download</span>
@@ -237,7 +237,7 @@ export function ExamCenterSection({ onOpenConsultModal }: ExamCenterSectionProps
             </div>
 
             {/* Right Action Column */}
-            <div className="lg:col-span-5 xl:col-span-4 bg-slate-50/80 p-7 sm:p-8 rounded-2xl border border-slate-200/90 flex flex-col justify-between space-y-8">
+            <div className="lg:col-span-5 xl:col-span-4 bg-white p-7 sm:p-8 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col justify-between space-y-8">
               <div className="space-y-4">
                 <div>
                   <h4 className="text-base font-bold text-slate-900">Official Resources</h4>

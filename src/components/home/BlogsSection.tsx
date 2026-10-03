@@ -96,7 +96,7 @@ export function BlogsSection({ onOpenConsultModal }: BlogsSectionProps) {
   const filtered = activeCategory === "All" ? blogsData : blogsData.filter((b) => b.category === activeCategory);
 
   return (
-    <section id="blogs-section" className="blogs-wrap py-24 bg-white border-b border-slate-100">
+    <section id="blogs-section" className="blogs-wrap py-24 bg-white border-b border-slate-200/60">
       <div className="container">
         <div className="section-header">
           <h2>Latest from <span className="accent-text">Blogs &amp; News</span></h2>

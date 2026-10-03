@@ -9,7 +9,7 @@ export function TrustSection() {
   const [rate, setRate] = useState(99);
 
   return (
-    <section id="trust-section" className="trust-container">
+    <section id="trust-section" className="trust-container bg-slate-50/70 border-y border-slate-200/60">
       <div className="container">
         <div className="trust-counters-grid">
           <div className="stat-box">

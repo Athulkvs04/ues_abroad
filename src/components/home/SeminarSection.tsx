@@ -16,7 +16,7 @@ export function SeminarSection({ onOpenConsultModal }: SeminarSectionProps) {
   const [seminars] = useState(seminarsData);
 
   return (
-    <section id="seminar-section" className="seminar-wrap">
+    <section id="seminar-section" className="seminar-wrap py-20 bg-slate-50/80 border-b border-slate-200/70">
       <div className="container">
         <div className="section-header">
           <h2>Upcoming Masterclass Seminars</h2>
@@ -25,7 +25,7 @@ export function SeminarSection({ onOpenConsultModal }: SeminarSectionProps) {
 
         <div className="seminars-cards-grid" id="seminar-cards-container">
           {seminars.map((sem) => (
-            <div key={sem.id} className="upcoming-sem-card glass-card h-full flex flex-col justify-between">
+            <div key={sem.id} className="upcoming-sem-card bg-white rounded-2xl p-6 sm:p-7 border border-slate-200/90 shadow-sm hover:shadow-premium hover:-translate-y-1 transition-all h-full flex flex-col justify-between">
               <div>
                 <span className="badge" style={{ background: "var(--accent-glow)", color: "var(--accent)" }}>{sem.location}</span>
                 <h3 style={{ marginTop: "0.75rem" }}>{sem.title}</h3>

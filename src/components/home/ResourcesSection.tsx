@@ -98,7 +98,7 @@ export function ResourcesSection({ onOpenConsultModal }: ResourcesSectionProps) 
   };
 
   return (
-    <section id="resources-section" className="resources-wrap">
+    <section id="resources-section" className="resources-wrap py-20 bg-white border-b border-slate-200/60">
       <div className="container">
         <div className="section-header">
           <h2>Resource Library</h2>
@@ -107,7 +107,7 @@ export function ResourcesSection({ onOpenConsultModal }: ResourcesSectionProps) 
 
         <div className="resources-grid-layout">
           {resourcesData.map((res) => (
-            <div key={res.title} className="resource-card glass-card h-full flex flex-col justify-between">
+            <div key={res.title} className="resource-card bg-slate-50/70 border border-slate-200/80 rounded-2xl p-6 hover:bg-white hover:border-emerald-500/40 hover:shadow-md transition-all h-full flex flex-col justify-between">
               <div>
                 <span className="badge">{res.badge}</span>
                 <h3>{res.title}</h3>

@@ -195,7 +195,7 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
   };
 
   return (
-    <section id="decision-section" className="decision-wrap py-20 bg-white border-b border-slate-100">
+    <section id="decision-section" className="decision-wrap py-20 bg-white border-b border-slate-200/60">
       <div className="container">
         <div className="section-header">
           <h2>Smart Decision Center</h2>
@@ -225,7 +225,7 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
         {activeTab === "eligibility" && (
           <div className="decision-content-pane active" id="tool-eligibility">
             <div className="checker-layout-grid">
-              <div className="glass-card bg-white border border-slate-200/80 shadow-sm flex flex-col justify-between h-full">
+              <div className="glass-card bg-slate-50/80 border border-slate-200/80 shadow-sm flex flex-col justify-between h-full">
                 <div>
                   <h3 className="pane-title text-slate-900">Academic Profile &amp; Exam Readiness</h3>
                   <p className="text-xs text-slate-500 mb-4">Enter your academic scores to evaluate admissions probability.</p>
@@ -253,7 +253,7 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
                 <button className="btn-primary-glow w-full mt-6" onClick={checkEligibility}>Evaluate Profile Matches</button>
               </div>
 
-              <div className="glass-card bg-white border border-slate-200/80 shadow-sm flex flex-col justify-between h-full items-center justify-center">
+              <div className="glass-card bg-slate-50/80 border border-slate-200/80 shadow-sm flex flex-col justify-between h-full items-center justify-center">
                 {!eligResult ? (
                   <div className="empty-state text-center p-8">
                     <span className="text-4xl block mb-3">📊</span>
@@ -274,7 +274,7 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
                     {/* University cards */}
                     <div className="space-y-3 flex-1 overflow-y-auto">
                       {eligResult.uniCards.map((u, i) => (
-                        <div key={i} className="p-4 rounded-xl border border-slate-200 bg-slate-50/60 hover:border-primary/40 transition-all">
+                        <div key={i} className="p-4 rounded-xl border border-slate-200 bg-white shadow-sm hover:border-primary/40 transition-all">
                           <div className="flex items-start justify-between gap-2 mb-2">
                             <div>
                               <span className="text-base mr-1">{u.flag}</span>
@@ -310,13 +310,13 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
         {activeTab === "budget" && (
           <div className="decision-content-pane active" id="tool-budget">
             <div className="checker-layout-grid">
-              <div className="glass-card bg-white border border-slate-200/80 shadow-sm flex flex-col justify-between h-full">
+              <div className="glass-card bg-slate-50/80 border border-slate-200/80 shadow-sm flex flex-col justify-between h-full">
                 <div>
                   <h3 className="pane-title text-slate-900">Annual Expense Estimator</h3>
                   <div className="form-grid">
                     <div className="form-group">
                       <label>Destination Country</label>
-                      <select value={calcCountry} onChange={(e) => handleCountryChange(e.target.value)} className="form-control">
+                      <select value={calcCountry} onChange={(e) => handleCountryChange(e.target.value)} className="form-control bg-white">
                         <option value="usa">United States</option>
                         <option value="germany">Germany</option>
                         <option value="uk">United Kingdom</option>
@@ -326,7 +326,7 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
                     </div>
                     <div className="form-group">
                       <label>Target Course</label>
-                      <select value={calcCourse} onChange={(e) => setCalcCourse(e.target.value)} className="form-control">
+                      <select value={calcCourse} onChange={(e) => setCalcCourse(e.target.value)} className="form-control bg-white">
                         <option value="computer_science">MS in Computer Science</option>
                         <option value="mba">Master of Business Admin (MBA)</option>
                         <option value="engineering">MS in Engineering</option>
@@ -334,11 +334,11 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
                     </div>
                     <div className="form-group">
                       <label>Duration (Months)</label>
-                      <input type="number" value={calcDuration} onChange={(e) => setCalcDuration(parseInt(e.target.value) || 24)} className="form-control" />
+                      <input type="number" value={calcDuration} onChange={(e) => setCalcDuration(parseInt(e.target.value) || 24)} className="form-control bg-white" />
                     </div>
                     <div className="form-group">
                       <label>Currency</label>
-                      <select value={calcCurrency} onChange={(e) => setCalcCurrency(e.target.value)} className="form-control">
+                      <select value={calcCurrency} onChange={(e) => setCalcCurrency(e.target.value)} className="form-control bg-white">
                         <option value="USD">USD ($)</option>
                         <option value="INR">INR (₹)</option>
                       </select>
@@ -366,7 +366,7 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
                 </div>
               </div>
 
-              <div className="glass-card bg-white border border-slate-200/80 shadow-sm flex flex-col justify-between h-full">
+              <div className="glass-card bg-slate-50/80 border border-slate-200/80 shadow-sm flex flex-col justify-between h-full">
                 <div>
                   <h3 className="pane-title text-slate-900">Annual Budget Breakdown</h3>
                   <div className="py-6 border-b border-slate-100">
@@ -406,7 +406,7 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
           <div className="decision-content-pane active" id="tool-comparison">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {countryComparisonData.map((item) => (
-                <div key={item.name} className="glass-card bg-white border border-slate-200/80 shadow-sm flex flex-col justify-between h-full">
+                <div key={item.name} className="glass-card bg-slate-50/80 border border-slate-200/80 shadow-sm flex flex-col justify-between h-full hover:bg-white hover:border-emerald-500/40 hover:shadow-md transition-all">
                   <div>
                     <h3 className="text-xl font-heading font-bold text-primary pb-3 border-b border-slate-100 mb-4">{item.name}</h3>
                     <div className="space-y-3 text-xs text-slate-600">
@@ -433,7 +433,7 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
         {/* TAB 4: UNIVERSITY COMPARISON MATRIX */}
         {activeTab === "uni-compare" && (
           <div className="decision-content-pane active" id="tool-uni-compare">
-            <div className="glass-card bg-white border border-slate-200/80 shadow-sm">
+            <div className="glass-card bg-slate-50/80 border border-slate-200/80 shadow-sm">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="pane-title text-slate-900 mb-0">University Side-by-Side Matrix</h3>
                 <button 

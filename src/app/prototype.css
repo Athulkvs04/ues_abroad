@@ -205,8 +205,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Glassmorphism Cards */
-.glass-card {
+.glass-card:not([class*="bg-"]) {
     background: var(--bg-card);
+}
+.glass-card {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--border-color);
@@ -517,7 +519,7 @@ h1, h2, h3, h4, h5, h6 {
 /* 4. University Explorer */
 .explorer-wrap {
     padding: 6rem 0;
-    background: var(--bg-secondary);
+    background: transparent;
 }
 .explorer-filter-panel {
     display: flex;
@@ -595,12 +597,16 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     justify-content: center;
     gap: 0.5rem;
-    background: var(--bg-secondary);
+    background: #f1f5f9;
     padding: 0.4rem;
     border-radius: 999px;
-    border: 1px solid var(--border-color);
+    border: 1px solid #e2e8f0;
     max-width: 750px;
     margin: 0 auto 3rem;
+}
+[data-theme="dark"] .decision-tabs-bar {
+    background: #111827;
+    border-color: #1f2937;
 }
 .decision-tab-btn {
     border: none;
@@ -613,9 +619,14 @@ h1, h2, h3, h4, h5, h6 {
     cursor: pointer;
     transition: all 0.2s;
 }
+.decision-tab-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.7);
+}
 .decision-tab-btn.active {
     background: var(--primary);
     color: white;
+    box-shadow: 0 2px 8px rgba(10, 125, 69, 0.25);
 }
 
 .decision-content-pane {
@@ -820,7 +831,7 @@ h1, h2, h3, h4, h5, h6 {
 /* 6. Student Journey Timeline */
 .journey-wrap {
     padding: 6rem 0;
-    background: var(--bg-secondary);
+    background: transparent;
 }
 .journey-timeline-track {
     display: flex;
@@ -890,7 +901,7 @@ h1, h2, h3, h4, h5, h6 {
 /* 8. Resources Grid */
 .resources-wrap {
     padding: 6rem 0;
-    background: var(--bg-secondary);
+    background: transparent;
 }
 .resources-grid-layout {
     display: grid;
@@ -995,7 +1006,7 @@ h1, h2, h3, h4, h5, h6 {
 /* 10. Blogs Platform */
 .blogs-wrap {
     padding: 6rem 0;
-    background: var(--bg-secondary);
+    background: transparent;
 }
 .blogs-grid-layout {
     display: grid;

@@ -83,7 +83,7 @@ const destinationsData = [
 
 export function DestinationsSection({ onOpenConsultModal }: DestinationsSectionProps) {
   return (
-    <section id="destinations-section" className="destinations-wrap py-20 bg-white border-b border-slate-100">
+    <section id="destinations-section" className="destinations-wrap py-20 bg-white border-b border-slate-200/60">
       <div className="container">
         <div className="section-header">
           <h2>Explore Popular <span className="accent-text">Study Destinations</span></h2>

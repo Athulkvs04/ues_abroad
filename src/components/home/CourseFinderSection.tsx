@@ -90,7 +90,7 @@ export function CourseFinderSection({ onOpenConsultModal }: CourseFinderSectionP
   });
 
   return (
-    <section id="course-finder-section" className="py-20 bg-white border-b border-slate-100">
+    <section id="course-finder-section" className="py-20 bg-slate-50/80 border-b border-slate-200/70">
       <div className="container">
         <div className="section-header">
           <h2>Interactive <span className="accent-text">Course Finder</span></h2>

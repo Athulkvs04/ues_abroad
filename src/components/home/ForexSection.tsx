@@ -109,7 +109,7 @@ export function ForexSection({ onOpenConsultModal }: ForexSectionProps) {
   };
 
   return (
-    <section id="forex-section" className="py-24 bg-white border-b border-slate-100">
+    <section id="forex-section" className="py-24 bg-slate-50/80 border-b border-slate-200/70">
       <div className="container max-w-6xl">
         <div className="section-header max-w-2xl mx-auto text-center mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold mb-4">
@@ -144,7 +144,7 @@ export function ForexSection({ onOpenConsultModal }: ForexSectionProps) {
             </div>
 
             <div className="space-y-4 pt-2">
-              <div className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50/70 border border-slate-200/70">
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
                 <span className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">✓</span>
                 <div>
                   <h4 className="text-sm font-bold text-slate-900">Zero Telegraphic Transfer (TT) Fees</h4>
@@ -152,7 +152,7 @@ export function ForexSection({ onOpenConsultModal }: ForexSectionProps) {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50/70 border border-slate-200/70">
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
                 <span className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">✓</span>
                 <div>
                   <h4 className="text-sm font-bold text-slate-900">Swift Form A2 Receipt within 24 Hours</h4>
@@ -160,7 +160,7 @@ export function ForexSection({ onOpenConsultModal }: ForexSectionProps) {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50/70 border border-slate-200/70">
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
                 <span className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">✓</span>
                 <div>
                   <h4 className="text-sm font-bold text-slate-900">RBI Licensed Cat-II Banking Partner</h4>
@@ -169,7 +169,7 @@ export function ForexSection({ onOpenConsultModal }: ForexSectionProps) {
               </div>
             </div>
 
-            <div className="p-5 rounded-2xl bg-emerald-50/60 border border-emerald-200/80 text-xs sm:text-sm text-emerald-950 flex items-center gap-3.5">
+            <div className="p-5 rounded-2xl bg-emerald-50/80 border border-emerald-200/90 text-xs sm:text-sm text-emerald-950 flex items-center gap-3.5 shadow-sm">
               <span className="text-2xl">🛡️</span>
               <span className="leading-relaxed font-medium">Fully compliant with Reserve Bank of India (RBI) student education guidelines and TCS tax benefits.</span>
             </div>
