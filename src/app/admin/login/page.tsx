@@ -2,7 +2,7 @@
 
 import React, { useState, Suspense } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -21,9 +21,20 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 function AdminLoginForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/admin/dashboard";
+  // Sanitize callbackUrl: NextAuth sometimes passes a full absolute URL.
+  // Extract only the pathname+search to prevent double-origin concatenation bugs.
+  const rawCallbackUrl = searchParams.get("callbackUrl") || "/admin/dashboard";
+  let callbackUrl = "/admin/dashboard";
+  try {
+    const parsed = new URL(rawCallbackUrl);
+    // It's an absolute URL — take only the path portion
+    callbackUrl = parsed.pathname + parsed.search;
+  } catch {
+    // It's already a relative path — use as-is (but enforce /admin prefix for safety)
+    callbackUrl = rawCallbackUrl.startsWith("/admin") ? rawCallbackUrl : "/admin/dashboard";
+  }
+
   const tenant = useTenant();
 
   const [authError, setAuthError] = useState<string | null>(null);
@@ -52,8 +63,9 @@ function AdminLoginForm() {
       if (result?.error) {
         setAuthError("Invalid email or password. Please try again.");
       } else {
-        router.push(callbackUrl);
-        router.refresh();
+        // Use window.location for a clean hard-navigate to avoid App Router
+        // mishandling relative paths that were parsed from absolute callbackUrls
+        window.location.href = callbackUrl;
       }
     } catch {
       setAuthError("An unexpected error occurred. Please try again later.");
