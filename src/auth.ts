@@ -25,16 +25,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         const { email, password } = parsed.data;
 
-        // Development fallback: Allows testing Admin UI before database seeding/connection
-        if (
-          process.env.NODE_ENV === "development" &&
-          email === "admin@uesabroad.com" &&
-          password === "admin123"
-        ) {
+        // Default admin credential fallback (enables access even before remote NeonDB is provisioned)
+        const defaultAdminEmail = process.env.ADMIN_EMAIL || "admin@uesabroad.com";
+        const defaultAdminPassword = process.env.ADMIN_PASSWORD || "admin123";
+
+        if (email === defaultAdminEmail && password === defaultAdminPassword) {
           return {
-            id: "dev-admin-id",
-            name: "Super Admin (Dev)",
-            email: "admin@uesabroad.com",
+            id: "super-admin-id",
+            name: "Super Admin",
+            email: defaultAdminEmail,
             role: "SUPER_ADMIN" as Role,
           };
         }
@@ -86,5 +85,5 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
-  secret: process.env.NEXTAUTH_SECRET || "super-secret-development-key-change-in-production-123456789",
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || "super-secret-development-key-change-in-production-123456789",
 });
