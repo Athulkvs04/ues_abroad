@@ -236,7 +236,7 @@ export default function AccommodationPage() {
   };
 
   return (
-    <PublicLayout onOpenConsultModal={() => handleOpenModal("Accommodation Hidden Page")}>
+    <PublicLayout onOpenConsultModal={() => handleOpenModal("Accommodation Portal")}>
       {/* Header Banner - Clean, spacious, and punchy */}
       <div className="bg-slate-900 py-20 text-white border-b border-slate-800">
         <div className="container max-w-6xl">

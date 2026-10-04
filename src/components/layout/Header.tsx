@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { useTenant } from "@/components/providers/TenantProvider";
@@ -13,6 +14,8 @@ interface HeaderProps {
 
 export function Header({ onOpenConsultModal }: HeaderProps) {
   const tenant = useTenant();
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -31,14 +34,15 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
   }, []);
 
   const navLinks = [
-    { label: "Home", href: "#hero-section" },
-    { label: "Destinations", href: "#destinations-section" },
-    { label: "Universities", href: "#explorer-section" },
-    { label: "Services", href: "#decision-section" },
-    { label: "Our Journey", href: "#journey-section" },
-    { label: "Events", href: "#seminar-section" },
-    { label: "Resources", href: "#resources-section" },
-    { label: "Blogs", href: "#blogs-section" },
+    { label: "Home", href: isHomePage ? "#hero-section" : "/" },
+    { label: "Destinations", href: isHomePage ? "#destinations-section" : "/#destinations-section" },
+    { label: "Universities", href: isHomePage ? "#explorer-section" : "/#explorer-section" },
+    { label: "Services", href: isHomePage ? "#decision-section" : "/#decision-section" },
+    { label: "Accommodation", href: "/accommodation", isPage: true },
+    { label: "Our Journey", href: isHomePage ? "#journey-section" : "/#journey-section" },
+    { label: "Events", href: isHomePage ? "#seminar-section" : "/#seminar-section" },
+    { label: "Resources", href: isHomePage ? "#resources-section" : "/#resources-section" },
+    { label: "Blogs", href: isHomePage ? "#blogs-section" : "/#blogs-section" },
   ];
 
   return (
@@ -53,7 +57,7 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
         {/* Brand Logo (Faithful to approved prototype stripes & typography) */}
         <div className="flex items-center min-w-[180px]">
           <Link 
-            href="#hero-section" 
+            href={isHomePage ? "#hero-section" : "/"} 
             className="inline-flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-emerald-500/50 rounded-xl py-1 px-1.5"
             aria-label="UES Abroad Homepage"
           >
@@ -75,18 +79,34 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
 
         {/* Desktop Navigation Links - Centered */}
         <nav className="hidden lg:flex items-center justify-center flex-1 px-4" aria-label="Main Navigation">
-          <ul className="flex items-center gap-7 list-none">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                <a
-                  href={link.href}
-                  className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors py-2 px-1 relative group"
-                >
-                  {link.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-600 rounded-full transition-all duration-200 group-hover:w-full" />
-                </a>
-              </li>
-            ))}
+          <ul className="flex items-center gap-6 xl:gap-7 list-none">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className={`text-sm font-medium transition-colors py-2 px-1 relative group inline-flex items-center gap-1.5 ${
+                      isActive
+                        ? "text-emerald-700 dark:text-emerald-400 font-semibold"
+                        : "text-slate-600 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-400"
+                    }`}
+                  >
+                    <span>{link.label}</span>
+                    {link.isPage && (
+                      <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-emerald-100 text-emerald-800 font-bold uppercase tracking-wider dark:bg-emerald-950 dark:text-emerald-300">
+                        New
+                      </span>
+                    )}
+                    <span 
+                      className={`absolute bottom-0 left-0 h-0.5 bg-emerald-600 rounded-full transition-all duration-200 ${
+                        isActive ? "w-full" : "w-0 group-hover:w-full"
+                      }`} 
+                    />
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -127,17 +147,29 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
             <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
               <nav aria-label="Mobile Navigation">
                 <ul className="space-y-1 list-none">
-                  {navLinks.map((link) => (
-                    <li key={link.label}>
-                      <a
-                        href={link.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="block px-4 py-3 rounded-xl text-base font-semibold text-slate-800 dark:text-slate-100 hover:bg-primary/10 hover:text-primary transition-colors"
-                      >
-                        {link.label}
-                      </a>
-                    </li>
-                  ))}
+                  {navLinks.map((link) => {
+                    const isActive = pathname === link.href;
+                    return (
+                      <li key={link.label}>
+                        <Link
+                          href={link.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className={`flex items-center justify-between px-4 py-3 rounded-xl text-base font-semibold transition-colors ${
+                            isActive
+                              ? "bg-emerald-50 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300"
+                              : "text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-dark-surface"
+                          }`}
+                        >
+                          <span>{link.label}</span>
+                          {link.isPage && (
+                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold uppercase tracking-wider dark:bg-emerald-950 dark:text-emerald-300">
+                              Verified Rooms
+                            </span>
+                          )}
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               </nav>
 

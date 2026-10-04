@@ -42,12 +42,12 @@ export function Footer() {
             </h4>
             <ul className="space-y-3 list-none">
               {[
-                { label: "Study in USA", href: "#destinations-section" },
-                { label: "Study in UK", href: "#destinations-section" },
-                { label: "Study in Canada", href: "#destinations-section" },
-                { label: "Study in Germany", href: "#destinations-section" },
-                { label: "Study in Australia", href: "#destinations-section" },
-                { label: "Study in Ireland", href: "#destinations-section" },
+                { label: "Study in USA", href: "/#destinations-section" },
+                { label: "Study in UK", href: "/#destinations-section" },
+                { label: "Study in Canada", href: "/#destinations-section" },
+                { label: "Study in Germany", href: "/#destinations-section" },
+                { label: "Study in Australia", href: "/#destinations-section" },
+                { label: "Study in Ireland", href: "/#destinations-section" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link
@@ -65,23 +65,29 @@ export function Footer() {
           {/* Column 3: Admissions & Services */}
           <div>
             <h4 className="text-white font-heading font-semibold text-base mb-5 tracking-wide">
-              Admissions
+              Admissions &amp; Living
             </h4>
             <ul className="space-y-3 list-none">
               {[
-                { label: "University Explorer", href: "#explorer-section" },
-                { label: "Eligibility Checker", href: "#decision-section" },
-                { label: "Budget Planner", href: "#decision-section" },
-                { label: "Intake Timeline", href: "#decision-section" },
-                { label: "Preparation Exams", href: "#resources-section" },
-                { label: "Student Testimonials", href: "#testimonials-section" },
+                { label: "University Explorer", href: "/#explorer-section" },
+                { label: "Student Accommodation", href: "/accommodation", badge: "Verified" },
+                { label: "Eligibility Checker", href: "/#decision-section" },
+                { label: "Budget Planner", href: "/#decision-section" },
+                { label: "Intake Timeline", href: "/#decision-section" },
+                { label: "Forex & Living Remittance", href: "/#forex-section" },
+                { label: "Student Testimonials", href: "/#testimonials-section" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link
                     href={item.href}
-                    className="text-sm text-slate-400 hover:text-primary transition-colors inline-flex items-center gap-1 group"
+                    className="text-sm text-slate-400 hover:text-primary transition-colors inline-flex items-center gap-1.5 group"
                   >
                     <span>{item.label}</span>
+                    {item.badge && (
+                      <span className="text-[10px] px-1.5 py-0.2 bg-emerald-500/20 text-emerald-400 font-semibold rounded">
+                        {item.badge}
+                      </span>
+                    )}
                     <ArrowUpRight className="w-3.5 h-3.5 opacity-0 -translate-y-0.5 translate-x-0.5 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-200" />
                   </Link>
                 </li>

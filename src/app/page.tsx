@@ -10,6 +10,7 @@ import { DecisionSection } from "@/components/home/DecisionSection";
 import { CourseFinderSection } from "@/components/home/CourseFinderSection";
 import { ExamCenterSection } from "@/components/home/ExamCenterSection";
 import { ForexSection } from "@/components/home/ForexSection";
+import { AccommodationSection } from "@/components/home/AccommodationSection";
 import { JourneySection } from "@/components/home/JourneySection";
 import { SeminarSection } from "@/components/home/SeminarSection";
 import { ResourcesSection } from "@/components/home/ResourcesSection";
@@ -58,7 +59,10 @@ export default function HomePage() {
       {/* 8. FOREX & INTERNATIONAL TRANSFERS */}
       <ForexSection onOpenConsultModal={handleOpenModal} />
 
-      {/* 9. STUDENT JOURNEY TIMELINE */}
+      {/* 9. VERIFIED STUDENT ACCOMMODATION SHOWCASE */}
+      <AccommodationSection onOpenConsultModal={handleOpenModal} />
+
+      {/* 10. STUDENT JOURNEY TIMELINE */}
       <JourneySection />
 
       {/* 10. SEMINAR MODULE */}

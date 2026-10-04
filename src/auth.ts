@@ -10,6 +10,16 @@ const loginSchema = z.object({
   password: z.string().min(6),
 });
 
+// In production environments (like Vercel), strip localhost overrides that may have been copied from .env.example
+if (process.env.NODE_ENV === "production" || process.env.VERCEL) {
+  if (process.env.NEXTAUTH_URL?.includes("localhost")) {
+    delete process.env.NEXTAUTH_URL;
+  }
+  if (process.env.AUTH_URL?.includes("localhost")) {
+    delete process.env.AUTH_URL;
+  }
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   trustHost: true,
   providers: [
@@ -26,10 +36,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const { email, password } = parsed.data;
 
         // Default admin credential fallback (enables access even before remote NeonDB is provisioned)
-        const defaultAdminEmail = process.env.ADMIN_EMAIL || "admin@uesabroad.com";
-        const defaultAdminPassword = process.env.ADMIN_PASSWORD || "admin123";
+        const defaultAdminEmail = (process.env.ADMIN_EMAIL || "admin@uesabroad.com").trim().toLowerCase();
+        const defaultAdminPassword = (process.env.ADMIN_PASSWORD || "admin123").trim();
 
-        if (email === defaultAdminEmail && password === defaultAdminPassword) {
+        if (email.trim().toLowerCase() === defaultAdminEmail && password.trim() === defaultAdminPassword) {
           return {
             id: "super-admin-id",
             name: "Super Admin",
@@ -40,7 +50,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         try {
           const user = await prisma.user.findUnique({
-            where: { email },
+            where: { email: email.trim().toLowerCase() },
           });
 
           if (!user || !user.passwordHash) return null;
@@ -71,10 +81,22 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
     async session({ session, token }) {
       if (token) {
-        session.user.id = token.id;
-        session.user.role = token.role;
+        session.user.id = token.id as string;
+        session.user.role = token.role as Role;
       }
       return session;
+    },
+    async redirect({ url, baseUrl }) {
+      // Always keep redirects internal to prevent open redirects or host leaks
+      if (url.startsWith("/")) return url;
+      try {
+        const parsed = new URL(url);
+        // If it belongs to the same origin, return just the path
+        if (parsed.origin === baseUrl) return parsed.pathname + parsed.search;
+        return "/admin/dashboard";
+      } catch {
+        return "/admin/dashboard";
+      }
     },
   },
   pages: {

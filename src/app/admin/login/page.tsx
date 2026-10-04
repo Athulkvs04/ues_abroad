@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, Suspense } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,21 +22,20 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 function AdminLoginForm() {
   const searchParams = useSearchParams();
-  // Sanitize callbackUrl: NextAuth sometimes passes a full absolute URL.
-  // Extract only the pathname+search to prevent double-origin concatenation bugs.
+  
+  // Bulletproof extraction of internal callback path (prevents double-URL or external redirect leaks)
   const rawCallbackUrl = searchParams.get("callbackUrl") || "/admin/dashboard";
   let callbackUrl = "/admin/dashboard";
   try {
-    const parsed = new URL(rawCallbackUrl);
-    // It's an absolute URL — take only the path portion
-    callbackUrl = parsed.pathname + parsed.search;
+    const parsed = new URL(rawCallbackUrl, "http://localhost");
+    callbackUrl = parsed.pathname.startsWith("/admin") && parsed.pathname !== "/admin/login"
+      ? `${parsed.pathname}${parsed.search}`
+      : "/admin/dashboard";
   } catch {
-    // It's already a relative path — use as-is (but enforce /admin prefix for safety)
-    callbackUrl = rawCallbackUrl.startsWith("/admin") ? rawCallbackUrl : "/admin/dashboard";
+    callbackUrl = "/admin/dashboard";
   }
 
   const tenant = useTenant();
-
   const [authError, setAuthError] = useState<string | null>(null);
 
   const {
@@ -56,15 +55,15 @@ function AdminLoginForm() {
     try {
       const result = await signIn("credentials", {
         redirect: false,
-        email: data.email,
-        password: data.password,
+        email: data.email.trim(),
+        password: data.password.trim(),
+        callbackUrl,
       });
 
-      if (result?.error) {
+      if (!result || result.error) {
         setAuthError("Invalid email or password. Please try again.");
       } else {
-        // Use window.location for a clean hard-navigate to avoid App Router
-        // mishandling relative paths that were parsed from absolute callbackUrls
+        // Direct clean browser navigation to destination path on current origin
         window.location.href = callbackUrl;
       }
     } catch {
@@ -136,6 +135,16 @@ function AdminLoginForm() {
               🛠️ <strong className="text-slate-700">Dev Credentials:</strong>{" "}
               <code className="bg-slate-100 px-1.5 py-0.5 rounded text-slate-800">admin@uesabroad.com</code> / <code className="bg-slate-100 px-1.5 py-0.5 rounded text-slate-800">admin123</code>
             </p>
+            <button
+              type="button"
+              onClick={async () => {
+                await signOut({ redirect: false });
+                window.location.href = "/admin/login";
+              }}
+              className="mt-2.5 text-[11px] text-slate-400 hover:text-slate-600 transition-colors underline cursor-pointer"
+            >
+              Reset Session / Clear Stored Cookies
+            </button>
           </div>
         </div>
 
