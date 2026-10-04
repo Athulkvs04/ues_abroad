@@ -128,13 +128,14 @@ export function Footer() {
         {/* Bottom Copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>
-            &copy; {new Date().getFullYear()} {tenant.legalName}. Built as a Premium Showcase Presentation Prototype.
+            &copy; {new Date().getFullYear()} {tenant.legalName}. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <Link href="/" className="hover:text-slate-400 transition-colors">Privacy Policy</Link>
-            <Link href="/" className="hover:text-slate-400 transition-colors">Terms of Service</Link>
-            <Link href="/" className="hover:text-slate-400 transition-colors">Security</Link>
+            <Link href="/privacy-policy" className="hover:text-slate-400 transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-slate-400 transition-colors">Terms of Service</Link>
+            <Link href="/disclaimer" className="hover:text-slate-400 transition-colors">Disclaimer</Link>
           </div>
+
         </div>
       </div>
     </footer>

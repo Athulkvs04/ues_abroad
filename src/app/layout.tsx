@@ -3,6 +3,7 @@ import { Outfit, Inter } from "next/font/google";
 import "./globals.css";
 import { getStaticTenantConfig } from "@/config/tenant-resolver";
 import { TenantProvider } from "@/components/providers/TenantProvider";
+import { CookieConsentBanner } from "@/components/ui/CookieConsentBanner";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -48,6 +49,14 @@ export const metadata: Metadata = {
     description: config.seo.defaultDescription,
     images: [config.seo.ogImage],
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    shortcut: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -60,6 +69,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-body selection:bg-primary/30 selection:text-white">
         <TenantProvider config={config}>
           <div className="flex-1 flex flex-col">{children}</div>
+          <CookieConsentBanner />
         </TenantProvider>
       </body>
     </html>
