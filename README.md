@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# UES Abroad — Global Education Platform
 
-## Getting Started
+Modern, full-stack international education advisory platform built with **Next.js (App Router)**, **TypeScript**, **Tailwind CSS**, and **Prisma ORM**.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Quick Start (Local Development)
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Configure environment variables:**
+   ```bash
+   cp .env.example .env.local
+   ```
+   *Edit `.env.local` with your NeonDB / PostgreSQL connection string and NextAuth secret.*
+
+3. **Start local dev server:**
+   ```bash
+   npm run dev
+   ```
+   Visit [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 🗄️ Database Setup (NeonDB / PostgreSQL)
+
+This application uses Prisma ORM with PostgreSQL (fully tested and optimized for [NeonDB](https://neon.tech)).
+
+### 1. Connecting NeonDB:
+Set your connection string in your `.env.local` or hosting provider environment variables:
+```env
+DATABASE_URL="postgresql://[user]:[password]@[endpoint].neon.tech/[dbname]?sslmode=require"
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Push Schema & Seed Initial Data:
+Once `DATABASE_URL` is set, run:
+```bash
+# Push schema tables to NeonDB
+npx prisma db push
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Seed initial universities, countries, courses, and admin users
+npx prisma db seed
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🛡️ Admin Portal
 
-To learn more about Next.js, take a look at the following resources:
+- **URL:** `/admin/login`
+- **Default Super Admin:**
+  - **Email:** `admin@uesabroad.com`
+  - **Password:** `admin123` *(change upon first deployment)*
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> **Testing Mode Note:** If deployed without a `DATABASE_URL` configured, the platform automatically runs in graceful demo mode with mock data and zero-error API fallbacks. Connecting NeonDB activates persistent production storage.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## ☁️ Production Deployment (Vercel / Cloud)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Import the repository into Vercel or your hosting platform.
+2. In **Project Settings → Environment Variables**, add:
+   - `DATABASE_URL` (your NeonDB connection URL)
+   - `NEXTAUTH_SECRET` (generate with `openssl rand -base64 32`)
+   - `NEXTAUTH_URL` (e.g. `https://yourdomain.com`)
+3. The `postinstall` script (`prisma generate`) runs automatically on every build.
+4. Deploy!
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
