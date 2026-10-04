@@ -1,12 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { 
+  Menu, 
+  X, 
+  ArrowRight, 
+  ChevronDown, 
+  Compass, 
+  Calendar, 
+  GraduationCap, 
+  DollarSign 
+} from "lucide-react";
 import { useTenant } from "@/components/providers/TenantProvider";
-import { Button } from "@/components/ui/Button";
 
 interface HeaderProps {
   onOpenConsultModal?: () => void;
@@ -18,6 +26,8 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
   const isHomePage = pathname === "/";
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Handle header scroll blur effect
   useEffect(() => {
@@ -33,29 +43,65 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { label: "Home", href: isHomePage ? "#hero-section" : "/" },
+  const handleMouseEnter = () => {
+    if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+    setResourcesOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setResourcesOpen(false);
+    }, 150);
+  };
+
+  // 5 core direct links - clean, focused, uncluttered
+  const primaryNavLinks = [
     { label: "Destinations", href: isHomePage ? "#destinations-section" : "/#destinations-section" },
     { label: "Universities", href: isHomePage ? "#explorer-section" : "/#explorer-section" },
+    { label: "Accommodation", href: "/accommodation" },
     { label: "Services", href: isHomePage ? "#decision-section" : "/#decision-section" },
-    { label: "Accommodation", href: "/accommodation", isPage: true },
-    { label: "Our Journey", href: isHomePage ? "#journey-section" : "/#journey-section" },
-    { label: "Events", href: isHomePage ? "#seminar-section" : "/#seminar-section" },
-    { label: "Resources", href: isHomePage ? "#resources-section" : "/#resources-section" },
     { label: "Blogs", href: isHomePage ? "#blogs-section" : "/#blogs-section" },
+  ];
+
+  // Secondary items grouped into a sleek dropdown
+  const moreResources = [
+    {
+      label: "Our Journey",
+      desc: "Step-by-step roadmap from profile to campus arrival",
+      href: isHomePage ? "#journey-section" : "/#journey-section",
+      icon: Compass,
+    },
+    {
+      label: "Seminars & Events",
+      desc: "Live interactive university fairs and webinars",
+      href: isHomePage ? "#seminar-section" : "/#seminar-section",
+      icon: Calendar,
+    },
+    {
+      label: "Exam & Test Prep",
+      desc: "IELTS, TOEFL, GRE, GMAT & language modules",
+      href: isHomePage ? "#resources-section" : "/#resources-section",
+      icon: GraduationCap,
+    },
+    {
+      label: "Forex & Remittance",
+      desc: "Live interbank currency lock & tuition payments",
+      href: isHomePage ? "#forex-section" : "/#forex-section",
+      icon: DollarSign,
+    },
   ];
 
   return (
     <header 
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         isScrolled 
-          ? "bg-white/85 dark:bg-dark-bg/85 backdrop-blur-xl border-b border-slate-200/80 dark:border-dark-border/80 shadow-sm" 
-          : "bg-white/60 dark:bg-dark-bg/60 backdrop-blur-md border-b border-transparent"
+          ? "bg-white/90 dark:bg-dark-bg/90 backdrop-blur-xl border-b border-slate-200/80 dark:border-dark-border/80 shadow-xs" 
+          : "bg-white/70 dark:bg-dark-bg/70 backdrop-blur-md border-b border-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 h-20 flex items-center justify-between">
-        {/* Brand Logo (Faithful to approved prototype stripes & typography) */}
-        <div className="flex items-center min-w-[180px]">
+        {/* Brand Logo */}
+        <div className="flex items-center min-w-[170px]">
           <Link 
             href={isHomePage ? "#hero-section" : "/"} 
             className="inline-flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-emerald-500/50 rounded-xl py-1 px-1.5"
@@ -77,27 +123,22 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
           </Link>
         </div>
 
-        {/* Desktop Navigation Links - Centered */}
-        <nav className="hidden lg:flex items-center justify-center flex-1 px-4" aria-label="Main Navigation">
-          <ul className="flex items-center gap-6 xl:gap-7 list-none">
-            {navLinks.map((link) => {
+        {/* Desktop Navigation Links - Spacious & Uncluttered */}
+        <nav className="hidden lg:flex items-center justify-center flex-1 px-6" aria-label="Main Navigation">
+          <ul className="flex items-center gap-8 list-none">
+            {primaryNavLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className={`text-sm font-medium transition-colors py-2 px-1 relative group inline-flex items-center gap-1.5 ${
+                    className={`text-sm font-medium transition-colors py-2 px-1 relative group ${
                       isActive
                         ? "text-emerald-700 dark:text-emerald-400 font-semibold"
                         : "text-slate-600 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-400"
                     }`}
                   >
                     <span>{link.label}</span>
-                    {link.isPage && (
-                      <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-emerald-100 text-emerald-800 font-bold uppercase tracking-wider dark:bg-emerald-950 dark:text-emerald-300">
-                        New
-                      </span>
-                    )}
                     <span 
                       className={`absolute bottom-0 left-0 h-0.5 bg-emerald-600 rounded-full transition-all duration-200 ${
                         isActive ? "w-full" : "w-0 group-hover:w-full"
@@ -107,14 +148,70 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
                 </li>
               );
             })}
+
+            {/* "More Resources" Dropdown */}
+            <li 
+              className="relative"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <button
+                type="button"
+                onClick={() => setResourcesOpen((prev) => !prev)}
+                className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors py-2 px-1 inline-flex items-center gap-1 cursor-pointer focus:outline-none"
+                aria-expanded={resourcesOpen}
+                aria-haspopup="true"
+              >
+                <span>More</span>
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${resourcesOpen ? "rotate-180 text-emerald-600" : ""}`} />
+              </button>
+
+              <AnimatePresence>
+                {resourcesOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                    transition={{ duration: 0.18, ease: "easeOut" }}
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-80 bg-white dark:bg-dark-surface rounded-2xl shadow-xl border border-slate-200/90 dark:border-dark-border p-2 z-50"
+                  >
+                    <div className="space-y-1">
+                      {moreResources.map((item) => {
+                        const Icon = item.icon;
+                        return (
+                          <Link
+                            key={item.label}
+                            href={item.href}
+                            onClick={() => setResourcesOpen(false)}
+                            className="flex items-start gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-dark-bg/60 transition-colors group"
+                          >
+                            <div className="p-2 rounded-lg bg-emerald-50 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400 shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                              <Icon className="w-4 h-4" />
+                            </div>
+                            <div className="leading-tight">
+                              <span className="text-sm font-semibold text-slate-800 dark:text-slate-100 block group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
+                                {item.label}
+                              </span>
+                              <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
+                                {item.desc}
+                              </span>
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </li>
           </ul>
         </nav>
 
-        {/* Primary CTA Button - Generous padding, perfectly centered, Title Case */}
-        <div className="hidden lg:flex items-center justify-end min-w-[180px]">
+        {/* Primary CTA Button */}
+        <div className="hidden lg:flex items-center justify-end min-w-[170px]">
           <button
             onClick={onOpenConsultModal}
-            className="inline-flex items-center justify-center gap-2.5 px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-semibold text-sm shadow-sm hover:shadow-md transition-all group cursor-pointer border border-emerald-500/20"
+            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-semibold text-sm shadow-xs hover:shadow-sm transition-all group cursor-pointer border border-emerald-500/20"
           >
             <span>Start My Journey</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -142,30 +239,25 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="lg:hidden border-t border-slate-200 dark:border-dark-border bg-white/95 dark:bg-dark-bg/95 backdrop-blur-2xl overflow-hidden"
+            className="lg:hidden border-t border-slate-200 dark:border-dark-border bg-white/98 dark:bg-dark-bg/98 backdrop-blur-2xl overflow-hidden"
           >
-            <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
-              <nav aria-label="Mobile Navigation">
+            <div className="max-w-7xl mx-auto px-4 py-5 space-y-5">
+              <nav aria-label="Mobile Primary Navigation">
                 <ul className="space-y-1 list-none">
-                  {navLinks.map((link) => {
+                  {primaryNavLinks.map((link) => {
                     const isActive = pathname === link.href;
                     return (
                       <li key={link.label}>
                         <Link
                           href={link.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className={`flex items-center justify-between px-4 py-3 rounded-xl text-base font-semibold transition-colors ${
+                          className={`block px-4 py-2.5 rounded-xl text-base font-semibold transition-colors ${
                             isActive
                               ? "bg-emerald-50 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300"
                               : "text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-dark-surface"
                           }`}
                         >
-                          <span>{link.label}</span>
-                          {link.isPage && (
-                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold uppercase tracking-wider dark:bg-emerald-950 dark:text-emerald-300">
-                              Verified Rooms
-                            </span>
-                          )}
+                          {link.label}
                         </Link>
                       </li>
                     );
@@ -173,13 +265,37 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
                 </ul>
               </nav>
 
-              <div className="pt-4 border-t border-slate-200 dark:border-dark-border px-4">
+              {/* Mobile Secondary Resources Group */}
+              <div className="pt-3 border-t border-slate-100 dark:border-dark-border">
+                <span className="px-4 text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                  Explore More
+                </span>
+                <ul className="space-y-1 list-none">
+                  {moreResources.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <li key={item.label}>
+                        <Link
+                          href={item.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-dark-surface transition-colors"
+                        >
+                          <Icon className="w-4 h-4 text-emerald-600 shrink-0" />
+                          <span>{item.label}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+
+              <div className="pt-2 border-t border-slate-100 dark:border-dark-border">
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
                     if (onOpenConsultModal) onOpenConsultModal();
                   }}
-                  className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-semibold text-sm shadow-sm transition-all group"
+                  className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-semibold text-sm shadow-xs transition-all group"
                 >
                   <span>Start My Journey</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
