@@ -1,48 +1,44 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
+
+const stats = [
+  { value: "10,000+", label: "Students Placed" },
+  { value: "15+", label: "Years of Experience" },
+  { value: "100+", label: "Global University Tie-Ups" },
+  { value: "98%", label: "Visa Success Rate" },
+];
 
 export function TrustSection() {
-  const [placed, setPlaced] = useState(15000);
-  const [destinations, setDestinations] = useState(45);
-  const [partners, setPartners] = useState(320);
-  const [rate, setRate] = useState(99);
-
   return (
     <section id="trust-section" className="trust-container bg-slate-50/70 border-y border-slate-200/60">
       <div className="container">
         <div className="trust-counters-grid">
-          <div className="stat-box">
-            <h2 className="counter">{placed.toLocaleString("en-US")}+</h2>
-            <span>Students Placed</span>
-          </div>
-          <div className="stat-box">
-            <h2 className="counter">{destinations}+</h2>
-            <span>Study Destinations</span>
-          </div>
-          <div className="stat-box">
-            <h2 className="counter">{partners}+</h2>
-            <span>Partner Universities</span>
-          </div>
-          <div className="stat-box">
-            <h2 className="counter">{rate}%</h2>
-            <span>Visa Success Rate</span>
-          </div>
+          {stats.map((s) => (
+            <div key={s.label} className="stat-box">
+              <h2 className="counter">{s.value}</h2>
+              <span>{s.label}</span>
+            </div>
+          ))}
         </div>
 
         {/* Infinite Rolling Marquee of University Partners */}
         <div className="partner-marquee-container">
           <div className="marquee-track">
-            <span className="marquee-item">Technical University of Munich</span>
-            <span className="marquee-item">Boston University</span>
-            <span className="marquee-item">University of Melbourne</span>
-            <span className="marquee-item">University of Oxford</span>
-            <span className="marquee-item">University of Toronto</span>
-            <span className="marquee-item">Imperial College London</span>
-            <span className="marquee-item">National University of Singapore</span>
-            <span className="marquee-item">Technical University of Munich</span>
-            <span className="marquee-item">Boston University</span>
-            <span className="marquee-item">University of Melbourne</span>
+            <span className="marquee-item">University of Hertfordshire (UK)</span>
+            <span className="marquee-item">University of Newcastle (Australia)</span>
+            <span className="marquee-item">University of Queensland (Australia)</span>
+            <span className="marquee-item">UNSW Sydney (Australia)</span>
+            <span className="marquee-item">University of Galway (Ireland)</span>
+            <span className="marquee-item">Dublin City University (Ireland)</span>
+            <span className="marquee-item">Coventry University (UK)</span>
+            <span className="marquee-item">Northumbria University (UK)</span>
+            <span className="marquee-item">Birmingham City University (UK)</span>
+            <span className="marquee-item">Berlin School of Business &amp; Innovation</span>
+            <span className="marquee-item">Deakin University (Australia)</span>
+            <span className="marquee-item">University of Hertfordshire (UK)</span>
+            <span className="marquee-item">University of Newcastle (Australia)</span>
+            <span className="marquee-item">University of Queensland (Australia)</span>
           </div>
         </div>
       </div>

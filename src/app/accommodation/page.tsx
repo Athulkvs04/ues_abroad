@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useRef } from "react";
+import { Shield, Banknote, FileText, AlertTriangle } from "lucide-react";
 import { PublicLayout } from "@/components/layout/PublicLayout";
 import { LeadModal } from "@/components/home/LeadModal";
 
@@ -241,7 +242,7 @@ export default function AccommodationPage() {
       <div className="bg-slate-900 py-20 text-white border-b border-slate-800">
         <div className="container max-w-6xl">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-semibold mb-4">
-            <span>🛡️ Verified Student Accommodation</span>
+            <span>Verified Student Accommodation</span>
             <span>•</span>
             <span>Zero Brokerage Fees</span>
           </div>
@@ -429,7 +430,9 @@ export default function AccommodationPage() {
 
                 <div className="space-y-5">
                   <div className="flex items-start gap-4">
-                    <span className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-700 font-bold flex items-center justify-center shrink-0 text-lg border border-emerald-100">🛡️</span>
+                    <span className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 border border-emerald-100">
+                      <Shield className="w-5 h-5" />
+                    </span>
                     <div>
                       <h4 className="text-sm font-bold text-slate-900">100% Scam-Inspected</h4>
                       <p className="text-xs text-slate-500 mt-1 leading-relaxed">Every property lease agreement and landlord identity is pre-verified by UES legal counsel.</p>
@@ -437,7 +440,9 @@ export default function AccommodationPage() {
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <span className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-700 font-bold flex items-center justify-center shrink-0 text-lg border border-emerald-100">💰</span>
+                    <span className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 border border-emerald-100">
+                      <Banknote className="w-5 h-5" />
+                    </span>
                     <div>
                       <h4 className="text-sm font-bold text-slate-900">Zero Agency Brokerage</h4>
                       <p className="text-xs text-slate-500 mt-1 leading-relaxed">Direct partner agreements with institutional student housing providers waive agency commissions.</p>
@@ -445,7 +450,9 @@ export default function AccommodationPage() {
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <span className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-700 font-bold flex items-center justify-center shrink-0 text-lg border border-emerald-100">📄</span>
+                    <span className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 border border-emerald-100">
+                      <FileText className="w-5 h-5" />
+                    </span>
                     <div>
                       <h4 className="text-sm font-bold text-slate-900">Visa Proof Guarantee (48 Hours)</h4>
                       <p className="text-xs text-slate-500 mt-1 leading-relaxed">Receive official registered letters (e.g. German Wohnungsgeberbestätigung) to submit with your student visa file.</p>
@@ -526,7 +533,10 @@ export default function AccommodationPage() {
                   <form onSubmit={handleSubmit} className="space-y-5">
                     {submitError && (
                       <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold">
-                        ⚠️ {submitError}
+                      <div className="flex items-center gap-1.5">
+                        <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
+                        <span>{submitError}</span>
+                      </div>
                       </div>
                     )}
                     <div>

@@ -11,49 +11,49 @@ const destinationsData = [
     id: "usa", 
     code: "USA",
     name: "United States", 
-    tuition: "$25,000 - $55,000 / yr", 
-    popular: "Computer Science & AI",
-    image: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=800&q=80" 
+    tuition: "$20,000 - $52,000 / yr", 
+    popular: "Public Health & Data Science",
+    image: "/universities/columbia_morningside.webp" 
   },
   { 
     id: "canada", 
     code: "CANADA",
     name: "Canada", 
     tuition: "CAD $18,000 - $35,000 / yr", 
-    popular: "Business Analytics",
-    image: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?auto=format&fit=crop&w=800&q=80" 
+    popular: "Data Science & Management",
+    image: "/universities/toronto_campus.webp" 
   },
   { 
     id: "germany", 
     code: "GERMANY",
     name: "Germany", 
     tuition: "€0 (Public Universities)", 
-    popular: "Automotive & Robotics",
-    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80" 
+    popular: "Automotive, Robotics & AI",
+    image: "/universities/tum_garching.webp" 
   },
   { 
     id: "uk", 
     code: "UK",
     name: "United Kingdom", 
-    tuition: "£14,000 - £26,000 / yr", 
-    popular: "FinTech & AI",
-    image: "https://images.unsplash.com/photo-1580537659466-0a9bfa916a54?auto=format&fit=crop&w=800&q=80" 
+    tuition: "£10,000 - £35,000 / yr", 
+    popular: "Business Management & Medicine",
+    image: "/universities/cambridge_kings_lawn.webp" 
   },
   { 
     id: "australia", 
     code: "AUSTRALIA",
     name: "Australia", 
-    tuition: "AUD $25,000 - $45,000 / yr", 
-    popular: "Cybersecurity & Nursing",
-    image: "https://images.unsplash.com/photo-1525921429624-479b6a26d84d?auto=format&fit=crop&w=800&q=80" 
+    tuition: "AUD $20,000 - $60,000 / yr", 
+    popular: "Engineering, Nursing & Tourism",
+    image: "/universities/unsw_orientation.webp" 
   },
   { 
     id: "ireland", 
     code: "IRELAND",
     name: "Ireland", 
-    tuition: "€10,000 - €22,000 / yr", 
-    popular: "Software Dev & Pharma",
-    image: "https://images.unsplash.com/photo-1543351611-58f69d7c1781?auto=format&fit=crop&w=800&q=80" 
+    tuition: "€10,000 - €30,000 / yr", 
+    popular: "Finance, MedTech & Pharma",
+    image: "/universities/trinity_chapel_steps.webp" 
   },
   { 
     id: "france", 
@@ -61,7 +61,7 @@ const destinationsData = [
     name: "France", 
     tuition: "€3,000 - €15,000 / yr", 
     popular: "Luxury Brand & Management",
-    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80" 
+    image: "/destinations/france.webp" 
   },
   { 
     id: "new_zealand", 
@@ -69,7 +69,7 @@ const destinationsData = [
     name: "New Zealand", 
     tuition: "NZD $22,000 - $38,000 / yr", 
     popular: "Agribusiness & IT Systems",
-    image: "https://images.unsplash.com/photo-1507699622108-4be3abd695ad?auto=format&fit=crop&w=800&q=80" 
+    image: "/destinations/new_zealand.webp" 
   },
   { 
     id: "uae", 
@@ -77,7 +77,7 @@ const destinationsData = [
     name: "UAE", 
     tuition: "AED 40,000 - 80,000 / yr", 
     popular: "Global Business & AI",
-    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80" 
+    image: "/destinations/uae.webp" 
   }
 ];
 
@@ -90,7 +90,7 @@ export function DestinationsSection({ onOpenConsultModal }: DestinationsSectionP
           <p>Detailed insight into cost structures, visa protocols, and post-study opportunities.</p>
         </div>
 
-        <div className="destinations-grid mt-12" id="destinations-grid-container">
+        <div className="destinations-grid mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="destinations-grid-container">
           {destinationsData.map((dest) => (
             <div 
               key={dest.id} 

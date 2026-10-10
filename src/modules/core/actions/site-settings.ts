@@ -25,7 +25,7 @@ export async function getSiteSettingsAction() {
           supportEmail: tenantConfig.contact.emailSupport,
           address: tenantConfig.contact.address,
           consultationBookingUrl: "/contact",
-          announcementBannerText: "🎉 Fall 2026 Admissions Open! Book your free 1-on-1 counseling session today.",
+          announcementBannerText: "Fall 2026 Admissions Open! Book your free 1-on-1 counseling session today.",
           announcementBannerActive: true,
         },
       };
@@ -43,7 +43,7 @@ export async function getSiteSettingsAction() {
         supportEmail: tenantConfig.contact.emailSupport,
         address: tenantConfig.contact.address,
         consultationBookingUrl: "/contact",
-        announcementBannerText: "🎉 Fall 2026 Admissions Open! Book your free 1-on-1 counseling session today.",
+        announcementBannerText: "Fall 2026 Admissions Open! Book your free 1-on-1 counseling session today.",
         announcementBannerActive: true,
       },
     };

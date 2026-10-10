@@ -26,7 +26,7 @@ export default function DisclaimerPage() {
 
           {/* Warning Banner */}
           <div className="p-6 bg-amber-50 border-l-4 border-amber-400 rounded-r-xl">
-            <p className="text-sm font-semibold text-amber-800 mb-1">⚠️ Please Read Carefully</p>
+            <p className="text-sm font-semibold text-amber-800 mb-1">Please Read Carefully</p>
             <p className="text-sm text-amber-700 leading-relaxed">
               UES Abroad is an education advisory and consultancy service. All information, recommendations, and guidance provided on this platform are for informational purposes only and do not constitute professional legal, financial, or immigration advice.
             </p>

@@ -60,7 +60,7 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
     { label: "Universities", href: isHomePage ? "#explorer-section" : "/#explorer-section" },
     { label: "Accommodation", href: "/accommodation" },
     { label: "Services", href: isHomePage ? "#decision-section" : "/#decision-section" },
-    { label: "Blogs", href: isHomePage ? "#blogs-section" : "/#blogs-section" },
+    { label: "Blogs", href: "/blogs" },
   ];
 
   // Secondary items grouped into a sleek dropdown

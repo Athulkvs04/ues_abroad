@@ -51,7 +51,7 @@ interface Lead {
   budgetApprox: number | null;
   cgpa: number | null;
   englishTest: string | null;
-  metadata: any;
+  metadata: Record<string, unknown> | null;
   assignedToId: string | null;
   assignedTo?: { id: string; name: string; email: string } | null;
   createdAt: string;

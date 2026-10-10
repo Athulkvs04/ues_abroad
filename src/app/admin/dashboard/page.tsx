@@ -8,7 +8,6 @@ import {
   GraduationCap,
   BookOpen,
   TrendingUp,
-  Sparkles,
   ArrowRight,
   RefreshCw,
   Building,
@@ -100,8 +99,8 @@ export default function AdminDashboardPage() {
       <div className="relative rounded-3xl bg-white border border-slate-200/90 p-6 sm:p-8 shadow-sm overflow-hidden flex flex-col sm:flex-row sm:items-center justify-between gap-6">
         <div className="relative z-10 max-w-2xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 text-xs font-semibold mb-3 shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Database Connected & Live</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" />
+            <span>Database Connected &amp; Live</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-heading font-bold text-slate-900 tracking-tight">
             Welcome to {tenant.name} Console

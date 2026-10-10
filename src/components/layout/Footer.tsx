@@ -71,11 +71,9 @@ export function Footer() {
               {[
                 { label: "University Explorer", href: "/#explorer-section" },
                 { label: "Student Accommodation", href: "/accommodation", badge: "Verified" },
-                { label: "Eligibility Checker", href: "/#decision-section" },
-                { label: "Budget Planner", href: "/#decision-section" },
-                { label: "Intake Timeline", href: "/#decision-section" },
-                { label: "Forex & Living Remittance", href: "/#forex-section" },
-                { label: "Student Testimonials", href: "/#testimonials-section" },
+                { label: "Study Abroad Blogs", href: "/blogs" },
+                { label: "Forex & Remittance", href: "/#forex-section" },
+                { label: "Google Reviews", href: "/#testimonials-section" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link
@@ -95,36 +93,45 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: Contact Us */}
+          {/* Column 4: Contact Us & Branches */}
           <div className="space-y-4">
             <h4 className="text-white font-heading font-semibold text-base mb-5 tracking-wide">
-              Contact Us
+              Head Office &amp; Branches
             </h4>
-            <div className="space-y-3.5 text-sm text-slate-400">
+            <div className="space-y-3 text-sm text-slate-400">
               <div className="flex items-start gap-3">
-                <Mail className="w-4 h-4 text-primary shrink-0 mt-1" />
+                <MapPin className="w-4 h-4 text-primary shrink-0 mt-1" />
                 <div>
-                  <span className="block text-xs text-slate-500 uppercase font-semibold">Email</span>
-                  <a href={`mailto:${tenant.contact.emailAdmissions}`} className="hover:text-white transition-colors">
-                    {tenant.contact.emailAdmissions}
-                  </a>
+                  <span className="block text-xs text-slate-500 uppercase font-semibold">Head Office</span>
+                  <span className="leading-snug block text-slate-300">{tenant.contact.address}</span>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Phone className="w-4 h-4 text-primary shrink-0 mt-1" />
                 <div>
-                  <span className="block text-xs text-slate-500 uppercase font-semibold">Phone</span>
-                  <a href={`tel:${tenant.contact.phone}`} className="hover:text-white transition-colors">
+                  <span className="block text-xs text-slate-500 uppercase font-semibold">Central Support</span>
+                  <a href={`tel:${tenant.contact.phone}`} className="hover:text-white transition-colors text-slate-300 font-medium">
                     {tenant.contact.phone}
                   </a>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-primary shrink-0 mt-1" />
+                <Mail className="w-4 h-4 text-primary shrink-0 mt-1" />
                 <div>
-                  <span className="block text-xs text-slate-500 uppercase font-semibold">Address</span>
-                  <span className="leading-snug block">{tenant.contact.address}</span>
+                  <span className="block text-xs text-slate-500 uppercase font-semibold">Email</span>
+                  <a href={`mailto:${tenant.contact.emailAdmissions}`} className="hover:text-white transition-colors text-slate-300">
+                    {tenant.contact.emailAdmissions}
+                  </a>
                 </div>
+              </div>
+              <div className="pt-1">
+                <span className="block text-[11px] text-slate-500 uppercase font-bold tracking-wider mb-1">Regional Branches</span>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Palakkad • Calicut • Ottapalam • Mannarkkad • Bangalore • Hyderabad
+                </p>
+                <span className="inline-block mt-1 text-[11px] text-emerald-400">
+                  {tenant.contact.workingHours}
+                </span>
               </div>
             </div>
           </div>

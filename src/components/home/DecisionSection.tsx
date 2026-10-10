@@ -46,24 +46,24 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
     const uniMap: Record<string, Record<string, { name: string; flag: string; rank: string; tuition: string; inr: string; courses: string[] }[]>> = {
       high: {
         germany: [
-          { name: "TU Munich", flag: "🇩🇪", rank: "37 QS", tuition: "€0 / yr", inr: "₹0 (Free)", courses: ["Robotics", "Automotive Eng"] },
-          { name: "RWTH Aachen", flag: "🇩🇪", rank: "106 QS", tuition: "€0 / yr", inr: "₹0 (Free)", courses: ["Mechanical Eng", "CS"] },
+          { name: "Technical University of Munich", flag: "🇩🇪", rank: "28 QS", tuition: "€0 / yr", inr: "₹0 (Free)", courses: ["Automotive & Robotics", "CS"] },
+          { name: "BSBI Berlin", flag: "🇩🇪", rank: "EU Accredited", tuition: "€8,500 / yr", inr: "≈ ₹7.6L / yr", courses: ["Global MBA", "Business"] },
         ],
         uk: [
-          { name: "University of Oxford", flag: "🇬🇧", rank: "3 QS", tuition: "£36,000 / yr", inr: "≈ ₹38L / yr", courses: ["Computer Science", "MBA"] },
-          { name: "Imperial College London", flag: "🇬🇧", rank: "6 QS", tuition: "£32,000 / yr", inr: "≈ ₹34L / yr", courses: ["FinTech", "Business Analytics"] },
+          { name: "University of Hertfordshire", flag: "🇬🇧", rank: "Top UK Modern", tuition: "£14,500 / yr", inr: "≈ ₹15.8L / yr", courses: ["Computer Science & AI", "Data"] },
+          { name: "Coventry University", flag: "🇬🇧", rank: "Top 30 UK", tuition: "£16,800 / yr", inr: "≈ ₹18.2L / yr", courses: ["Mechanical Eng", "Business"] },
         ],
         australia: [
-          { name: "University of Melbourne", flag: "🇦🇺", rank: "14 QS", tuition: "AUD $44,000 / yr", inr: "≈ ₹24L / yr", courses: ["Business Analytics", "IT"] },
-          { name: "UNSW Sydney", flag: "🇦🇺", rank: "19 QS", tuition: "AUD $48,000 / yr", inr: "≈ ₹26L / yr", courses: ["Engineering", "CS"] },
+          { name: "University of Newcastle", flag: "🇦🇺", rank: "173 QS", tuition: "AUD $32,000 / yr", inr: "≈ ₹17.6L / yr", courses: ["Engineering", "Healthcare"] },
+          { name: "UNSW Sydney", flag: "🇦🇺", rank: "19 QS", tuition: "AUD $45,000 / yr", inr: "≈ ₹24.8L / yr", courses: ["Cybersecurity", "CS"] },
         ],
         canada: [
-          { name: "University of Toronto", flag: "🇨🇦", rank: "21 QS", tuition: "CAD $38,000 / yr", inr: "≈ ₹23L / yr", courses: ["Engineering", "MBA"] },
-          { name: "UBC Vancouver", flag: "🇨🇦", rank: "34 QS", tuition: "CAD $35,000 / yr", inr: "≈ ₹21L / yr", courses: ["CS", "Sustainability"] },
+          { name: "University of Toronto", flag: "🇨🇦", rank: "21 QS", tuition: "CAD $38,000 / yr", inr: "≈ ₹23.5L / yr", courses: ["Data Science & AI", "MBA"] },
+          { name: "UBC Vancouver", flag: "🇨🇦", rank: "34 QS", tuition: "CAD $35,000 / yr", inr: "≈ ₹21L / yr", courses: ["Computer Science", "Engineering"] },
         ],
         usa: [
-          { name: "Boston University", flag: "🇺🇸", rank: "93 QS", tuition: "$58,000 / yr", inr: "≈ ₹48L / yr", courses: ["Data Science", "CS"] },
-          { name: "Northeastern University", flag: "🇺🇸", rank: "346 QS", tuition: "$54,000 / yr", inr: "≈ ₹45L / yr", courses: ["CS", "STEM OPT"] },
+          { name: "Columbia University", flag: "🇺🇸", rank: "22 QS", tuition: "$52,000 / yr", inr: "≈ ₹43.5L / yr", courses: ["Public Health", "CS"] },
+          { name: "Harvard University", flag: "🇺🇸", rank: "4 QS", tuition: "$54,000 / yr", inr: "≈ ₹45L / yr", courses: ["Data Science", "Public Policy"] },
         ],
       },
       mid: {
@@ -148,11 +148,11 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
   ];
 
   const universitiesData = [
-    { id: "tum", name: "Technical University of Munich", rank: "37 QS", tuition: 0, currency: "EUR", scholarship: "DAAD Grants (100% Waiver)", course: "Engineering" },
-    { id: "bu", name: "Boston University", rank: "93 QS", tuition: 58000, currency: "USD", scholarship: "Merit Fellowship ($15k Off)", course: "Computer Science" },
-    { id: "melb", name: "University of Melbourne", rank: "14 QS", tuition: 44000, currency: "AUD", scholarship: "Group of Eight Award (25%)", course: "Business Analytics" },
-    { id: "oxford", name: "University of Oxford", rank: "3 QS", tuition: 36000, currency: "GBP", scholarship: "Clarendon Scholarship (Full)", course: "Computer Science" },
-    { id: "toronto", name: "University of Toronto", rank: "21 QS", tuition: 38000, currency: "CAD", scholarship: "President's Scholars ($20k)", course: "Engineering" }
+    { id: "herts", name: "University of Hertfordshire", rank: "Top UK Modern", tuition: 14500, currency: "GBP", scholarship: "Chancellor's Award (£4,000 Off)", course: "Computer Science & AI" },
+    { id: "newcastle", name: "University of Newcastle", rank: "173 QS", tuition: 32000, currency: "AUD", scholarship: "Excellence Scholarship (AUD $10k)", course: "Engineering & Healthcare" },
+    { id: "galway", name: "University of Galway", rank: "289 QS", tuition: 16500, currency: "EUR", scholarship: "Global Merit Grant (€5,000)", course: "Biomedical & Pharma" },
+    { id: "tum", name: "Technical University of Munich", rank: "28 QS", tuition: 0, currency: "EUR", scholarship: "DAAD Grants (100% Waiver)", course: "Automotive & Robotics" },
+    { id: "coventry", name: "Coventry University", rank: "Top 30 UK", tuition: 16800, currency: "GBP", scholarship: "International Merit Award", course: "Business & Management" }
   ];
 
   const handleDragStart = (e: React.DragEvent, item: { id: string; text: string }, sourceCol: string) => {
@@ -205,19 +205,19 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
         {/* Interactive Tabs Navigation matching exact Screenshot 5 (5 Tabs) */}
         <div className="decision-tabs-bar flex-wrap !max-w-4xl !gap-1.5 !p-1.5 !mb-10 mx-auto">
           <button className={`decision-tab-btn ${activeTab === "eligibility" ? "active" : ""}`} onClick={() => setActiveTab("eligibility")}>
-            <span>🎓</span> Eligibility Checker
+            Eligibility Checker
           </button>
           <button className={`decision-tab-btn ${activeTab === "budget" ? "active" : ""}`} onClick={() => setActiveTab("budget")}>
-            <span>💰</span> Budget Calculator
+            Budget Calculator
           </button>
           <button className={`decision-tab-btn ${activeTab === "comparison" ? "active" : ""}`} onClick={() => setActiveTab("comparison")}>
-            <span>⚖️</span> Country Comparison
+            Country Comparison
           </button>
           <button className={`decision-tab-btn ${activeTab === "uni-compare" ? "active" : ""}`} onClick={() => setActiveTab("uni-compare")}>
-            <span>🏫</span> University Comparison
+            University Comparison
           </button>
           <button className={`decision-tab-btn ${activeTab === "timeline" ? "active" : ""}`} onClick={() => setActiveTab("timeline")}>
-            <span>🗓️</span> Intake Timeline
+            Intake Timeline
           </button>
         </div>
 
@@ -256,7 +256,9 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
               <div className="glass-card bg-slate-50/80 border border-slate-200/80 shadow-sm flex flex-col justify-between h-full items-center justify-center">
                 {!eligResult ? (
                   <div className="empty-state text-center p-8">
-                    <span className="text-4xl block mb-3">📊</span>
+                    <div className="w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto mb-3">
+                      <svg className="w-7 h-7 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                    </div>
                     <h4 className="text-lg font-bold text-slate-800">Analyze Profile to View Results</h4>
                     <p className="text-xs text-slate-500 max-w-sm mx-auto mt-1">Fill in your scores on the left to see matched universities with fees and courses.</p>
                   </div>
@@ -280,7 +282,7 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
                               <span className="text-base mr-1">{u.flag}</span>
                               <span className="font-bold text-slate-900 text-sm">{u.name}</span>
                             </div>
-                            <span className="shrink-0 text-[10px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-lg">🏆 {u.rank}</span>
+                            <span className="shrink-0 text-[10px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-lg">#{u.rank}</span>
                           </div>
                           <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-xs">
                             <div><span className="text-slate-400">Tuition</span><br /><strong className="text-slate-800">{u.tuition}</strong></div>
@@ -458,9 +460,9 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
                     {universitiesData.map((uni) => (
                       <tr key={uni.id} className="hover:bg-slate-50/50 transition-colors">
                         <td className="p-3 font-bold text-slate-900">{uni.name}</td>
-                        <td className="p-3 font-semibold text-amber-600">🏆 {uni.rank}</td>
+                        <td className="p-3 font-semibold text-amber-600">#{uni.rank}</td>
                         <td className="p-3">{uni.tuition === 0 ? "Free (€0)" : `${uni.currency} $${uni.tuition.toLocaleString("en-US")} / year`}</td>
-                        <td className="p-3 font-medium text-emerald-600">🎁 {uni.scholarship}</td>
+                        <td className="p-3 font-medium text-emerald-600">{uni.scholarship}</td>
                         <td className="p-3"><span className="px-2.5 py-1 bg-slate-100 rounded-lg text-xs font-semibold">{uni.course}</span></td>
                       </tr>
                     ))}
@@ -492,7 +494,7 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => handleDrop(e, "backlog")}
               >
-                <h4 className="text-sm font-bold text-slate-700 mb-3 pb-2 border-b border-slate-200">📌 Milestones Backlog</h4>
+                <h4 className="text-sm font-bold text-slate-700 mb-3 pb-2 border-b border-slate-200">Milestones Backlog</h4>
                 <div className="space-y-2.5">
                   {backlog.map((item) => (
                     <div key={item.id} className="p-3 rounded-xl bg-white border border-slate-200 shadow-sm text-xs font-medium text-slate-700 cursor-grab active:cursor-grabbing hover:border-primary/40 transition-all" draggable onDragStart={(e) => handleDragStart(e, item, "backlog")}>{item.text}</div>
@@ -505,7 +507,7 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => handleDrop(e, "september")}
               >
-                <h4 className="text-sm font-bold text-slate-700 mb-3 pb-2 border-b border-slate-200">🍂 September Intake</h4>
+                <h4 className="text-sm font-bold text-slate-700 mb-3 pb-2 border-b border-slate-200">Sep Intake</h4>
                 <div className="space-y-2.5">
                   {september.map((item) => (
                     <div key={item.id} className="p-3 rounded-xl bg-white border border-slate-200 shadow-sm text-xs font-medium text-slate-700 cursor-grab active:cursor-grabbing hover:border-primary/40 transition-all" draggable onDragStart={(e) => handleDragStart(e, item, "september")}>{item.text}</div>
@@ -518,7 +520,7 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => handleDrop(e, "january")}
               >
-                <h4 className="text-sm font-bold text-slate-700 mb-3 pb-2 border-b border-slate-200">❄️ January Intake</h4>
+                <h4 className="text-sm font-bold text-slate-700 mb-3 pb-2 border-b border-slate-200">Jan Intake</h4>
                 <div className="space-y-2.5">
                   {january.map((item) => (
                     <div key={item.id} className="p-3 rounded-xl bg-white border border-slate-200 shadow-sm text-xs font-medium text-slate-700 cursor-grab active:cursor-grabbing hover:border-primary/40 transition-all" draggable onDragStart={(e) => handleDragStart(e, item, "january")}>{item.text}</div>
@@ -531,7 +533,7 @@ export function DecisionSection({ onOpenConsultModal }: DecisionSectionProps) {
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => handleDrop(e, "may")}
               >
-                <h4 className="text-sm font-bold text-slate-700 mb-3 pb-2 border-b border-slate-200">🌸 May Intake</h4>
+                <h4 className="text-sm font-bold text-slate-700 mb-3 pb-2 border-b border-slate-200">May Intake</h4>
                 <div className="space-y-2.5">
                   {may.map((item) => (
                     <div key={item.id} className="p-3 rounded-xl bg-white border border-slate-200 shadow-sm text-xs font-medium text-slate-700 cursor-grab active:cursor-grabbing hover:border-primary/40 transition-all" draggable onDragStart={(e) => handleDragStart(e, item, "may")}>{item.text}</div>

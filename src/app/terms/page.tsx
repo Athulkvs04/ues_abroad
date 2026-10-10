@@ -61,7 +61,7 @@ export default function TermsOfServicePage() {
           <section>
             <h2 className="text-xl font-bold text-slate-900 mb-3">4. Advisory Nature of Services — No Guarantee of Admission</h2>
             <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl mb-4">
-              <p className="text-sm font-semibold text-amber-800">⚠️ Important Notice</p>
+              <p className="text-sm font-semibold text-amber-800">Important Notice</p>
             </div>
             <p className="text-sm leading-relaxed mb-3">
               UES Abroad acts as an education consultancy and advisory platform. All university recommendations, eligibility assessments, course suggestions, and visa guidance provided on this platform are for <strong>informational and advisory purposes only</strong>. They do not constitute a guarantee of university admission, visa approval, scholarship, or employment.

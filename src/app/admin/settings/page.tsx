@@ -48,7 +48,7 @@ export default function AdminSettingsPage() {
       supportEmail: "support@uesabroad.com",
       address: "123 Education Hub, MG Road, Bangalore, India",
       consultationBookingUrl: "/contact",
-      announcementBannerText: "🎉 Fall 2026 Admissions Open! Book your free 1-on-1 counseling session today.",
+      announcementBannerText: "Fall 2026 Admissions Open! Book your free 1-on-1 counseling session today.",
       announcementBannerActive: true,
     },
   });
@@ -80,7 +80,7 @@ export default function AdminSettingsPage() {
 
     const res = await updateSiteSettingsAction(data);
     if (res.success) {
-      setSuccessMessage("✅ Site settings updated and published live successfully!");
+      setSuccessMessage("Site settings updated and published live successfully!");
       setTimeout(() => setSuccessMessage(null), 5000);
     } else {
       setErrorMessage(res.error || "Failed to update site settings.");
@@ -226,7 +226,7 @@ export default function AdminSettingsPage() {
 
           <Input
             label="Banner Announcement Text"
-            placeholder="🎉 Fall 2026 Admissions Open! Book your free 1-on-1 counseling session today."
+            placeholder="Fall 2026 Admissions Open! Book your free 1-on-1 counseling session today."
             error={errors.announcementBannerText?.message}
             disabled={!bannerActive}
             {...register("announcementBannerText")}

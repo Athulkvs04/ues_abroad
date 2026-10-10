@@ -1,47 +1,39 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import { Search, Camera } from "lucide-react";
 
 interface ExplorerSectionProps {
   onOpenConsultModal?: (source?: string) => void;
 }
 
-const universitiesData = [
+interface UniversityItem {
+  id: string;
+  flag: string;
+  name: string;
+  country: string;
+  rank: string;
+  tuition: string;
+  tuitionVal: number;
+  scholarship: string;
+  course: string;
+  banner: string;
+  photoTag: string;
+}
+
+const universitiesData: UniversityItem[] = [
   { 
-    id: "tum", 
-    flag: "🇩🇪",
-    name: "Technical University of Munich", 
-    country: "Germany", 
-    rank: "37 QS", 
-    tuition: "Free (€0)", 
-    tuitionVal: 0,
-    scholarship: "DAAD Grants", 
-    course: "Engineering",
-    banner: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=600&q=80"
-  },
-  { 
-    id: "bu", 
-    flag: "🇺🇸",
-    name: "Boston University", 
-    country: "USA", 
-    rank: "93 QS", 
-    tuition: "USD $58,000 / yr", 
-    tuitionVal: 58000,
-    scholarship: "Merit Fellowship", 
-    course: "Computer Science",
-    banner: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=600&q=80"
-  },
-  { 
-    id: "melb", 
-    flag: "🇦🇺",
-    name: "University of Melbourne", 
-    country: "Australia", 
-    rank: "14 QS", 
-    tuition: "AUD $44,000 / yr", 
-    tuitionVal: 44000,
-    scholarship: "Group of Eight Award", 
-    course: "Business Analytics",
-    banner: "https://images.unsplash.com/photo-1525921429624-479b6a26d84d?auto=format&fit=crop&w=600&q=80"
+    id: "cambridge", 
+    flag: "🇬🇧",
+    name: "University of Cambridge", 
+    country: "UK", 
+    rank: "2 QS", 
+    tuition: "GBP £22,000 / yr", 
+    tuitionVal: 28000,
+    scholarship: "Cambridge Trust International (£10k)", 
+    course: "Computer Science & Engineering",
+    banner: "/universities/cambridge_kings_lawn.webp",
+    photoTag: "King's College Lawn & Chapel"
   },
   { 
     id: "oxford", 
@@ -49,11 +41,103 @@ const universitiesData = [
     name: "University of Oxford", 
     country: "UK", 
     rank: "3 QS", 
-    tuition: "GBP £36,000 / yr", 
+    tuition: "GBP £26,000 / yr", 
+    tuitionVal: 32000,
+    scholarship: "Clarendon Fund Full Waiver", 
+    course: "Philosophy, Politics & Economics",
+    banner: "/universities/oxford_radcliffe_panorama.webp",
+    photoTag: "Radcliffe Square & Colleges Panorama"
+  },
+  { 
+    id: "cornell", 
+    flag: "🇺🇸",
+    name: "Cornell University", 
+    country: "USA", 
+    rank: "16 QS", 
+    tuition: "USD $54,000 / yr", 
+    tuitionVal: 54000,
+    scholarship: "Tata Scholarship for Indian Students", 
+    course: "Robotics & AI Engineering",
+    banner: "/universities/cornell_arts_quad.webp",
+    photoTag: "Arts Quad & Historic Campus"
+  },
+  { 
+    id: "gmu", 
+    flag: "🇺🇸",
+    name: "George Mason University", 
+    country: "USA", 
+    rank: "Tier 1 US", 
+    tuition: "USD $36,000 / yr", 
     tuitionVal: 36000,
-    scholarship: "Clarendon Scholarship", 
-    course: "Computer Science",
-    banner: "https://images.unsplash.com/photo-1580537659466-0a9bfa916a54?auto=format&fit=crop&w=600&q=80"
+    scholarship: "Global Discovery Award ($12,000)", 
+    course: "Data Analytics & Cyber Security",
+    banner: "/universities/gmu_johnson_center.webp",
+    photoTag: "Johnson Center & Campus Plaza"
+  },
+  { 
+    id: "herts", 
+    flag: "🇬🇧",
+    name: "University of Hertfordshire", 
+    country: "UK", 
+    rank: "Top UK Modern", 
+    tuition: "GBP £14,500 / yr", 
+    tuitionVal: 18000,
+    scholarship: "Chancellor's Award (£4,000 Off)", 
+    course: "Computer Science & AI",
+    banner: "/universities/hertfordshire_campus.webp",
+    photoTag: "De Havilland Campus"
+  },
+  { 
+    id: "coventry", 
+    flag: "🇬🇧",
+    name: "Coventry University", 
+    country: "UK", 
+    rank: "Top 30 UK", 
+    tuition: "GBP £16,800 / yr", 
+    tuitionVal: 21000,
+    scholarship: "International Merit Award", 
+    course: "Business & Management",
+    banner: "/universities/coventry_campus_hub.webp",
+    photoTag: "Coventry University Central Plaza"
+  },
+  { 
+    id: "imperial", 
+    flag: "🇬🇧",
+    name: "Imperial College London", 
+    country: "UK", 
+    rank: "6 QS", 
+    tuition: "GBP £34,000 / yr", 
+    tuitionVal: 40000,
+    scholarship: "President's Undergraduate Scholarship", 
+    course: "Aerospace & Computing",
+    banner: "/universities/imperial_queens_lawn.webp",
+    photoTag: "Queen's Lawn & Queen's Tower"
+  },
+  { 
+    id: "unsw", 
+    flag: "🇦🇺",
+    name: "UNSW Sydney", 
+    country: "Australia", 
+    rank: "19 QS", 
+    tuition: "AUD $45,000 / yr", 
+    tuitionVal: 45000,
+    scholarship: "Future of Change India Award", 
+    course: "Cybersecurity & IT",
+    banner: "/universities/unsw_orientation.webp",
+    photoTag: "UNSW Orientation Festival"
+  },
+  { 
+    id: "newcastle", 
+    flag: "🇦🇺",
+    name: "University of Newcastle", 
+    country: "Australia", 
+    rank: "173 QS", 
+    tuition: "AUD $32,000 / yr", 
+    tuitionVal: 32000,
+    scholarship: "Excellence Scholarship (AUD $10k)", 
+    course: "Engineering & Healthcare",
+    banner: "/universities/newcastle_nuspace.webp",
+    photoTag: "NUspace Landmark Campus Building"
   },
   { 
     id: "toronto", 
@@ -63,9 +147,10 @@ const universitiesData = [
     rank: "21 QS", 
     tuition: "CAD $38,000 / yr", 
     tuitionVal: 38000,
-    scholarship: "President's Scholars", 
-    course: "Engineering",
-    banner: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?auto=format&fit=crop&w=600&q=80"
+    scholarship: "International Scholar Award", 
+    course: "Data Science & AI",
+    banner: "/universities/toronto_campus.webp",
+    photoTag: "Historic St. George Campus"
   },
   { 
     id: "trinity", 
@@ -74,10 +159,89 @@ const universitiesData = [
     country: "Ireland", 
     rank: "81 QS", 
     tuition: "EUR €20,000 / yr", 
-    tuitionVal: 20000,
-    scholarship: "Global Excellence", 
-    course: "Software Dev",
-    banner: "https://images.unsplash.com/photo-1543351611-58f69d7c1781?auto=format&fit=crop&w=600&q=80"
+    tuitionVal: 22000,
+    scholarship: "Global Excellence Award", 
+    course: "Pharmaceutical Sciences",
+    banner: "/universities/trinity_chapel_steps.webp",
+    photoTag: "Historic Chapel Steps & Courtyard"
+  },
+  { 
+    id: "galway", 
+    flag: "🇮🇪",
+    name: "University of Galway", 
+    country: "Ireland", 
+    rank: "289 QS", 
+    tuition: "EUR €16,500 / yr", 
+    tuitionVal: 18000,
+    scholarship: "Global Merit Grant (€5,000)", 
+    course: "Biomedical & Pharma",
+    banner: "/universities/galway_aliceperry.webp",
+    photoTag: "Alice Perry Engineering Centre"
+  },
+  { 
+    id: "dcu", 
+    flag: "🇮🇪",
+    name: "Dublin City University", 
+    country: "Ireland", 
+    rank: "436 QS", 
+    tuition: "EUR €15,000 / yr", 
+    tuitionVal: 16500,
+    scholarship: "DCU Merit Scholarship", 
+    course: "Finance & Accounting",
+    banner: "/universities/dcu_helix.webp",
+    photoTag: "The Helix Innovation Hub"
+  },
+  { 
+    id: "columbia", 
+    flag: "🇺🇸",
+    name: "Columbia University", 
+    country: "USA", 
+    rank: "22 QS", 
+    tuition: "USD $52,000 / yr", 
+    tuitionVal: 52000,
+    scholarship: "Need & Merit Fellowships", 
+    course: "Public Health & Policy",
+    banner: "/universities/columbia_morningside.webp",
+    photoTag: "Morningside Heights Campus"
+  },
+  { 
+    id: "tum", 
+    flag: "🇩🇪",
+    name: "Technical University of Munich", 
+    country: "Germany", 
+    rank: "28 QS", 
+    tuition: "Free (€0 Public)", 
+    tuitionVal: 0,
+    scholarship: "DAAD Fellowships", 
+    course: "Automotive & Robotics",
+    banner: "/universities/tum_garching.webp",
+    photoTag: "Garching Research Campus"
+  },
+  { 
+    id: "bsbi", 
+    flag: "🇩🇪",
+    name: "BSBI Berlin", 
+    country: "Germany", 
+    rank: "Accredited EU", 
+    tuition: "EUR €8,500 / yr", 
+    tuitionVal: 9500,
+    scholarship: "Early Bird & Merit (Up to 33%)", 
+    course: "Global MBA & Business",
+    banner: "/universities/humboldt_palace_campus.webp",
+    photoTag: "Unter den Linden Historic Campus"
+  },
+  { 
+    id: "northumbria", 
+    flag: "🇬🇧",
+    name: "Northumbria University", 
+    country: "UK", 
+    rank: "Top 40 UK", 
+    tuition: "GBP £17,500 / yr", 
+    tuitionVal: 22000,
+    scholarship: "Global Scholarship (£3,000)", 
+    course: "Hospitality & Management",
+    banner: "/universities/northumbria_campus.webp",
+    photoTag: "City Campus Landmark Architecture"
   }
 ];
 
@@ -101,7 +265,7 @@ export function ExplorerSection({ onOpenConsultModal }: ExplorerSectionProps) {
       // Country
       if (country && uni.country !== country) return false;
       // Course
-      if (course && uni.course !== course) return false;
+      if (course && !uni.course.toLowerCase().includes(course.toLowerCase())) return false;
       // Ranking
       if (ranking) {
         const rankNum = parseInt(uni.rank.split(" ")[0] || "999", 10);
@@ -163,10 +327,12 @@ export function ExplorerSection({ onOpenConsultModal }: ExplorerSectionProps) {
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/40"
               >
                 <option value="">All Disciplines</option>
-                <option value="Computer Science">Computer Science</option>
-                <option value="Business Analytics">Business Analytics</option>
-                <option value="Engineering">Engineering</option>
-                <option value="Software Dev">Software Dev</option>
+                <option value="Computer">Computer Science & AI</option>
+                <option value="Business">Business & Management</option>
+                <option value="Engineering">Engineering & Robotics</option>
+                <option value="Healthcare">Healthcare & Medicine</option>
+                <option value="Pharma">Pharmaceutical Sciences</option>
+                <option value="Finance">Finance & Accounting</option>
               </select>
             </div>
             <div className="filter-group flex flex-col gap-1.5">
@@ -191,7 +357,8 @@ export function ExplorerSection({ onOpenConsultModal }: ExplorerSectionProps) {
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/40"
               >
                 <option value="">Any Budget</option>
-                <option value="0">Free Tuition (€0)</option>
+                <option value="0">Free (€0 Public - Germany)</option>
+                <option value="20000">Under $20,000 / yr</option>
                 <option value="35000">Under $35,000 / yr</option>
                 <option value="50000">Under $50,000 / yr</option>
               </select>
@@ -199,11 +366,13 @@ export function ExplorerSection({ onOpenConsultModal }: ExplorerSectionProps) {
           </div>
         </div>
 
-        {/* University Cards Grid matching exact Screenshot 4 clean minimal style */}
+        {/* University Cards Grid */}
         <div className="university-cards-grid mt-12" id="university-cards-container">
           {filteredUniversities.length === 0 ? (
             <div className="empty-state col-span-full text-center py-16 bg-white rounded-2xl border border-slate-200/80 shadow-sm">
-              <span className="text-4xl block mb-3">🔍</span>
+              <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-3 text-slate-400">
+                <Search className="w-6 h-6" />
+              </div>
               <h4 className="text-lg font-bold text-slate-800">No matching universities found</h4>
               <p className="text-sm text-slate-500 mt-1">Try adjusting your filters or clearing your search query.</p>
             </div>
@@ -213,20 +382,31 @@ export function ExplorerSection({ onOpenConsultModal }: ExplorerSectionProps) {
                 key={uni.id} 
                 className="uni-explorer-card group bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-premium hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full overflow-hidden"
               >
-                {/* Campus Photo Banner */}
-                <div className="relative h-36 w-full overflow-hidden">
+                {/* Campus & Student Photo Banner */}
+                <div className="relative h-44 w-full overflow-hidden bg-slate-900">
                   <img 
                     src={uni.banner} 
                     alt={`${uni.name} campus`} 
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
+                  
                   {/* Rank badge overlay */}
-                  <span className="absolute top-3 right-3 px-2.5 py-1 bg-white/90 backdrop-blur-sm text-slate-900 font-bold text-xs rounded-lg shadow-sm">
-                    🏆 {uni.rank}
+                  <span className="absolute top-3 right-3 px-2.5 py-1 bg-white/95 backdrop-blur-sm text-slate-900 font-bold text-xs rounded-lg shadow-sm">
+                    #{uni.rank}
                   </span>
-                  <span className="absolute bottom-3 left-3 text-lg">{uni.flag}</span>
+                  
+                  {/* Country Flag */}
+                  <span className="absolute bottom-3 left-3 text-lg drop-shadow-sm">{uni.flag}</span>
+                  
+                  {/* Photo tag descriptor */}
+                  {uni.photoTag && (
+                    <span className="absolute bottom-3 right-3 px-2 py-0.5 bg-slate-900/80 backdrop-blur-sm text-white/90 text-[10px] font-medium rounded-md shadow-sm flex items-center gap-1 border border-white/10">
+                      <Camera className="w-2.5 h-2.5 text-emerald-400" />
+                      <span>{uni.photoTag}</span>
+                    </span>
+                  )}
                 </div>
 
                 <div className="p-5 flex flex-col flex-1">

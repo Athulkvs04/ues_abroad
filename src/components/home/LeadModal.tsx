@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowRight, CheckCircle2, GraduationCap, Home, DollarSign, FileCheck, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, GraduationCap, Home, DollarSign, FileCheck, X, AlertTriangle } from "lucide-react";
 
 interface LeadModalProps {
   isOpen: boolean;
@@ -101,7 +101,7 @@ export function LeadModal({ isOpen, onClose, source }: LeadModalProps) {
         <div className="bg-slate-50 border-b border-slate-200/90 px-6 py-6 sm:px-10 sm:py-8 pr-14 sm:pr-16">
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-emerald-800 mb-2">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-100/70 border border-emerald-200 whitespace-nowrap text-[11px] sm:text-xs">
-              ✨ 1-on-1 Advisory
+              1-on-1 Advisory
             </span>
             <span>•</span>
             <span className="text-slate-500 font-medium">Step {step} of 2</span>
@@ -230,7 +230,10 @@ export function LeadModal({ isOpen, onClose, source }: LeadModalProps) {
 
             {formError && (
               <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold">
-                ⚠️ {formError}
+              <div className="flex items-center gap-1.5">
+                <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
+                <span>{formError}</span>
+              </div>
               </div>
             )}
 

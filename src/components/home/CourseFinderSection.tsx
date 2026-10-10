@@ -8,70 +8,136 @@ interface CourseFinderSectionProps {
 
 const coursesDatabase = [
   {
-    id: "cs-ms-us",
-    title: "M.S. in Computer Science & Artificial Intelligence",
-    university: "Boston University • United States",
-    flag: "🇺🇸",
-    duration: "2 Years • Fall / Spring Intake",
-    tuition: "$45,000 / yr",
-    inrFee: "≈ ₹37.5 Lakhs / yr",
-    roi: "High ROI • 3 Years STEM OPT Work Rights",
-    tags: ["Computer Science", "Master's", "USA", "$30k-$50k"]
+    id: "cs-herts-uk",
+    title: "M.Sc. in Computer Science & Artificial Intelligence",
+    university: "University of Hertfordshire • United Kingdom",
+    flag: "🇬🇧",
+    duration: "1 Year Intensive • Sep / Jan Intake",
+    tuition: "£14,500 / yr",
+    inrFee: "≈ ₹15.8 Lakhs / yr",
+    roi: "Fast Track 1 Year • 2 Years Graduate Route Visa",
+    tags: ["Computer Science", "Master's", "UK", "Under $15k", "$15k-$30k"]
   },
   {
-    id: "eng-ms-de",
+    id: "eng-newcastle-au",
+    title: "Master of Professional Engineering (Civil / Mechanical)",
+    university: "University of Newcastle • Australia",
+    flag: "🇦🇺",
+    duration: "2 Years • Feb / Jul Intake",
+    tuition: "AUD $32,000 / yr",
+    inrFee: "≈ ₹17.6 Lakhs / yr",
+    roi: "Regional Visa Bonus • 4 Years Post-Study Work Rights",
+    tags: ["Engineering", "Master's", "Australia", "$15k-$30k"]
+  },
+  {
+    id: "biomed-galway-ie",
+    title: "M.Sc. in Biomedical Engineering & Medical Tech",
+    university: "University of Galway • Ireland",
+    flag: "🇮🇪",
+    duration: "1 Year • Sep Intake",
+    tuition: "€16,500 / yr",
+    inrFee: "≈ ₹14.9 Lakhs / yr",
+    roi: "Global MedTech Hub • 2 Years Stamp 1G Stay Back",
+    tags: ["Medicine & Pharma", "Master's", "Ireland", "Under $15k", "$15k-$30k"]
+  },
+  {
+    id: "eng-tum-de",
     title: "M.Sc. in Automotive & Robotics Engineering",
     university: "Technical University of Munich • Germany",
     flag: "🇩🇪",
     duration: "2 Years • Winter / Summer Intake",
     tuition: "€0 (Free Public Tuition)",
     inrFee: "₹0 / Free (DAAD Eligible)",
-    roi: "100% Scholarship Equivalent • 18 Months Job Seeker",
+    roi: "100% Scholarship Equivalent • 18 Months Job Seeker Visa",
     tags: ["Engineering", "Master's", "Germany", "Under $15k"]
   },
   {
-    id: "data-ms-uk",
-    title: "M.Sc. in Business Analytics & FinTech",
-    university: "Imperial College London • United Kingdom",
+    id: "mgmt-coventry-uk",
+    title: "M.Sc. in International Business Management",
+    university: "Coventry University • United Kingdom",
     flag: "🇬🇧",
-    duration: "1 Year Intensive • September Intake",
-    tuition: "£28,000 / yr",
-    inrFee: "≈ ₹29.8 Lakhs / yr",
-    roi: "Fast Track 1 Year • 2 Years Graduate Route",
-    tags: ["Business Analytics", "Master's", "UK", "$30k-$50k"]
+    duration: "1 Year Intensive • Sep / Jan Intake",
+    tuition: "£16,800 / yr",
+    inrFee: "≈ ₹18.2 Lakhs / yr",
+    roi: "Top Student City • 2 Years Graduate Route Visa",
+    tags: ["Management & MBA", "Master's", "UK", "$15k-$30k"]
   },
   {
-    id: "mba-ca",
-    title: "Global Master of Business Administration (MBA)",
-    university: "University of Toronto • Canada",
-    flag: "🇨🇦",
-    duration: "2 Years • September Intake",
-    tuition: "CAD $42,000 / yr",
-    inrFee: "≈ ₹25.8 Lakhs / yr",
-    roi: "3 Years PGWP • Direct PR Pathway",
-    tags: ["Management & MBA", "Master's", "Canada", "$30k-$50k"]
+    id: "fin-dcu-ie",
+    title: "M.Sc. in Finance & Accounting Technologies",
+    university: "Dublin City University (DCU) • Ireland",
+    flag: "🇮🇪",
+    duration: "1 Year • Sep Intake",
+    tuition: "€15,000 / yr",
+    inrFee: "≈ ₹13.5 Lakhs / yr",
+    roi: "Dublin IFSC Financial Hub • 2 Years Work Rights",
+    tags: ["Business Analytics", "Master's", "Ireland", "Under $15k", "$15k-$30k"]
   },
   {
-    id: "cyber-au",
-    title: "Master of Cybersecurity & Network Systems",
-    university: "University of Melbourne • Australia",
+    id: "cyber-unsw-au",
+    title: "Master of Cybersecurity & IT Systems",
+    university: "UNSW Sydney • Australia",
     flag: "🇦🇺",
-    duration: "2 Years • February Intake",
-    tuition: "AUD $40,000 / yr",
-    inrFee: "≈ ₹22.0 Lakhs / yr",
-    roi: "4 Years Post-Study Work Visa • High Demand Skill",
+    duration: "2 Years • Feb / Sep Intake",
+    tuition: "AUD $45,000 / yr",
+    inrFee: "≈ ₹24.8 Lakhs / yr",
+    roi: "Top 20 Global University • Group of Eight Prestige",
     tags: ["Computer Science", "Master's", "Australia", "$30k-$50k"]
   },
   {
-    id: "pharma-ie",
-    title: "M.Sc. in Pharmaceutical & Biotech Science",
+    id: "mba-bsbi-de",
+    title: "Global Master of Business Administration (MBA)",
+    university: "BSBI Berlin • Germany",
+    flag: "🇩🇪",
+    duration: "18 Months • Multiple Intakes",
+    tuition: "EUR €8,500 / yr",
+    inrFee: "≈ ₹7.6 Lakhs / yr",
+    roi: "European Accredited • 18 Months Stay Back Visa",
+    tags: ["Management & MBA", "MBA", "Germany", "Under $15k"]
+  },
+  {
+    id: "health-northumbria-uk",
+    title: "M.Sc. in Healthcare Management & Nursing Leadership",
+    university: "Northumbria University • United Kingdom",
+    flag: "🇬🇧",
+    duration: "1 Year • Sep Intake",
+    tuition: "£17,500 / yr",
+    inrFee: "≈ ₹19.0 Lakhs / yr",
+    roi: "NHS Employment Pathways • Critical Shortage Skills",
+    tags: ["Medicine & Pharma", "Master's", "UK", "$15k-$30k"]
+  },
+  {
+    id: "data-toronto-ca",
+    title: "Master of Data Science & Machine Learning",
+    university: "University of Toronto • Canada",
+    flag: "🇨🇦",
+    duration: "2 Years • Sep Intake",
+    tuition: "CAD $38,000 / yr",
+    inrFee: "≈ ₹23.5 Lakhs / yr",
+    roi: "3 Years PGWP • Direct Express Entry PR Advantage",
+    tags: ["Computer Science", "Master's", "Canada", "$30k-$50k"]
+  },
+  {
+    id: "pharma-trinity-ie",
+    title: "M.Sc. in Pharmaceutical Sciences",
     university: "Trinity College Dublin • Ireland",
     flag: "🇮🇪",
-    duration: "1 Year • Autumn Intake",
-    tuition: "€18,000 / yr",
-    inrFee: "≈ ₹16.3 Lakhs / yr",
-    roi: "2 Years Stay Back • European Pharma Hub",
+    duration: "1 Year • Sep Intake",
+    tuition: "€20,000 / yr",
+    inrFee: "≈ ₹18.0 Lakhs / yr",
+    roi: "European Pharma Hub • 2 Years Graduate Scheme",
     tags: ["Medicine & Pharma", "Master's", "Ireland", "$15k-$30k"]
+  },
+  {
+    id: "health-columbia-us",
+    title: "M.S. in Public Health & Biostatistics",
+    university: "Columbia University • United States",
+    flag: "🇺🇸",
+    duration: "2 Years • Fall Intake",
+    tuition: "$52,000 / yr",
+    inrFee: "≈ ₹43.5 Lakhs / yr",
+    roi: "Ivy League Prestige • 3 Years STEM OPT Authorization",
+    tags: ["Medicine & Pharma", "Master's", "USA", "$50k+"]
   }
 ];
 
@@ -102,7 +168,7 @@ export function CourseFinderSection({ onOpenConsultModal }: CourseFinderSectionP
           <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-200 mb-6 gap-4">
             <div>
               <span className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-emerald-800 bg-emerald-100/70 px-3 py-1 rounded-xl border border-emerald-200">
-                ✨ Smart Degree Matching
+                Smart Degree Matching
               </span>
               <h3 className="text-2xl font-bold text-slate-900 mt-2.5">Find Your Ideal Degree Program</h3>
               <p className="text-xs sm:text-sm text-slate-500 mt-1 leading-relaxed">Select your preferred study parameters to filter through accredited university programs.</p>
@@ -211,7 +277,6 @@ export function CourseFinderSection({ onOpenConsultModal }: CourseFinderSectionP
                       {course.title}
                     </h4>
                     <p className="text-xs font-semibold text-slate-600 mb-3.5 flex items-center gap-1">
-                      <span>🏫</span>
                       <span className="truncate">{course.university}</span>
                     </p>
 

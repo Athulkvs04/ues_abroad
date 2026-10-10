@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { AlertTriangle, Shield } from "lucide-react";
 
 interface ForexSectionProps {
   onOpenConsultModal?: (source?: string) => void;
@@ -22,8 +23,70 @@ const CURRENCY_INFO: Record<string, { label: string; flag: string; purpose: stri
   AUD: { label: "AUD ($)", flag: "🇦🇺", purpose: "Australia CoE Deposit & Overseas Cover" },
 };
 
+type ForexPurpose = "tuition" | "gic" | "blocked";
+
+interface PurposeDetail {
+  id: ForexPurpose;
+  title: string;
+  badge: string;
+  defaultCurrency: string;
+  defaultAmount: number;
+  description: string;
+  keyFeature: string;
+  presets: { label: string; amount: number }[];
+  buttonLabel: string;
+}
+
+const FOREX_PURPOSES: Record<ForexPurpose, PurposeDetail> = {
+  tuition: {
+    id: "tuition",
+    title: "Tuition Fee Wire",
+    badge: "Direct University Remittance",
+    defaultCurrency: "EUR",
+    defaultAmount: 10000,
+    description: "Official wire transfer directly to recognized foreign universities with zero intermediary telegraphic transfer (TT) deductions.",
+    keyFeature: "Official Form A2 receipt & SWIFT MT103 copy generated within 24h for university fee clearance.",
+    presets: [
+      { label: "Seat Deposit (5,000)", amount: 5000 },
+      { label: "Semester Fee (10,000)", amount: 10000 },
+      { label: "Annual Tuition (20,000)", amount: 20000 },
+    ],
+    buttonLabel: "Lock Tuition Rate & Initiate Wire",
+  },
+  gic: {
+    id: "gic",
+    title: "Canada GIC & Living",
+    badge: "IRCC SDS Visa Mandatory",
+    defaultCurrency: "CAD",
+    defaultAmount: 20635,
+    description: "Mandatory Guaranteed Investment Certificate (GIC) required by IRCC for Canada SDS study permits via CIBC or Scotiabank.",
+    keyFeature: "Direct investment confirmation certificate issued for your Canada High Commission visa file.",
+    presets: [
+      { label: "Mandatory GIC (CAD 20,635)", amount: 20635 },
+      { label: "Living Expenses (CAD 10,000)", amount: 10000 },
+      { label: "Living + Travel (CAD 25,000)", amount: 25000 },
+    ],
+    buttonLabel: "Lock CAD Rate for Canada GIC",
+  },
+  blocked: {
+    id: "blocked",
+    title: "German Blocked Account",
+    badge: "German National Visa (Sperrkonto)",
+    defaultCurrency: "EUR",
+    defaultAmount: 11904,
+    description: "Official legal living-expense requirement mandated by the German Federal Foreign Office (€992/month × 12 months) via Fintiba, Expatrio, or Coracle.",
+    keyFeature: "Official 091-Sperrkonto confirmation document accepted at German Embassy & VFS visa appointments.",
+    presets: [
+      { label: "Mandatory Deposit (€11,904)", amount: 11904 },
+      { label: "Deposit + Buffer (€12,050)", amount: 12050 },
+      { label: "One Semester (€6,000)", amount: 6000 },
+    ],
+    buttonLabel: "Lock EUR Rate for German Sperrkonto",
+  },
+};
+
 export function ForexSection({ onOpenConsultModal }: ForexSectionProps) {
-  const [transferType, setTransferType] = useState<"send" | "receive" | "exchange">("send");
+  const [purpose, setPurpose] = useState<ForexPurpose>("tuition");
   const [amount, setAmount] = useState<number>(10000);
   const [currency, setCurrency] = useState<string>("EUR");
   const [rates, setRates] = useState<Record<string, number>>(DEFAULT_RATES);
@@ -37,6 +100,13 @@ export function ForexSection({ onOpenConsultModal }: ForexSectionProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [lockSuccessMessage, setLockSuccessMessage] = useState<string | null>(null);
   const [lockErrorMessage, setLockErrorMessage] = useState<string | null>(null);
+
+  const handlePurposeSelect = (newPurpose: ForexPurpose) => {
+    setPurpose(newPurpose);
+    const detail = FOREX_PURPOSES[newPurpose];
+    setCurrency(detail.defaultCurrency);
+    setAmount(detail.defaultAmount);
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -70,6 +140,7 @@ export function ForexSection({ onOpenConsultModal }: ForexSectionProps) {
   const currentRate = rates[currency] || DEFAULT_RATES[currency] || 85;
   const inrEquivalent = Math.ceil(amount * currentRate);
   const estimatedBankMarkup = Math.round(inrEquivalent * 0.025); // ~2.5% typical bank spread savings
+  const activeDetail = FOREX_PURPOSES[purpose];
 
   const handleLockRate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -94,7 +165,7 @@ export function ForexSection({ onOpenConsultModal }: ForexSectionProps) {
 
       const data = await res.json();
       if (res.ok && data.success) {
-        setLockSuccessMessage(data.message || `Rate locked for ${currency} ${amount}! A FairexPay specialist will call you.`);
+        setLockSuccessMessage(data.message || `Rate locked for ${currency} ${amount.toLocaleString()} (${activeDetail.title})! A FairexPay specialist will call you.`);
         setLockName("");
         setLockPhone("");
       } else {
@@ -170,44 +241,68 @@ export function ForexSection({ onOpenConsultModal }: ForexSectionProps) {
             </div>
 
             <div className="p-5 rounded-2xl bg-emerald-50/80 border border-emerald-200/90 text-xs sm:text-sm text-emerald-950 flex items-center gap-3.5 shadow-sm">
-              <span className="text-2xl">🛡️</span>
+              <Shield className="w-5 h-5 text-emerald-700 shrink-0" />
               <span className="leading-relaxed font-medium">Fully compliant with Reserve Bank of India (RBI) student education guidelines and TCS tax benefits.</span>
             </div>
           </div>
 
-          {/* Right Column: Clean White Currency Calculator Card - Generous padding & spacing */}
+          {/* Right Column: Clean White Currency Calculator Card */}
           <div className="lg:col-span-7 bg-white rounded-3xl p-8 sm:p-10 lg:p-12 border border-slate-200/90 shadow-sm">
-            {/* Purpose Tabs - Spacious pills */}
-            <div className="flex rounded-2xl bg-slate-100/90 p-1.5 text-xs sm:text-sm font-semibold mb-8 gap-2">
-              <button 
-                type="button"
-                className={`flex-1 py-3 px-3 rounded-xl transition-all cursor-pointer ${transferType === "send" ? "bg-white text-emerald-900 font-bold shadow-sm" : "text-slate-600 hover:text-slate-900"}`}
-                onClick={() => setTransferType("send")}
-              >
-                Tuition Fee
-              </button>
-              <button 
-                type="button"
-                className={`flex-1 py-3 px-3 rounded-xl transition-all cursor-pointer ${transferType === "receive" ? "bg-white text-emerald-900 font-bold shadow-sm" : "text-slate-600 hover:text-slate-900"}`}
-                onClick={() => setTransferType("receive")}
-              >
-                Living / GIC
-              </button>
-              <button 
-                type="button"
-                className={`flex-1 py-3 px-3 rounded-xl transition-all cursor-pointer ${transferType === "exchange" ? "bg-white text-emerald-900 font-bold shadow-sm" : "text-slate-600 hover:text-slate-900"}`}
-                onClick={() => setTransferType("exchange")}
-              >
-                Blocked Account
-              </button>
+            {/* Purpose Tabs - Informative selection */}
+            <div>
+              <div className="flex rounded-2xl bg-slate-100/90 p-1.5 text-xs sm:text-sm font-semibold mb-4 gap-2">
+                <button 
+                  type="button"
+                  className={`flex-1 py-3 px-3 rounded-xl transition-all cursor-pointer ${purpose === "tuition" ? "bg-white text-emerald-900 font-bold shadow-sm" : "text-slate-600 hover:text-slate-900"}`}
+                  onClick={() => handlePurposeSelect("tuition")}
+                >
+                  Tuition Fee
+                </button>
+                <button 
+                  type="button"
+                  className={`flex-1 py-3 px-3 rounded-xl transition-all cursor-pointer ${purpose === "gic" ? "bg-white text-emerald-900 font-bold shadow-sm" : "text-slate-600 hover:text-slate-900"}`}
+                  onClick={() => handlePurposeSelect("gic")}
+                >
+                  Living / GIC
+                </button>
+                <button 
+                  type="button"
+                  className={`flex-1 py-3 px-3 rounded-xl transition-all cursor-pointer ${purpose === "blocked" ? "bg-white text-emerald-900 font-bold shadow-sm" : "text-slate-600 hover:text-slate-900"}`}
+                  onClick={() => handlePurposeSelect("blocked")}
+                >
+                  Blocked Account
+                </button>
+              </div>
+
+              {/* Dynamic Context Card for the selected purpose */}
+              <div className="mb-6 p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200/80 text-xs text-slate-700">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="font-bold text-emerald-950 text-sm">{activeDetail.title}</span>
+                  <span className="px-2 py-0.5 rounded-full bg-emerald-200/80 text-emerald-900 text-[10px] font-bold uppercase tracking-wider">
+                    {activeDetail.badge}
+                  </span>
+                </div>
+                <p className="text-slate-600 leading-relaxed mb-2">
+                  {activeDetail.description}
+                </p>
+                <div className="flex items-center gap-1.5 text-emerald-900 font-medium text-[11px] pt-1.5 border-t border-emerald-200/60">
+                  <span className="text-emerald-700 font-bold">✓</span>
+                  <span>{activeDetail.keyFeature}</span>
+                </div>
+              </div>
             </div>
 
             {/* Inputs: Amount and Currency */}
             <div className="space-y-7">
               <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-slate-700 block mb-2.5">
-                  You Send (Foreign Currency)
-                </label>
+                <div className="flex items-center justify-between mb-2.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                    You Send (Foreign Currency)
+                  </label>
+                  <span className="text-[11px] text-slate-500 font-medium">
+                    Purpose: {activeDetail.title}
+                  </span>
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-12 gap-3.5">
                   <div className="sm:col-span-5">
                     <select 
@@ -234,9 +329,28 @@ export function ForexSection({ onOpenConsultModal }: ForexSectionProps) {
                     />
                   </div>
                 </div>
+
+                {/* Preset Chips */}
+                <div className="mt-3 flex flex-wrap gap-2 items-center">
+                  <span className="text-[11px] text-slate-500 font-medium">Quick Presets:</span>
+                  {activeDetail.presets.map((preset, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setAmount(preset.amount)}
+                      className={`text-[11px] px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
+                        amount === preset.amount
+                          ? "bg-emerald-600 text-white border-emerald-600 font-bold shadow-xs"
+                          : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
+                      }`}
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
-              {/* Converted Summary - Generous Padding */}
+              {/* Converted Summary */}
               <div className="p-6 sm:p-7 rounded-2xl bg-emerald-50/50 border border-emerald-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
                 <div>
                   <span className="text-xs font-semibold text-slate-600 uppercase tracking-wider block">
@@ -264,14 +378,17 @@ export function ForexSection({ onOpenConsultModal }: ForexSectionProps) {
                     <span>✓</span> {lockSuccessMessage}
                   </div>
                   <p className="text-xs sm:text-sm text-emerald-800 leading-relaxed">
-                    Our student forex desk will contact you within 15 minutes to facilitate your wire transfer with zero bank spread.
+                    Our student forex desk will contact you within 15 minutes to facilitate your {activeDetail.title} with zero bank spread.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleLockRate} className="space-y-5 pt-2">
                   {lockErrorMessage && (
                     <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold">
-                      ⚠️ {lockErrorMessage}
+                      <div className="flex items-center gap-1.5">
+                        <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
+                        <span>{lockErrorMessage}</span>
+                      </div>
                     </div>
                   )}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -304,7 +421,7 @@ export function ForexSection({ onOpenConsultModal }: ForexSectionProps) {
                     disabled={isSubmitting}
                     className="w-full py-4 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] disabled:opacity-50 text-white font-semibold text-sm shadow-sm hover:shadow transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    <span>{isSubmitting ? "Locking Rate..." : `Lock 1 ${currency} = ₹${currentRate.toFixed(2)} & Get Support`}</span>
+                    <span>{isSubmitting ? "Locking Rate..." : `${activeDetail.buttonLabel} (1 ${currency} = ₹${currentRate.toFixed(2)})`}</span>
                     <span>→</span>
                   </button>
                 </form>
@@ -315,7 +432,7 @@ export function ForexSection({ onOpenConsultModal }: ForexSectionProps) {
                 <button 
                   type="button"
                   className="text-xs sm:text-sm text-slate-500 hover:text-emerald-700 transition-colors underline-offset-4 hover:underline cursor-pointer leading-relaxed"
-                  onClick={() => onOpenConsultModal && onOpenConsultModal(`Student Forex Assistance (${currency} ${amount})`)}
+                  onClick={() => onOpenConsultModal && onOpenConsultModal(`Student Forex Assistance: ${activeDetail.title} (${currency} ${amount.toLocaleString()})`)}
                 >
                   Need assistance with German Blocked Account or Canada GIC setup? Book free advisory session →
                 </button>

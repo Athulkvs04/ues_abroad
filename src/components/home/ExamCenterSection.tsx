@@ -62,7 +62,7 @@ const examsData = [
   {
     id: "duolingo",
     name: "Duolingo English Test (DET)",
-    badge: "⚡ Fast 1-Hour Test",
+    badge: "Fast 1-Hour Test",
     overview: "An online, adaptive English proficiency test taken from home. Widely accepted across North America and European institutions.",
     eligibility: "Students seeking a fast, affordable alternative to IELTS/TOEFL.",
     targetScore: "125+ out of 160",
@@ -101,7 +101,7 @@ const examsData = [
   {
     id: "sat",
     name: "SAT & ACT Digital",
-    badge: "🎓 US Undergraduate",
+    badge: "US Undergraduate",
     overview: "Standardized entrance exams required for undergraduate (Bachelor's) admissions and merit scholarships at top US colleges.",
     eligibility: "High school students (Grade 11/12) applying for Bachelor's degrees.",
     targetScore: "1400+ out of 1600 (SAT) / 32+ (ACT)",
@@ -114,7 +114,7 @@ const examsData = [
   {
     id: "pte",
     name: "PTE Academic",
-    badge: "🤖 AI-Scored Fast Results",
+    badge: "AI-Scored Fast Results",
     overview: "Pearson Test of English Academic is a computer-based English language test assessed entirely by AI, delivering results in 48 hours.",
     eligibility: "Students and immigrants targeting Australia, UK, and New Zealand.",
     targetScore: "68+ Overall (Min 62 per communicative skill)",
@@ -196,7 +196,7 @@ export function ExamCenterSection({ onOpenConsultModal }: ExamCenterSectionProps
             <div className="lg:col-span-7 xl:col-span-8 space-y-8">
               <div>
                 <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center gap-2">
-                  <span>📋</span> Eligibility &amp; Acceptance
+                  Eligibility &amp; Acceptance
                 </h4>
                 <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-3">
                   <p className="text-sm text-slate-700 leading-relaxed">
@@ -210,7 +210,7 @@ export function ExamCenterSection({ onOpenConsultModal }: ExamCenterSectionProps
 
               <div>
                 <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center gap-2">
-                  <span>💡</span> Expert Test-Day Strategy
+                  Expert Test-Day Strategy
                 </h4>
                 <div className="p-6 rounded-2xl bg-amber-50/70 border border-amber-200/80 text-amber-950 text-sm leading-relaxed shadow-sm">
                   &quot;{activeExam.tips}&quot;
@@ -219,7 +219,7 @@ export function ExamCenterSection({ onOpenConsultModal }: ExamCenterSectionProps
 
               <div>
                 <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center gap-2">
-                  <span>📚</span> Free Practice Materials &amp; Mock Drills
+                  Free Practice Materials &amp; Mock Drills
                 </h4>
                 <div className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-5">
                   <div>

@@ -39,8 +39,8 @@ export function HeroSection({ onOpenConsultModal }: HeroSectionProps) {
           <div className="showcase-frame relative overflow-hidden">
             <div className="abstract-mesh-grid" />
             <Image 
-              src="/student_campus_hero.jpg" 
-              alt="Student on campus" 
+              src="/campus_quad_hero.webp" 
+              alt="Students on global university campus" 
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               priority
@@ -52,24 +52,24 @@ export function HeroSection({ onOpenConsultModal }: HeroSectionProps) {
           <div className="floating-glass-card fc-1 card-tilt">
             <div className="card-glow-indicator green" />
             <div>
-              <strong>Live Admission Chance</strong>
-              <span className="meta">TU Munich: <strong>89% Match</strong></span>
+              <strong>Free 1-on-1 Profile Evaluation</strong>
+              <span className="meta">Zero Service Charges • Certified Advisors</span>
             </div>
           </div>
 
           <div className="floating-glass-card fc-2 card-tilt">
-            <div className="card-glow-indicator amber" />
+            <div className="card-glow-indicator blue" />
             <div>
-              <strong>Upcoming Seminar</strong>
-              <span className="meta">US Visa Prep: <strong>In 2 hours</strong></span>
+              <strong>Scholarships &amp; Fee Waivers</strong>
+              <span className="meta">Direct University Grants Available</span>
             </div>
           </div>
 
           <div className="floating-glass-card fc-3 card-tilt">
-            <div className="card-glow-indicator blue" />
+            <div className="card-glow-indicator amber" />
             <div>
-              <strong>University Highlight</strong>
-              <span className="meta">Boston Univ: <strong>$0 Application Fee</strong></span>
+              <strong>End-to-End Visa Assistance</strong>
+              <span className="meta">SOP Review &amp; Embassy Mock Interviews</span>
             </div>
           </div>
         </div>

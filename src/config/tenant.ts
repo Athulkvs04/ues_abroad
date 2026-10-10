@@ -45,6 +45,18 @@ export interface TenantConfig {
     emailSupport: string;
     address: string;
     workingHours: string;
+    branches?: {
+      city: string;
+      state: string;
+      address: string;
+      pincode?: string;
+      isHeadOffice?: boolean;
+    }[];
+  };
+  reviews?: {
+    googleRating: number;
+    totalReviews: number;
+    verifiedPercentage: number;
   };
   socials: {
     instagram: string;
@@ -87,41 +99,85 @@ export interface TenantConfig {
 export const tenantConfig: TenantConfig = {
   id: "ues-abroad",
   name: "UES Abroad",
-  legalName: "UES Abroad (A Kodvex Education Platform Client)",
+  legalName: "UES Abroad Consultants",
   tagline: "Your Gateway to Global Education & Premier Study Abroad Consultation",
   description:
-    "Interactive study abroad consultancy platform helping students discover top international universities, calculate living costs, and secure overseas admissions.",
+    "Official overseas education consultancy helping students secure admissions across top global universities in UK, Germany, Ireland, Australia, Canada, and USA.",
   logo: {
     url: "/branding/logo.svg",
     altText: "UES Abroad Logo",
     textFallback: "UES Abroad",
   },
   contact: {
-    phone: "+91 98765 43210",
-    whatsappNumber: "919876543210",
+    phone: "+91 84400 21005",
+    whatsappNumber: "918440021005",
     whatsappTemplates: {
       general:
         "Hello UES Abroad Team! I am interested in counseling for study abroad opportunities.",
       startMyJourney:
-        "Hello UES Abroad Team! I just completed my 'Start My Journey' assessment on your website and would like to discuss my university recommendations.",
+        "Hello UES Abroad Team! I just completed my profile assessment on your website and would like to discuss my university recommendations.",
       accommodation:
         "Hello UES Abroad Team! I am looking for student accommodation assistance abroad as featured on your website.",
       contactPage:
-        "Hello UES Abroad Team! I am reaching out from your Contact page to book a 1-on-1 consultation.",
+        "Hello UES Abroad Team! I am reaching out to book a 1-on-1 consultation.",
       courseFinder:
         "Hello UES Abroad Team! I found some exciting programs using your Course & University Directory and want to check my eligibility.",
     },
-    emailAdmissions: "admissions@uesabroad.com",
-    emailSupport: "support@uesabroad.com",
-    address: "123 Education Hub, MG Road, Bangalore, Karnataka, India - 560001",
-    workingHours: "Mon - Sat: 9:00 AM - 7:00 PM (IST)",
+    emailAdmissions: "info@uesabroad.com",
+    emailSupport: "info@uesabroad.com",
+    address: "1st Floor V Square, Head Post Office Road, Palakkad, Kerala - 678001",
+    workingHours: "Mon - Sat: 9:30 AM - 5:30 PM (IST)",
+    branches: [
+      {
+        city: "Palakkad",
+        state: "Kerala",
+        address: "1st Floor V Square, Head Post Office Road, Palakkad",
+        pincode: "678001",
+        isHeadOffice: true,
+      },
+      {
+        city: "Calicut (Kozhikode)",
+        state: "Kerala",
+        address: "3rd Floor, AKK Building, Nadakkavu Cross Rd, Near Cafe Kozhikode",
+        pincode: "673011",
+      },
+      {
+        city: "Ottapalam",
+        state: "Kerala",
+        address: "1st Floor, Asco Plaza, East Ottappalam",
+        pincode: "679101",
+      },
+      {
+        city: "Mannarkkad",
+        state: "Kerala",
+        address: "1st Floor Fathima Complex, Mannarkkad, Palakkad",
+        pincode: "678582",
+      },
+      {
+        city: "Bangalore",
+        state: "Karnataka",
+        address: "3rd Floor, Transpade Towers, Koramangala, Bangalore",
+        pincode: "560095",
+      },
+      {
+        city: "Hyderabad",
+        state: "Telangana",
+        address: "NKR Arcade, 2nd Floor, Jodimetla X Roads, Ghatkesar, Secunderabad",
+        pincode: "500088",
+      },
+    ],
+  },
+  reviews: {
+    googleRating: 4.9,
+    totalReviews: 240,
+    verifiedPercentage: 99,
   },
   socials: {
-    instagram: "https://instagram.com/uesabroad",
-    linkedin: "https://linkedin.com/company/uesabroad",
-    youtube: "https://youtube.com/@uesabroad",
-    facebook: "https://facebook.com/uesabroad",
-    twitter: "https://twitter.com/uesabroad",
+    instagram: "https://www.instagram.com/uesabroad",
+    linkedin: "https://in.linkedin.com/company/ues-abroad",
+    youtube: "https://www.youtube.com/@ues.abroad",
+    facebook: "https://www.facebook.com/people/uesabroad/100090493910681/",
+    twitter: "https://x.com/uesabroad",
   },
   theme: {
     primaryColor: "#0A7D45",

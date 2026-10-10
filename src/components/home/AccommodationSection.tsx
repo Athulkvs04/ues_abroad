@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, ShieldCheck, MapPin, Building, BedDouble, CheckCircle2, Sparkles, ExternalLink } from "lucide-react";
+import { ArrowRight, ShieldCheck, MapPin, Building, BedDouble, CheckCircle2, ExternalLink } from "lucide-react";
 
 interface AccommodationSectionProps {
   onOpenConsultModal?: (source?: string) => void;
@@ -235,7 +235,7 @@ export function AccommodationSection({ onOpenConsultModal }: AccommodationSectio
 
             <div className="flex items-start gap-3">
               <div className="p-2 rounded-xl bg-amber-50 text-amber-600 border border-amber-100 shrink-0">
-                <Sparkles className="w-5 h-5" />
+                <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
                 <h4 className="text-sm font-bold text-slate-900">Zero Scam Risk Guarantee</h4>

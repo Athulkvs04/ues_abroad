@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { FloatingActions } from "./FloatingActions";
+import { LeadModal } from "@/components/home/LeadModal";
 
 interface PublicLayoutProps {
   children: React.ReactNode;
@@ -11,17 +12,15 @@ interface PublicLayoutProps {
 }
 
 export function PublicLayout({ children, onOpenConsultModal }: PublicLayoutProps) {
+  const [internalModalOpen, setInternalModalOpen] = useState(false);
+  const [modalSource, setModalSource] = useState("Navbar Counselling");
+
   const handleOpenConsultModal = () => {
     if (onOpenConsultModal) {
       onOpenConsultModal();
     } else {
-      // Fallback: scroll to journey or contact section
-      const journeyElem = document.getElementById("journey") || document.getElementById("services");
-      if (journeyElem) {
-        journeyElem.scrollIntoView({ behavior: "smooth" });
-      } else {
-        window.location.href = "/#journey";
-      }
+      setModalSource("Navbar Counselling");
+      setInternalModalOpen(true);
     }
   };
 
@@ -40,6 +39,13 @@ export function PublicLayout({ children, onOpenConsultModal }: PublicLayoutProps
 
       {/* 4. Floating Actions (WhatsApp, Scroll Top, Theme Toggle) */}
       <FloatingActions />
+
+      {/* 5. Consultation Lead Modal */}
+      <LeadModal
+        isOpen={internalModalOpen}
+        onClose={() => setInternalModalOpen(false)}
+        source={modalSource}
+      />
     </div>
   );
 }

@@ -362,6 +362,7 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 50%;
 }
 .card-glow-indicator.green { background: var(--success); box-shadow: 0 0 8px var(--success); }
+.card-glow-indicator.amber { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
 .card-glow-indicator.violet { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
 .card-glow-indicator.blue { background: var(--primary); box-shadow: 0 0 8px var(--primary); }
 
@@ -445,8 +446,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 .destinations-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
 }
 .destination-card {
     height: 380px;
@@ -844,7 +845,7 @@ h1, h2, h3, h4, h5, h6 {
 .journey-timeline-track::before {
     content: "";
     position: absolute;
-    left: 20px;
+    left: 21px;
     top: 0;
     bottom: 0;
     width: 2px;
@@ -852,12 +853,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 .journey-step-item {
     display: flex;
+    align-items: center;
     gap: 2rem;
     position: relative;
 }
 .step-icon {
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    flex-shrink: 0;
+    aspect-ratio: 1;
     border-radius: 50%;
     background: var(--primary-glow);
     border: 2px solid var(--primary);

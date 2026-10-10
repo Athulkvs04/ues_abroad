@@ -15,7 +15,7 @@ export function FinalCtaSection({ onOpenConsultModal }: FinalCtaSectionProps) {
 
       <div className="container max-w-5xl mx-auto px-4 text-center space-y-8">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/20 border border-primary/30 text-accent text-xs font-semibold tracking-wide uppercase">
-          <span>✨ Your Global Future Awaits</span>
+          <span>Your Global Future Awaits</span>
         </div>
 
         <h2 className="text-4xl sm:text-6xl font-heading font-extrabold text-white tracking-tight leading-tight">
