@@ -364,7 +364,7 @@ export default function UniversitiesPage() {
         {/* Full-bleed Real 6K High-Resolution Historic University Campus Landscape */}
         <div className="absolute inset-0 pointer-events-none select-none">
           <Image
-            src="/universities/oxford_radcliffe_hd.jpg"
+            src="/universities/oxford_radcliffe_hero.webp"
             alt="Historic Oxford University Radcliffe Camera Architecture"
             fill
             priority
