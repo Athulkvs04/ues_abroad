@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { Search, Camera, ChevronDown } from "lucide-react";
+import Link from "next/link";
+import { Search, Camera, ChevronDown, ArrowRight } from "lucide-react";
 
 const INITIAL_COUNT = 6;
 
@@ -446,22 +447,31 @@ export function ExplorerSection({ onOpenConsultModal }: ExplorerSectionProps) {
           )}
         </div>
 
-        {/* Load More button */}
-        {hasMore && (
-          <div className="flex flex-col items-center mt-10 gap-3">
-            <p className="text-sm text-slate-500">
-              Showing <strong className="text-slate-700">{INITIAL_COUNT}</strong> of <strong className="text-slate-700">{filteredUniversities.length}</strong> universities
-            </p>
-            <button
-              type="button"
-              onClick={() => setShowAll(true)}
-              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-white border border-slate-200 text-slate-800 font-semibold text-sm shadow-sm hover:shadow-md hover:border-emerald-300 hover:text-emerald-700 transition-all group cursor-pointer"
+        {/* Load More & Full Page navigation */}
+        <div className="flex flex-col items-center mt-10 gap-3">
+          <p className="text-sm text-slate-500">
+            Showing <strong className="text-slate-700">{showAll ? filteredUniversities.length : Math.min(INITIAL_COUNT, filteredUniversities.length)}</strong> of <strong className="text-slate-700">{filteredUniversities.length}</strong> featured institutions
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {hasMore && (
+              <button
+                type="button"
+                onClick={() => setShowAll(true)}
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-white border border-slate-200 text-slate-800 font-semibold text-sm shadow-xs hover:border-emerald-300 hover:text-emerald-700 transition-all cursor-pointer"
+              >
+                <ChevronDown className="w-4 h-4" />
+                <span>Load All on This Page</span>
+              </button>
+            )}
+            <Link
+              href="/universities"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-sm hover:shadow transition-all group"
             >
-              <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-              <span>Load All Universities</span>
-            </button>
+              <span>Explore Dedicated Directory</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
-        )}
+        </div>
       </div>
     </section>
   );

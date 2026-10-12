@@ -11,8 +11,7 @@ import {
   ChevronDown, 
   Compass, 
   Calendar, 
-  GraduationCap, 
-  DollarSign 
+  GraduationCap
 } from "lucide-react";
 import { useTenant } from "@/components/providers/TenantProvider";
 
@@ -54,40 +53,40 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
     }, 150);
   };
 
-  // 5 core direct links - clean, focused, uncluttered
+  // 5 core direct links - clean, focused, high-intent
   const primaryNavLinks = [
-    { label: "Destinations", href: isHomePage ? "#destinations-section" : "/#destinations-section" },
-    { label: "Universities", href: isHomePage ? "#explorer-section" : "/#explorer-section" },
+    { label: "Destinations", href: "/destinations" },
+    { label: "Universities", href: "/universities" },
     { label: "Accommodation", href: "/accommodation" },
-    { label: "Services", href: isHomePage ? "#decision-section" : "/#decision-section" },
+    { label: "Forex", href: "/forex" },
     { label: "Blogs", href: "/blogs" },
   ];
 
   // Secondary items grouped into a sleek dropdown
   const moreResources = [
     {
-      label: "Our Journey",
-      desc: "Step-by-step roadmap from profile to campus arrival",
-      href: isHomePage ? "#journey-section" : "/#journey-section",
+      label: "Smart Decision Center",
+      desc: "Eligibility checker, cost calculator & university compare",
+      href: "/#decision-section",
       icon: Compass,
     },
     {
-      label: "Seminars & Events",
-      desc: "Live interactive university fairs and webinars",
-      href: isHomePage ? "#seminar-section" : "/#seminar-section",
+      label: "Our Journey",
+      desc: "Step-by-step roadmap from profile to campus arrival",
+      href: "/#journey-section",
+      icon: Compass,
+    },
+    {
+      label: "Seminars & Masterclasses",
+      desc: "Live interactive webinars with university officers",
+      href: "/#seminar-section",
       icon: Calendar,
     },
     {
-      label: "Exam & Test Prep",
-      desc: "IELTS, TOEFL, GRE, GMAT & language modules",
-      href: isHomePage ? "#resources-section" : "/#resources-section",
+      label: "Exam & Language Hub",
+      desc: "IELTS, TOEFL, GRE, GMAT, German & French prep",
+      href: "/#exam-center-section",
       icon: GraduationCap,
-    },
-    {
-      label: "Forex & Remittance",
-      desc: "Zero-spread tuition & blocked account transfers via FairexPay",
-      href: "https://uesabroad.fairexpay.com",
-      icon: DollarSign,
     },
   ];
 

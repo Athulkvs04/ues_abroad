@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { ExternalLink, Shield, Zap, TrendingUp, ArrowRight } from "lucide-react";
 
 interface ForexSectionProps {
@@ -117,14 +118,22 @@ export function ForexSection({ onOpenConsultModal }: ForexSectionProps) {
           </div>
         </div>
 
-        {/* Advisory fallback */}
-        <div className="text-center mt-8">
+        {/* Advisory fallback & Full Guide Link */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mt-8 text-sm">
+          <Link
+            href="/forex"
+            className="text-emerald-700 hover:text-emerald-800 font-bold inline-flex items-center gap-1.5 transition-colors"
+          >
+            <span>Explore Dedicated Forex Guide &amp; Rates</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          <span className="hidden sm:inline text-slate-300">•</span>
           <button
             type="button"
-            className="text-sm text-slate-600 hover:text-emerald-700 font-medium transition-colors underline-offset-4 hover:underline cursor-pointer inline-flex items-center gap-1.5"
+            className="text-slate-600 hover:text-emerald-700 font-medium transition-colors underline-offset-4 hover:underline cursor-pointer inline-flex items-center gap-1.5"
             onClick={() => onOpenConsultModal?.("Forex Assistance — FairexPay Integration")}
           >
-            <span>Need help with your transfer? Book a free advisory session</span>
+            <span>Need transfer help? Book free advisory session</span>
             <ArrowRight className="w-3.5 h-3.5 text-emerald-600" />
           </button>
         </div>

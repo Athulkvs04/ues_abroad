@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 interface DestinationsSectionProps {
   onOpenConsultModal?: (source?: string) => void;
@@ -135,6 +137,17 @@ export function DestinationsSection({ onOpenConsultModal }: DestinationsSectionP
               </div>
             </div>
           ))}
+        </div>
+
+        {/* View All Destinations Spoke Link */}
+        <div className="mt-12 text-center">
+          <Link
+            href="/destinations"
+            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-slate-900 hover:bg-emerald-700 text-white font-bold text-sm shadow-md transition-all group cursor-pointer"
+          >
+            <span>Compare All 9 Destinations &amp; Visa Rules</span>
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </Link>
         </div>
       </div>
     </section>

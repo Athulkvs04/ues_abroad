@@ -12,9 +12,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
+      url: `${baseUrl}/destinations`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/universities`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/accommodation`,
       lastModified: now,
       changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/forex`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/blogs`,
+      lastModified: now,
+      changeFrequency: "daily",
       priority: 0.8,
     },
     {
