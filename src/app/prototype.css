@@ -373,9 +373,9 @@ h1, h2, h3, h4, h5, h6 {
 .card-glow-indicator.violet { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
 .card-glow-indicator.blue { background: var(--primary); box-shadow: 0 0 8px var(--primary); }
 
-.fc-1 { top: -14px; right: -14px; animation: floatAnim 6s ease-in-out infinite; }
-.fc-2 { top: 50%; left: -38px; transform: translateY(-50%); animation: floatAnim 6s ease-in-out infinite -2s; }
-.fc-3 { bottom: -16px; right: 28px; animation: floatAnim 6s ease-in-out infinite -4s; }
+.fc-1 { top: 24px; right: 16px; animation: floatAnim 6s ease-in-out infinite; }
+.fc-2 { top: 180px; left: 16px; animation: floatAnim 6s ease-in-out infinite -2s; }
+.fc-3 { bottom: 28px; right: 36px; animation: floatAnim 6s ease-in-out infinite -4s; }
 
 @keyframes floatAnim {
     0%, 100% { transform: translateY(0); }
