@@ -12,7 +12,7 @@ import {
   CheckCircle2, 
   Zap, 
   MapPin, 
-  Sparkles,
+  Compass,
   Award
 } from "lucide-react";
 
@@ -27,7 +27,7 @@ export function ServicesBentoSection({ onOpenConsultModal }: ServicesBentoSectio
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-4 shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+            <Compass className="w-3.5 h-3.5 text-emerald-600" />
             <span>Relocation &amp; Student Ecosystem</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
@@ -126,73 +126,65 @@ export function ServicesBentoSection({ onOpenConsultModal }: ServicesBentoSectio
                 </div>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-900 text-xs font-bold border border-emerald-300">
                   <Zap className="w-3.5 h-3.5 text-emerald-700" />
-                  Powered by FairexPay
+                  Official FairexPay Portal
                 </span>
               </div>
 
               <h3 className="text-2xl font-bold text-slate-900 mb-2.5 group-hover:text-emerald-800 transition-colors">
-                Zero-Markup Student Forex
+                Dedicated Student Remittance Portal
               </h3>
               <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                Save ₹30,000–₹85,000 on foreign tuition wires, German blocked accounts (Expatrio/Fintiba), and GIC transfers at interbank rates.
+                Direct integration with FairexPay to remit tuition fees, German blocked accounts (Expatrio/Fintiba), and GIC transfers with bank-grade security.
               </p>
 
-              {/* Live FX Rates Ticker Mini */}
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 mb-6">
-                <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-2.5">
-                  <span>Live Student Rates</span>
-                  <span className="text-emerald-700">Zero Bank Spread</span>
+              {/* Dedicated Portal Feature Card */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200/80 mb-6">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-200/60 mb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-xs font-bold text-slate-800 font-mono">uesabroad.fairexpay.com</span>
+                  </div>
+                  <span className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider">Live Portal</span>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div className="p-2.5 rounded-xl bg-white border border-slate-200/60 flex items-center justify-between">
-                    <span className="font-semibold text-slate-700">EUR € / INR</span>
-                    <span className="font-bold text-emerald-700">₹90.45</span>
-                  </div>
-                  <div className="p-2.5 rounded-xl bg-white border border-slate-200/60 flex items-center justify-between">
-                    <span className="font-semibold text-slate-700">GBP £ / INR</span>
-                    <span className="font-bold text-emerald-700">₹107.80</span>
-                  </div>
-                  <div className="p-2.5 rounded-xl bg-white border border-slate-200/60 flex items-center justify-between">
-                    <span className="font-semibold text-slate-700">USD $ / INR</span>
-                    <span className="font-bold text-emerald-700">₹85.60</span>
-                  </div>
-                  <div className="p-2.5 rounded-xl bg-white border border-slate-200/60 flex items-center justify-between">
-                    <span className="font-semibold text-slate-700">CAD $ / INR</span>
-                    <span className="font-bold text-emerald-700">₹62.40</span>
-                  </div>
-                </div>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Calculates real-time live interbank wholesale rates directly inside the portal — no branch queues, no manual margin markups.
+                </p>
               </div>
 
               {/* Perks */}
-              <div className="space-y-2 mb-6 text-xs text-slate-600">
+              <div className="space-y-2.5 mb-6 text-xs text-slate-600">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>RBI &amp; FEMA compliant 1-day wire dispatch</span>
+                  <span>RBI Authorised Category-II Dealer security</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Digital A2 form &amp; automated Swift copy</span>
+                  <span>Official MT103 Swift copy dispatched in 12–24h</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Digital Form A2 &amp; 15CA tax receipts included</span>
                 </div>
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-2">
-              <Link
-                href="/forex"
-                className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-sm transition-all text-center"
-              >
-                <span>Forex Calculator &amp; Rates</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
               <a
                 href="https://uesabroad.fairexpay.com"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-sm transition-all text-center group/btn"
+              >
+                <span>Launch Dedicated Portal</span>
+                <ExternalLink className="w-4 h-4 transition-transform group-hover/btn:translate-x-0.5" />
+              </a>
+              <Link
+                href="/forex"
                 className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition-colors text-center"
               >
-                <span>FairexPay Portal</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
+                <span>Full Guide</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
             </div>
           </div>
 
@@ -256,7 +248,7 @@ export function ServicesBentoSection({ onOpenConsultModal }: ServicesBentoSectio
                   <GraduationCap className="w-6 h-6" />
                 </div>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-semibold border border-emerald-200/60">
-                  <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                  <Award className="w-3.5 h-3.5 text-emerald-600" />
                   Certified Trainers
                 </span>
               </div>

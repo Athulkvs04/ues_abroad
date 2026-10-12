@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { CheckCircle2 } from "lucide-react";
 
 interface FinalCtaSectionProps {
   onOpenConsultModal?: (source?: string) => void;
@@ -46,16 +47,20 @@ export function FinalCtaSection({ onOpenConsultModal }: FinalCtaSectionProps) {
 
         <div className="pt-8 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-3xl mx-auto text-slate-400 text-xs font-medium">
           <div className="flex items-center justify-center gap-2">
-            <span className="text-emerald-400 font-bold">✓</span> 100% Visa Assistance
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <span>100% Visa Assistance</span>
           </div>
           <div className="flex items-center justify-center gap-2">
-            <span className="text-emerald-400 font-bold">✓</span> Zero Brokerage Housing
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <span>Zero Brokerage Housing</span>
           </div>
           <div className="flex items-center justify-center gap-2">
-            <span className="text-emerald-400 font-bold">✓</span> Scholarship Mentoring
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <span>Scholarship Mentoring</span>
           </div>
           <div className="flex items-center justify-center gap-2">
-            <span className="text-emerald-400 font-bold">✓</span> Preferential Forex Rates
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <span>Preferential Forex Rates</span>
           </div>
         </div>
       </div>

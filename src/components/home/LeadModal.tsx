@@ -116,8 +116,8 @@ export function LeadModal({ isOpen, onClose, source }: LeadModalProps) {
 
         {success ? (
           <div className="text-center p-8 sm:p-16 space-y-5">
-            <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-3xl">
-              ✓
+            <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mx-auto">
+              <CheckCircle2 className="w-9 h-9 text-emerald-600" />
             </div>
             <h3 className="text-2xl sm:text-3xl font-bold text-slate-900">Inquiry Saved Live to Database!</h3>
             <p className="text-slate-600 text-sm sm:text-base max-w-md mx-auto leading-relaxed">

@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { Star } from "lucide-react";
 
 interface HeroSectionProps {
   onOpenConsultModal?: () => void;
@@ -22,7 +23,13 @@ export function HeroSection({ onOpenConsultModal }: HeroSectionProps) {
       <div className="container hero-grid-layout">
         <div className="hero-details">
           <div className="google-badge-inline !bg-slate-900/80 !border-slate-800 !text-slate-300">
-            <span className="star-rating">★ ★ ★ ★ ★</span>
+            <span className="flex items-center gap-0.5 text-amber-400">
+              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+            </span>
             <span><strong className="text-white">4.9/5</strong> Google Rating</span>
           </div>
           <h1 className="text-white">Your Global Education <br /><span className="accent-text">Journey Starts Here.</span></h1>

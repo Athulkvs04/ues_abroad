@@ -9,7 +9,8 @@ import {
   Award, 
   ArrowRight, 
   RotateCcw,
-  Camera
+  Camera,
+  CheckCircle2
 } from "lucide-react";
 import { PublicLayout } from "@/components/layout/PublicLayout";
 
@@ -380,16 +381,20 @@ export default function UniversitiesPage() {
           {/* Quick Metrics Bar */}
           <div className="mt-8 pt-6 border-t border-slate-100 grid grid-cols-2 sm:grid-cols-4 gap-4 text-slate-600 text-xs sm:text-sm font-medium">
             <div className="flex items-center gap-2">
-              <span className="text-emerald-600 font-bold">✓</span> 100+ Direct University Tie-Ups
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>100+ Direct University Tie-Ups</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-emerald-600 font-bold">✓</span> 100% Application Fee Waivers
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>100% Application Fee Waivers</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-emerald-600 font-bold">✓</span> Merit Scholarships up to 100%
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Merit Scholarships up to 100%</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-emerald-600 font-bold">✓</span> Verified Campus Photography
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Verified Campus Photography</span>
             </div>
           </div>
         </div>

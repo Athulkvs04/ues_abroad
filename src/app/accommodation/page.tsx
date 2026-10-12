@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useRef } from "react";
-import { Shield, Banknote, FileText, AlertTriangle } from "lucide-react";
+import { Shield, Banknote, FileText, AlertTriangle, MapPin, CheckCircle2, X } from "lucide-react";
 import { PublicLayout } from "@/components/layout/PublicLayout";
 import { LeadModal } from "@/components/home/LeadModal";
 
@@ -378,7 +378,7 @@ export default function AccommodationPage() {
                             {room.title}
                           </h3>
                           <p className="text-xs text-slate-500 mt-1.5 flex items-center gap-1.5">
-                            <span>📍</span>
+                            <MapPin className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                             <span className="truncate">{room.proximity}</span>
                           </p>
                         </div>
@@ -405,7 +405,8 @@ export default function AccommodationPage() {
                             : "bg-slate-900 hover:bg-emerald-700 text-white"
                         }`}
                       >
-                        <span>{isSelected ? "Selected ✓" : "Request This Room"}</span>
+                        {isSelected && <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />}
+                        <span>{isSelected ? "Selected" : "Request This Room"}</span>
                         <span>→</span>
                       </button>
                     </div>
@@ -498,9 +499,10 @@ export default function AccommodationPage() {
                     </div>
                     <button
                       onClick={() => setActiveSelectedRoom(null)}
-                      className="text-slate-400 hover:text-slate-600 font-bold text-xs shrink-0"
+                      className="text-slate-400 hover:text-slate-600 font-bold text-xs shrink-0 flex items-center gap-1"
                     >
-                      Clear ✕
+                      <X className="w-3.5 h-3.5" />
+                      <span>Clear</span>
                     </button>
                   </div>
                 )}
@@ -512,8 +514,8 @@ export default function AccommodationPage() {
 
                 {submitted ? (
                   <div className="p-10 sm:p-12 rounded-3xl bg-emerald-50/80 border border-emerald-200 text-center space-y-4">
-                    <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center mx-auto text-2xl font-bold">
-                      ✓
+                    <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center mx-auto">
+                      <CheckCircle2 className="w-8 h-8 text-emerald-700" />
                     </div>
                     <h4 className="text-xl font-bold text-emerald-950">Allocation Request Received</h4>
                     <p className="text-sm text-emerald-900/80 leading-relaxed max-w-md mx-auto py-2">

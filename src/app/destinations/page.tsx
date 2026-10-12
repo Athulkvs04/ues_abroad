@@ -7,7 +7,8 @@ import {
   Globe2, 
   Briefcase, 
   CheckCircle2, 
-  ArrowRight
+  ArrowRight,
+  Compass
 } from "lucide-react";
 import { PublicLayout } from "@/components/layout/PublicLayout";
 
@@ -118,11 +119,11 @@ const DESTINATIONS: DestinationItem[] = [
     region: "Europe",
     tuitionRange: "€4,000 – €18,000 / yr",
     livingCost: "€700 – €1,100 / mo",
-    workRights: "2-Year Post-Study Visa",
-    visaSuccess: "97% Campus France",
-    intakes: "Sep & Jan Intake",
-    popularFields: ["Luxury Brand Management", "Aerospace Engineering", "Fashion & Design", "Global MBA"],
-    highlights: ["World top 10 Business Schools (HEC, INSEAD)", "French Gov Housing Subsidy (CAF grants up to 40%)", "5-Year Schengen visa privilege"],
+    workRights: "2-Year APS / Post-Study Visa",
+    visaSuccess: "97% Campus France Certified",
+    intakes: "Sep & Feb Intake",
+    popularFields: ["Luxury Brand Management", "Aerospace Engineering", "Fashion & Design", "International Business"],
+    highlights: ["State-subsidized tuition for international students", "French CAF housing subsidy covers up to 40% rent", "World-renowned Grandes Écoles"],
     banner: "/destinations/france.webp",
   },
   {
@@ -131,12 +132,12 @@ const DESTINATIONS: DestinationItem[] = [
     name: "New Zealand",
     region: "Asia-Pacific",
     tuitionRange: "NZD $22,000 – $38,000 / yr",
-    livingCost: "NZD $1,200 – $1,600 / mo",
-    workRights: "Up to 3-Year Post-Study Visa",
-    visaSuccess: "97% INZ Pathway",
+    livingCost: "NZD $1,100 – $1,600 / mo",
+    workRights: "3-Year Open Work Visa",
+    visaSuccess: "96% Verified Submissions",
     intakes: "Feb & Jul Intake",
-    popularFields: ["Information Technology", "Agriculture & Food Science", "Construction Management", "Tourism"],
-    highlights: ["Green List fast-track residency careers", "World #1 for future-focused education", "Safe and welcoming multicultural society"],
+    popularFields: ["AgriBusiness & Food Tech", "Environmental Science", "IT & Data Science", "Civil Engineering"],
+    highlights: ["High quality of life and safe environment", "3-Year post-study open work rights", "Green List fast-track residency pathways"],
     banner: "/destinations/new_zealand.webp",
   },
   {
@@ -145,8 +146,8 @@ const DESTINATIONS: DestinationItem[] = [
     name: "United Arab Emirates (Dubai)",
     region: "Asia-Pacific",
     tuitionRange: "AED 40,000 – 80,000 / yr",
-    livingCost: "AED 3,000 – 5,000 / mo",
-    workRights: "10-Year Golden Visa Pathways",
+    livingCost: "AED 3,000 – 5,500 / mo",
+    workRights: "Full-Time Work Opportunities",
     visaSuccess: "99% Fast 7-Day Visa",
     intakes: "Sep & Jan Intake",
     popularFields: ["Global Business & Trade", "Hospitality Management", "Artificial Intelligence", "Architecture"],
@@ -165,35 +166,50 @@ export default function DestinationsPage() {
 
   return (
     <PublicLayout>
-      {/* 1. Hero Header */}
-      <section className="bg-white border-b border-slate-200/80 pt-12 pb-16 relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[850px] h-[350px] bg-emerald-500/5 rounded-full blur-3xl pointer-events-none -z-10" />
+      {/* 1. Hero Header with Authentic Historic University Background */}
+      <section className="relative overflow-hidden min-h-[480px] lg:min-h-[520px] flex items-center bg-slate-950 text-white border-b border-slate-800">
+        {/* Full-bleed University Building Background Image */}
+        <div className="absolute inset-0 pointer-events-none select-none">
+          <Image
+            src="/universities/cambridge_kings_lawn.webp"
+            alt="Historic University Campus Architecture"
+            fill
+            priority
+            className="object-cover object-center opacity-30"
+          />
+          {/* Layered dark slate & emerald cinematic overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 to-slate-950/90" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/60" />
+          <div className="absolute top-0 right-1/4 w-[600px] h-[350px] bg-emerald-600/15 rounded-full blur-[140px]" />
+        </div>
 
-        <div className="container max-w-6xl mx-auto px-4">
+        <div className="container max-w-6xl mx-auto px-4 py-20 relative z-10">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold mb-4">
-              <Globe2 className="w-4 h-4 text-emerald-600" />
-              <span>Global Country Guides &amp; Admissions</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-emerald-300 border border-white/15 text-xs font-semibold mb-5 shadow-xs">
+              <Globe2 className="w-4 h-4 text-emerald-400" />
+              <span>Global Country Guides &amp; Admissions Roadmap</span>
             </div>
-            <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              Compare Top World <span className="accent-text">Study Abroad Destinations</span>
+            
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+              Compare Premier World <span className="text-emerald-400">Study Destinations</span>
             </h1>
-            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-              Find the perfect country for your career goals, budget, and post-study migration plans. Verified data on tuition fees, work rights, and living expenses.
+            
+            <p className="mt-5 text-base sm:text-lg text-slate-200 leading-relaxed max-w-2xl font-light">
+              Explore 9 world-leading academic nations. Verified tuition fee ranges, living cost benchmarks, and post-study work visa policies to guide your overseas education decision.
             </p>
           </div>
 
-          {/* Region Tabs */}
-          <div className="mt-8 flex flex-wrap gap-2">
+          {/* Region Filter Tabs */}
+          <div className="mt-10 flex flex-wrap gap-2.5">
             {["All", "Europe", "North America", "Asia-Pacific"].map((reg) => (
               <button
                 key={reg}
                 type="button"
                 onClick={() => setSelectedRegion(reg)}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer backdrop-blur-md ${
                   selectedRegion === reg
-                    ? "bg-emerald-600 text-white shadow-sm ring-2 ring-emerald-500/20"
-                    : "bg-slate-50 text-slate-700 border border-slate-200 hover:bg-slate-100"
+                    ? "bg-emerald-500 text-slate-950 shadow-md ring-2 ring-emerald-400/40 font-extrabold"
+                    : "bg-white/10 text-slate-200 border border-white/15 hover:bg-white/20 hover:text-white"
                 }`}
               >
                 {reg === "All" ? "All Global Destinations" : reg}
@@ -203,150 +219,205 @@ export default function DestinationsPage() {
         </div>
       </section>
 
-      {/* 2. Destination Cards Grid */}
-      <section className="py-14 bg-slate-50 min-h-screen">
-        <div className="container max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredDestinations.map((dest, idx) => (
+      {/* 2. Destination Cards Grid with subtle texture */}
+      <section className="py-16 bg-slate-50/90 border-b border-slate-200/80 min-h-screen relative">
+        {/* Subtle dot mesh background for depth */}
+        <div 
+          className="absolute inset-0 pointer-events-none opacity-25" 
+          style={{
+            backgroundImage: "radial-gradient(#94a3b8 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }} 
+        />
+
+        <div className="container max-w-6xl mx-auto px-4 relative z-10">
+          <div className="flex items-center justify-between mb-8">
+            <p className="text-sm text-slate-600 font-medium">
+              Showing <strong className="text-slate-900">{filteredDestinations.length}</strong> destination profiles
+            </p>
+            <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider">
+              Updated for 2026/2027 Intakes
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+            {filteredDestinations.map((dest) => (
               <div
                 key={dest.id}
-                className="bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-xs hover:border-emerald-300 hover:shadow-md transition-all flex flex-col justify-between group"
+                className="bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-xs hover:border-emerald-300 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
                   {/* Photo Header */}
-                  <div className="relative h-44 w-full bg-slate-100 overflow-hidden">
+                  <div className="relative h-48 w-full bg-slate-100 overflow-hidden">
                     <Image
                       src={dest.banner}
                       alt={`${dest.name} Study Destination`}
                       fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      priority={idx < 3}
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />
-
-                    <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 px-3 py-1 rounded-md bg-white/90 backdrop-blur-xs text-slate-900 text-xs font-extrabold shadow-xs">
-                      <span className="text-base">{dest.flag}</span>
-                      <span>{dest.name}</span>
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-black/20" />
+                    
+                    {/* Region Pill */}
+                    <div className="absolute top-3.5 right-3.5">
+                      <span className="px-3 py-1 rounded-full bg-black/50 backdrop-blur-md text-white text-[11px] font-bold border border-white/20">
+                        {dest.region}
+                      </span>
                     </div>
 
-                    <div className="absolute bottom-2.5 left-3 z-10 text-[11px] text-emerald-300 font-bold drop-shadow-sm flex items-center gap-1">
-                      <Briefcase className="w-3 h-3" />
-                      <span>{dest.workRights}</span>
+                    {/* Flag & Name */}
+                    <div className="absolute bottom-3.5 left-4 flex items-center gap-2.5">
+                      <span className="text-3xl drop-shadow-md">{dest.flag}</span>
+                      <div>
+                        <h3 className="text-xl font-bold text-white tracking-tight leading-tight drop-shadow-sm">
+                          {dest.name}
+                        </h3>
+                        <span className="text-[11px] text-emerald-300 font-semibold">
+                          Intakes: {dest.intakes}
+                        </span>
+                      </div>
                     </div>
                   </div>
 
                   {/* Body Content */}
-                  <div className="p-5">
-                    <div className="space-y-2 text-xs">
-                      <div className="flex justify-between py-1 border-b border-slate-100">
-                        <span className="text-slate-500">Average Tuition:</span>
-                        <span className="font-bold text-emerald-700 font-mono text-right">{dest.tuitionRange}</span>
+                  <div className="p-6">
+                    {/* Key Metrics */}
+                    <div className="grid grid-cols-2 gap-2.5 mb-5 pb-5 border-b border-slate-100">
+                      <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Tuition / yr</span>
+                        <span className="text-xs font-bold text-slate-900 mt-0.5 block">{dest.tuitionRange}</span>
                       </div>
-                      <div className="flex justify-between py-1 border-b border-slate-100">
-                        <span className="text-slate-500">Living Expenses:</span>
-                        <span className="font-semibold text-slate-800">{dest.livingCost}</span>
-                      </div>
-                      <div className="flex justify-between py-1 border-b border-slate-100">
-                        <span className="text-slate-500">Intakes:</span>
-                        <span className="font-medium text-slate-700">{dest.intakes}</span>
+                      <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Living Cost</span>
+                        <span className="text-xs font-bold text-slate-900 mt-0.5 block">{dest.livingCost}</span>
                       </div>
                     </div>
 
-                    {/* Key Highlights */}
-                    <div className="mt-4 space-y-1.5">
+                    {/* Post Study Work Badge */}
+                    <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-50/80 border border-emerald-200/60 text-emerald-900 text-xs font-semibold mb-5">
+                      <Briefcase className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                      <span>{dest.workRights}</span>
+                    </div>
+
+                    {/* Popular Fields */}
+                    <div className="mb-5">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-2">
+                        Top Disciplines
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {dest.popularFields.map((f) => (
+                          <span
+                            key={f}
+                            className="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 text-[11px] font-medium"
+                          >
+                            {f}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Highlights */}
+                    <div className="space-y-2 mb-2">
                       {dest.highlights.map((h, i) => (
-                        <div key={i} className="flex items-start gap-1.5 text-[11px] text-slate-600 leading-tight">
+                        <div key={i} className="flex items-start gap-2 text-xs text-slate-600">
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 mt-0.5 shrink-0" />
-                          <span>{h}</span>
+                          <span className="leading-snug">{h}</span>
                         </div>
-                      ))}
-                    </div>
-
-                    {/* Popular Degrees */}
-                    <div className="mt-4 pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
-                      {dest.popularFields.map((f, i) => (
-                        <span key={i} className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-medium">
-                          {f}
-                        </span>
                       ))}
                     </div>
                   </div>
                 </div>
 
-                {/* Footer Action */}
-                <div className="p-5 pt-0">
+                {/* Card Action */}
+                <div className="p-6 pt-0">
                   <Link
                     href={`/universities`}
-                    className="w-full py-2.5 px-4 rounded-xl bg-slate-50 hover:bg-emerald-600 text-slate-700 hover:text-white border border-slate-200 hover:border-emerald-600 font-bold text-xs transition-all flex items-center justify-center gap-1.5 text-center"
+                    className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs transition-all flex items-center justify-center gap-2 group/btn"
                   >
-                    <span>View Universities in {dest.name}</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <span>View {dest.name} Universities</span>
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
                   </Link>
                 </div>
               </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          {/* 3. Comprehensive Comparison Matrix */}
-          <div className="mt-16 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-sm overflow-x-auto">
-            <h3 className="text-xl font-bold text-slate-900 mb-2">
+      {/* 3. Comprehensive Comparison Table */}
+      <section className="py-20 bg-white border-b border-slate-200/80">
+        <div className="container max-w-6xl mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold mb-3">
+              <Compass className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Side-by-Side Analysis</span>
+            </div>
+            <h2 className="text-3xl font-extrabold text-slate-900">
               Country Comparison Matrix
-            </h3>
-            <p className="text-xs text-slate-500 mb-6">Side-by-side comparison of post-study stay back, part-time work, and financial requirements.</p>
+            </h2>
+            <p className="mt-2 text-slate-600 text-sm sm:text-base">
+              Direct comparison of post-study work rights, living costs, and average annual tuition fees.
+            </p>
+          </div>
 
-            <table className="w-full text-xs text-left border-collapse">
-              <thead>
-                <tr className="border-b border-slate-200 text-slate-500 uppercase tracking-wider text-[11px]">
-                  <th className="py-3 px-3">Country</th>
-                  <th className="py-3 px-3">Tuition / yr</th>
-                  <th className="py-3 px-3">Living / mo</th>
-                  <th className="py-3 px-3">Post-Study Work</th>
-                  <th className="py-3 px-3">Part-Time Work</th>
-                  <th className="py-3 px-3">Action</th>
+          <div className="overflow-x-auto rounded-3xl border border-slate-200 shadow-sm">
+            <table className="w-full text-left text-xs sm:text-sm">
+              <thead className="bg-slate-50 border-b border-slate-200 text-slate-700">
+                <tr>
+                  <th className="py-4 px-5 font-bold uppercase tracking-wider text-[11px]">Country</th>
+                  <th className="py-4 px-5 font-bold uppercase tracking-wider text-[11px]">Tuition / Year</th>
+                  <th className="py-4 px-5 font-bold uppercase tracking-wider text-[11px]">Living Cost</th>
+                  <th className="py-4 px-5 font-bold uppercase tracking-wider text-[11px]">Stay-Back Visa</th>
+                  <th className="py-4 px-5 font-bold uppercase tracking-wider text-[11px]">Work Rights (Study)</th>
+                  <th className="py-4 px-5 font-bold uppercase tracking-wider text-[11px]">Visa Success</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 font-medium">
+              <tbody className="divide-y divide-slate-100">
                 {DESTINATIONS.map((d) => (
-                  <tr key={d.id} className="hover:bg-slate-50/80 transition-colors">
-                    <td className="py-3 px-3 font-bold text-slate-900 flex items-center gap-1.5">
-                      <span>{d.flag}</span>
+                  <tr key={d.id} className="hover:bg-slate-50/70 transition-colors">
+                    <td className="py-4 px-5 font-bold text-slate-900 flex items-center gap-2">
+                      <span className="text-xl">{d.flag}</span>
                       <span>{d.name}</span>
                     </td>
-                    <td className="py-3 px-3 font-bold text-emerald-700 font-mono">{d.tuitionRange}</td>
-                    <td className="py-3 px-3 text-slate-600">{d.livingCost}</td>
-                    <td className="py-3 px-3 text-slate-800">{d.workRights}</td>
-                    <td className="py-3 px-3 text-slate-600">20 hrs / wk (Full-time in breaks)</td>
-                    <td className="py-3 px-3">
-                      <Link href="/universities" className="text-emerald-700 hover:text-emerald-800 font-bold hover:underline">
-                        Explore →
-                      </Link>
+                    <td className="py-4 px-5 text-slate-700 font-semibold">{d.tuitionRange}</td>
+                    <td className="py-4 px-5 text-slate-600">{d.livingCost}</td>
+                    <td className="py-4 px-5">
+                      <span className="inline-flex px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200/60">
+                        {d.workRights}
+                      </span>
                     </td>
+                    <td className="py-4 px-5 text-slate-600">20–24 hrs / week</td>
+                    <td className="py-4 px-5 font-semibold text-emerald-700">{d.visaSuccess}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+        </div>
+      </section>
 
-          {/* 4. Bottom Mentoring CTA */}
-          <div className="mt-12 bg-gradient-to-br from-[#0A7D45] via-emerald-700 to-[#075A32] rounded-3xl p-8 sm:p-10 text-white shadow-premium text-center max-w-3xl mx-auto">
-            <span className="inline-block px-3 py-1 rounded-full bg-white/15 text-white text-xs font-bold mb-3 border border-white/20">
-              Personalized Shortlisting
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-extrabold mb-3">
-              Not sure which destination fits your profile?
-            </h3>
-            <p className="text-emerald-100 text-sm max-w-xl mx-auto mb-6 leading-relaxed">
-              Book a 1-on-1 profile evaluation with our senior education counsellors. We match your academic CGPA, budget, and career goals with the best country pathways.
-            </p>
+      {/* 4. Bottom Advisory CTA Banner */}
+      <section className="py-16 bg-slate-950 text-white relative overflow-hidden">
+        <div className="container max-w-4xl mx-auto px-4 text-center relative z-10">
+          <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight mb-4">
+            Unsure Which Country Best Fits Your Profile?
+          </h2>
+          <p className="text-slate-300 text-sm sm:text-base max-w-xl mx-auto mb-8 font-light">
+            Our certified international academic advisors analyze your CGPA, IELTS score, and budget to build a custom shortlist of countries and universities.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-4">
             <Link
-              href="/#hero-section"
-              className="inline-block px-8 py-3.5 rounded-2xl bg-white text-emerald-900 hover:bg-emerald-50 font-bold text-sm shadow-md transition-all"
+              href="/universities"
+              className="px-8 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm shadow-md transition-all"
             >
-              Start Free Profile Evaluation
+              Explore Universities
+            </Link>
+            <Link
+              href="/forex"
+              className="px-8 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 transition-all"
+            >
+              Student Forex Portal
             </Link>
           </div>
-
         </div>
       </section>
     </PublicLayout>

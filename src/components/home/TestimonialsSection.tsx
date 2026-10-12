@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { Star, CheckCircle2 } from "lucide-react";
 
 function GoogleIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -150,7 +151,9 @@ export function TestimonialsSection() {
             <GoogleIcon className="w-4 h-4" />
             <span className="text-xs font-bold text-slate-700">Google Verified Reviews</span>
             <span className="w-1 h-1 rounded-full bg-slate-300" />
-            <span className="text-xs font-extrabold text-amber-500">4.9 ★★★★★</span>
+            <span className="text-xs font-extrabold text-amber-600 flex items-center gap-1">
+              4.9 <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500 inline" />
+            </span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
             Real Reviews from <span className="text-emerald-700">Real Students</span>
@@ -226,12 +229,12 @@ export function TestimonialsSection() {
           </div>
           <div className="hidden sm:block w-px h-4 bg-slate-200" />
           <div className="flex items-center gap-1.5 text-slate-700 font-medium">
-            <span className="text-emerald-600 font-bold">✓</span>
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
             <span>Palakkad HQ &amp; Regional Branches</span>
           </div>
           <div className="hidden sm:block w-px h-4 bg-slate-200" />
           <div className="flex items-center gap-1.5 text-slate-700 font-medium">
-            <span className="text-emerald-600 font-bold">✓</span>
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
             <span>100% Free Transparent Counseling</span>
           </div>
         </div>

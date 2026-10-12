@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { ExternalLink, Shield, Zap, TrendingUp, ArrowRight } from "lucide-react";
+import { ExternalLink, Shield, Zap, TrendingUp, ArrowRight, Globe2 } from "lucide-react";
 
 interface ForexSectionProps {
   onOpenConsultModal?: (source?: string) => void;
@@ -81,7 +81,7 @@ export function ForexSection({ onOpenConsultModal }: ForexSectionProps) {
           <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             <div className="max-w-xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 text-white text-xs font-bold mb-4 border border-white/20 backdrop-blur-xs">
-                <span>🔗</span>
+                <Globe2 className="w-3.5 h-3.5" />
                 <span>uesabroad.fairexpay.com</span>
               </div>
               <h3 className="text-white text-2xl sm:text-3xl font-extrabold mb-3 leading-snug">
