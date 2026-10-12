@@ -310,7 +310,7 @@ h1, h2, h3, h4, h5, h6 {
 .hero-image-showcase {
     position: relative;
     width: 100%;
-    height: 400px;
+    height: 420px;
 }
 .showcase-frame {
     position: absolute;
@@ -333,28 +333,35 @@ h1, h2, h3, h4, h5, h6 {
 /* Floating Glass Cards */
 .floating-glass-card {
     position: absolute;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(20px);
-    border: 1.5px solid rgba(255, 255, 255, 0.5);
-    border-radius: 16px;
-    padding: 1rem 1.25rem;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 14px;
+    padding: 0.65rem 0.95rem;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.65rem;
     z-index: 10;
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
     font-size: 0.8rem;
+    white-space: nowrap;
 }
 .floating-glass-card strong {
     display: block;
-    color: var(--text-primary);
-    font-size: 0.85rem;
+    color: #0f172a;
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.25;
 }
 .floating-glass-card .meta {
-    color: var(--text-secondary);
+    color: #64748b;
     margin-top: 0.15rem;
     display: block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    line-height: 1.2;
 }
 .card-glow-indicator {
     width: 8px;
@@ -366,9 +373,9 @@ h1, h2, h3, h4, h5, h6 {
 .card-glow-indicator.violet { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
 .card-glow-indicator.blue { background: var(--primary); box-shadow: 0 0 8px var(--primary); }
 
-.fc-1 { top: 40px; right: -20px; animation: floatAnim 6s ease-in-out infinite; }
-.fc-2 { bottom: 100px; left: -30px; animation: floatAnim 6s ease-in-out infinite -2s; }
-.fc-3 { bottom: 30px; right: 20px; animation: floatAnim 6s ease-in-out infinite -4s; }
+.fc-1 { top: -14px; right: -14px; animation: floatAnim 6s ease-in-out infinite; }
+.fc-2 { top: 50%; left: -38px; transform: translateY(-50%); animation: floatAnim 6s ease-in-out infinite -2s; }
+.fc-3 { bottom: -16px; right: 28px; animation: floatAnim 6s ease-in-out infinite -4s; }
 
 @keyframes floatAnim {
     0%, 100% { transform: translateY(0); }

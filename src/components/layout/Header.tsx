@@ -85,8 +85,8 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
     },
     {
       label: "Forex & Remittance",
-      desc: "Live interbank currency lock & tuition payments",
-      href: isHomePage ? "#forex-section" : "/#forex-section",
+      desc: "Zero-spread tuition & blocked account transfers via FairexPay",
+      href: "https://uesabroad.fairexpay.com",
       icon: DollarSign,
     },
   ];
@@ -178,10 +178,13 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
                     <div className="space-y-1">
                       {moreResources.map((item) => {
                         const Icon = item.icon;
+                        const isExternal = item.href.startsWith("http");
                         return (
                           <Link
                             key={item.label}
                             href={item.href}
+                            target={isExternal ? "_blank" : undefined}
+                            rel={isExternal ? "noopener noreferrer" : undefined}
                             onClick={() => setResourcesOpen(false)}
                             className="flex items-start gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-dark-bg/60 transition-colors group"
                           >
@@ -190,7 +193,7 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
                             </div>
                             <div className="leading-tight">
                               <span className="text-sm font-semibold text-slate-800 dark:text-slate-100 block group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
-                                {item.label}
+                                {item.label}{isExternal && <span className="ml-1 text-[10px] text-slate-400">↗</span>}
                               </span>
                               <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
                                 {item.desc}
@@ -273,15 +276,18 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
                 <ul className="space-y-1 list-none">
                   {moreResources.map((item) => {
                     const Icon = item.icon;
+                    const isExternal = item.href.startsWith("http");
                     return (
                       <li key={item.label}>
                         <Link
                           href={item.href}
+                          target={isExternal ? "_blank" : undefined}
+                          rel={isExternal ? "noopener noreferrer" : undefined}
                           onClick={() => setMobileMenuOpen(false)}
                           className="flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-dark-surface transition-colors"
                         >
                           <Icon className="w-4 h-4 text-emerald-600 shrink-0" />
-                          <span>{item.label}</span>
+                          <span>{item.label}{isExternal && <span className="ml-1 text-[10px] text-slate-400">↗</span>}</span>
                         </Link>
                       </li>
                     );

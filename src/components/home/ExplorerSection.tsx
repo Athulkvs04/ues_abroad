@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { Search, Camera } from "lucide-react";
+import { Search, Camera, ChevronDown } from "lucide-react";
+
+const INITIAL_COUNT = 6;
 
 interface ExplorerSectionProps {
   onOpenConsultModal?: (source?: string) => void;
@@ -251,6 +253,7 @@ export function ExplorerSection({ onOpenConsultModal }: ExplorerSectionProps) {
   const [course, setCourse] = useState("");
   const [ranking, setRanking] = useState("");
   const [budget, setBudget] = useState("");
+  const [showAll, setShowAll] = useState(false);
 
   const filteredUniversities = useMemo(() => {
     return universitiesData.filter((uni) => {
@@ -279,6 +282,13 @@ export function ExplorerSection({ onOpenConsultModal }: ExplorerSectionProps) {
       return true;
     });
   }, [search, country, course, ranking, budget]);
+
+  // Reset showAll whenever filters change
+  const isFiltering = Boolean(search || country || course || ranking || budget);
+  const displayedUniversities = (showAll || isFiltering)
+    ? filteredUniversities
+    : filteredUniversities.slice(0, INITIAL_COUNT);
+  const hasMore = !isFiltering && filteredUniversities.length > INITIAL_COUNT && !showAll;
 
   return (
     <section id="explorer-section" className="explorer-wrap py-20 bg-slate-50/70 border-b border-slate-200/80">
@@ -377,7 +387,7 @@ export function ExplorerSection({ onOpenConsultModal }: ExplorerSectionProps) {
               <p className="text-sm text-slate-500 mt-1">Try adjusting your filters or clearing your search query.</p>
             </div>
           ) : (
-            filteredUniversities.map((uni) => (
+            displayedUniversities.map((uni) => (
               <div 
                 key={uni.id} 
                 className="uni-explorer-card group bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-premium hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full overflow-hidden"
@@ -435,6 +445,23 @@ export function ExplorerSection({ onOpenConsultModal }: ExplorerSectionProps) {
             ))
           )}
         </div>
+
+        {/* Load More button */}
+        {hasMore && (
+          <div className="flex flex-col items-center mt-10 gap-3">
+            <p className="text-sm text-slate-500">
+              Showing <strong className="text-slate-700">{INITIAL_COUNT}</strong> of <strong className="text-slate-700">{filteredUniversities.length}</strong> universities
+            </p>
+            <button
+              type="button"
+              onClick={() => setShowAll(true)}
+              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-white border border-slate-200 text-slate-800 font-semibold text-sm shadow-sm hover:shadow-md hover:border-emerald-300 hover:text-emerald-700 transition-all group cursor-pointer"
+            >
+              <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+              <span>Load All Universities</span>
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
