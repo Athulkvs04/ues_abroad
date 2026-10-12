@@ -42,12 +42,12 @@ export function Footer() {
             </h4>
             <ul className="space-y-3 list-none">
               {[
-                { label: "Study in USA", href: "/#destinations-section" },
-                { label: "Study in UK", href: "/#destinations-section" },
-                { label: "Study in Canada", href: "/#destinations-section" },
-                { label: "Study in Germany", href: "/#destinations-section" },
-                { label: "Study in Australia", href: "/#destinations-section" },
-                { label: "Study in Ireland", href: "/#destinations-section" },
+                { label: "Study in USA", href: "/destinations" },
+                { label: "Study in UK", href: "/destinations" },
+                { label: "Study in Canada", href: "/destinations" },
+                { label: "Study in Germany", href: "/destinations" },
+                { label: "Study in Australia", href: "/destinations" },
+                { label: "Study in Ireland", href: "/destinations" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link
@@ -69,11 +69,11 @@ export function Footer() {
             </h4>
             <ul className="space-y-3 list-none">
               {[
-                { label: "University Explorer", href: "/#explorer-section" },
+                { label: "University Directory", href: "/universities" },
                 { label: "Student Accommodation", href: "/accommodation", badge: "Verified" },
                 { label: "Study Abroad Blogs", href: "/blogs" },
-                { label: "Forex & Remittance", href: "/#forex-section" },
-                { label: "Google Reviews", href: "/#testimonials-section" },
+                { label: "Forex & Remittance", href: "/forex", badge: "FairexPay" },
+                { label: "All Study Destinations", href: "/destinations" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link

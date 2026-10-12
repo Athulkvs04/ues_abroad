@@ -7,13 +7,9 @@ import { TrustSection } from "@/components/home/TrustSection";
 import { DestinationsSection } from "@/components/home/DestinationsSection";
 import { ExplorerSection } from "@/components/home/ExplorerSection";
 import { DecisionSection } from "@/components/home/DecisionSection";
-import { CourseFinderSection } from "@/components/home/CourseFinderSection";
-import { ExamCenterSection } from "@/components/home/ExamCenterSection";
-import { ForexSection } from "@/components/home/ForexSection";
-import { AccommodationSection } from "@/components/home/AccommodationSection";
+import { ServicesBentoSection } from "@/components/home/ServicesBentoSection";
 import { JourneySection } from "@/components/home/JourneySection";
 import { SeminarSection } from "@/components/home/SeminarSection";
-import { ResourcesSection } from "@/components/home/ResourcesSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { BlogsSection } from "@/components/home/BlogsSection";
 import { FinalCtaSection } from "@/components/home/FinalCtaSection";
@@ -41,43 +37,31 @@ export default function HomePage() {
       {/* 2. TRUST STATISTICS & UNIVERSITY MARQUEE */}
       <TrustSection />
 
-      {/* 3. STUDY DESTINATIONS (PHOTO OVERLAY CARDS) */}
+      {/* 3. STUDY DESTINATIONS (CURATED HUB WITH LINK TO /destinations) */}
       <DestinationsSection onOpenConsultModal={handleOpenModal} />
 
-      {/* 4. UNIVERSITY EXPLORER (CLEAN WHITE CARDS) */}
+      {/* 4. UNIVERSITY EXPLORER (CURATED 6 CARDS WITH LINK TO /universities) */}
       <ExplorerSection onOpenConsultModal={handleOpenModal} />
 
-      {/* 5. SMART DECISION CENTER (5 PROTOTYPE TABS) */}
+      {/* 5. SMART DECISION CENTER (5 INTERACTIVE TOOLS) */}
       <DecisionSection onOpenConsultModal={handleOpenModal} />
 
-      {/* 6. COURSE FINDER (INTERACTIVE RECOMMENDATIONS) */}
-      <CourseFinderSection onOpenConsultModal={handleOpenModal} />
+      {/* 6. RELOCATION & STUDENT SERVICES BENTO (ACCOMMODATION, FOREX, VISA, EXAM PREP) */}
+      <ServicesBentoSection onOpenConsultModal={handleOpenModal} />
 
-      {/* 7. EXAM CENTER (PREPARATION HUB) */}
-      <ExamCenterSection onOpenConsultModal={handleOpenModal} />
-
-      {/* 8. FOREX & INTERNATIONAL TRANSFERS */}
-      <ForexSection onOpenConsultModal={handleOpenModal} />
-
-      {/* 9. VERIFIED STUDENT ACCOMMODATION SHOWCASE */}
-      <AccommodationSection onOpenConsultModal={handleOpenModal} />
-
-      {/* 10. STUDENT JOURNEY TIMELINE */}
+      {/* 7. OUR STUDENT JOURNEY (8-STEP ROADMAP) */}
       <JourneySection />
 
-      {/* 10. SEMINAR MODULE */}
+      {/* 8. LIVE UPCOMING SEMINARS & MASTERCLASSES */}
       <SeminarSection onOpenConsultModal={handleOpenModal} />
 
-      {/* 11. RESOURCES GRID (LEAD GATE) */}
-      <ResourcesSection onOpenConsultModal={handleOpenModal} />
-
-      {/* 12. TESTIMONIALS CAROUSEL */}
+      {/* 9. TESTIMONIALS & STUDENT SUCCESS STORIES */}
       <TestimonialsSection />
 
-      {/* 13. BLOGS PLATFORM */}
+      {/* 10. EDITORIAL INSIGHTS & BLOGS (WITH LINK TO /blogs) */}
       <BlogsSection onOpenConsultModal={handleOpenModal} />
 
-      {/* 14. FINAL CTA BANNER (DARK THEME) */}
+      {/* 11. FINAL HIGH-IMPACT CONSULTATION CTA */}
       <FinalCtaSection onOpenConsultModal={handleOpenModal} />
 
       {/* LEAD CAPTURE POPUP MODAL */}

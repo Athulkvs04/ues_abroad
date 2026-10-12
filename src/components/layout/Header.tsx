@@ -71,22 +71,22 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
       icon: Compass,
     },
     {
-      label: "Our Journey",
-      desc: "Step-by-step roadmap from profile to campus arrival",
-      href: "/#journey-section",
+      label: "Services Ecosystem",
+      desc: "Housing, Forex, Visa assistance & language coaching",
+      href: "/#services-section",
       icon: Compass,
     },
     {
-      label: "Seminars & Masterclasses",
-      desc: "Live interactive webinars with university officers",
-      href: "/#seminar-section",
-      icon: Calendar,
+      label: "Our Student Journey",
+      desc: "8-step roadmap from profile to campus arrival",
+      href: "/#journey-section",
+      icon: GraduationCap,
     },
     {
-      label: "Exam & Language Hub",
-      desc: "IELTS, TOEFL, GRE, GMAT, German & French prep",
-      href: "/#exam-center-section",
-      icon: GraduationCap,
+      label: "Live Seminars & Events",
+      desc: "Interactive university fairs and webinars",
+      href: "/#seminar-section",
+      icon: Calendar,
     },
   ];
 
