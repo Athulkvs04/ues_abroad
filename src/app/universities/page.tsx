@@ -359,42 +359,56 @@ export default function UniversitiesPage() {
 
   return (
     <PublicLayout>
-      {/* 1. Header Hero */}
-      <section className="bg-white border-b border-slate-200/80 pt-12 pb-16 relative overflow-hidden">
-        <div className="absolute top-0 right-1/4 w-[700px] h-[350px] bg-emerald-500/5 rounded-full blur-3xl pointer-events-none -z-10" />
+      {/* 1. Header Hero with Authentic Real Historic University Landscape */}
+      <section className="relative overflow-hidden min-h-[480px] lg:min-h-[520px] flex items-center bg-slate-950 text-white border-b border-slate-800">
+        {/* Full-bleed Real 6K High-Resolution Historic University Campus Landscape */}
+        <div className="absolute inset-0 pointer-events-none select-none">
+          <Image
+            src="/universities/oxford_radcliffe_hd.jpg"
+            alt="Historic Oxford University Radcliffe Camera Architecture"
+            fill
+            priority
+            className="object-cover object-[center_28%] lg:object-[68%_28%]"
+          />
+          {/* Smooth seamless left scrim: provides natural contrast directly on canvas with NO box */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/75 via-42% to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-black/30" />
+        </div>
 
-        <div className="container max-w-6xl mx-auto px-4">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold mb-4">
-              <GraduationCap className="w-4 h-4 text-emerald-600" />
+        <div className="container max-w-6xl mx-auto px-4 py-16 lg:py-20 relative z-10">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 text-xs font-semibold mb-5 backdrop-blur-xs">
+              <GraduationCap className="w-4 h-4 text-emerald-400" />
               <span>Official Global University Directory</span>
             </div>
-            <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
               Explore Top Global Universities &amp;{" "}
-              <span className="accent-text">Admissions Pathways</span>
+              <span className="text-emerald-400">Admissions Pathways</span>
             </h1>
-            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+
+            <p className="mt-4 text-sm sm:text-base text-slate-200 leading-relaxed font-normal max-w-xl">
               Search verified public and private institutions across the UK, Germany, USA, Australia, Canada, and Ireland with tracked scholarship eligibility and application fee waivers.
             </p>
-          </div>
 
-          {/* Quick Metrics Bar */}
-          <div className="mt-8 pt-6 border-t border-slate-100 grid grid-cols-2 sm:grid-cols-4 gap-4 text-slate-600 text-xs sm:text-sm font-medium">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span>100+ Direct University Tie-Ups</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span>100% Application Fee Waivers</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span>Merit Scholarships up to 100%</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span>Verified Campus Photography</span>
+            {/* Quick Metrics Bar directly on canvas - NO box */}
+            <div className="mt-8 pt-6 border-t border-white/15 grid grid-cols-1 sm:grid-cols-2 gap-3 text-slate-200 text-xs font-medium max-w-xl">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>100+ Direct University Tie-Ups</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>100% Application Fee Waivers</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Merit Scholarships up to 100%</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Verified Campus Photography</span>
+              </div>
             </div>
           </div>
         </div>

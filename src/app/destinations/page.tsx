@@ -166,55 +166,54 @@ export default function DestinationsPage() {
 
   return (
     <PublicLayout>
-      {/* 1. Hero Header with Authentic Historic University Background */}
+      {/* 1. Hero Header with Authentic Real Historic University Landscape */}
       <section className="relative overflow-hidden min-h-[480px] lg:min-h-[520px] flex items-center bg-slate-950 text-white border-b border-slate-800">
-        {/* Full-bleed University Building Background Image */}
+        {/* Full-bleed Real 4K High-Resolution Historic University Campus Landscape */}
         <div className="absolute inset-0 pointer-events-none select-none">
           <Image
-            src="/universities/cambridge_kings_lawn.webp"
-            alt="Historic University Campus Architecture"
+            src="/universities/cambridge_kings_real_wide.jpg"
+            alt="Historic King's College Chapel Cambridge Architecture"
             fill
             priority
-            className="object-cover object-center opacity-30"
+            className="object-cover object-[center_40%] lg:object-[center_35%]"
           />
-          {/* Layered dark slate & emerald cinematic overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 to-slate-950/90" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/60" />
-          <div className="absolute top-0 right-1/4 w-[600px] h-[350px] bg-emerald-600/15 rounded-full blur-[140px]" />
+          {/* Smooth seamless left scrim: provides natural contrast directly on canvas with NO box */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/75 via-42% to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-black/30" />
         </div>
 
-        <div className="container max-w-6xl mx-auto px-4 py-20 relative z-10">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-emerald-300 border border-white/15 text-xs font-semibold mb-5 shadow-xs">
+        <div className="container max-w-6xl mx-auto px-4 py-16 lg:py-20 relative z-10">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 text-xs font-semibold mb-5 backdrop-blur-xs">
               <Globe2 className="w-4 h-4 text-emerald-400" />
               <span>Global Country Guides &amp; Admissions Roadmap</span>
             </div>
             
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
               Compare Premier World <span className="text-emerald-400">Study Destinations</span>
             </h1>
             
-            <p className="mt-5 text-base sm:text-lg text-slate-200 leading-relaxed max-w-2xl font-light">
+            <p className="mt-4 text-sm sm:text-base text-slate-200 leading-relaxed font-normal max-w-xl">
               Explore 9 world-leading academic nations. Verified tuition fee ranges, living cost benchmarks, and post-study work visa policies to guide your overseas education decision.
             </p>
-          </div>
 
-          {/* Region Filter Tabs */}
-          <div className="mt-10 flex flex-wrap gap-2.5">
-            {["All", "Europe", "North America", "Asia-Pacific"].map((reg) => (
-              <button
-                key={reg}
-                type="button"
-                onClick={() => setSelectedRegion(reg)}
-                className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer backdrop-blur-md ${
-                  selectedRegion === reg
-                    ? "bg-emerald-500 text-slate-950 shadow-md ring-2 ring-emerald-400/40 font-extrabold"
-                    : "bg-white/10 text-slate-200 border border-white/15 hover:bg-white/20 hover:text-white"
-                }`}
-              >
-                {reg === "All" ? "All Global Destinations" : reg}
-              </button>
-            ))}
+            {/* Region Filter Tabs directly on canvas - NO box */}
+            <div className="mt-8 flex flex-wrap gap-2.5">
+              {["All", "Europe", "North America", "Asia-Pacific"].map((reg) => (
+                <button
+                  key={reg}
+                  type="button"
+                  onClick={() => setSelectedRegion(reg)}
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                    selectedRegion === reg
+                      ? "bg-emerald-500 text-slate-950 shadow-md ring-2 ring-emerald-400/40 font-extrabold"
+                      : "bg-black/40 text-slate-200 border border-white/20 hover:bg-white/15 hover:text-white backdrop-blur-xs"
+                  }`}
+                >
+                  {reg === "All" ? "All Global Destinations" : reg}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </section>
