@@ -171,7 +171,7 @@ export default function DestinationsPage() {
         {/* Full-bleed Real 4K High-Resolution Historic University Campus Landscape */}
         <div className="absolute inset-0 pointer-events-none select-none">
           <Image
-            src="/universities/cambridge_kings_real_wide.jpg"
+            src="/universities/cambridge_kings_real_wide.webp"
             alt="Historic King's College Chapel Cambridge Architecture"
             fill
             priority
