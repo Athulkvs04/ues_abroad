@@ -220,15 +220,6 @@ export default function DestinationsPage() {
 
       {/* 2. Destination Cards Grid with subtle texture */}
       <section className="py-16 bg-slate-50/90 border-b border-slate-200/80 min-h-screen relative">
-        {/* Subtle dot mesh background for depth */}
-        <div 
-          className="absolute inset-0 pointer-events-none opacity-25" 
-          style={{
-            backgroundImage: "radial-gradient(#94a3b8 1px, transparent 1px)",
-            backgroundSize: "24px 24px",
-          }} 
-        />
-
         <div className="container max-w-6xl mx-auto px-4 relative z-10">
           <div className="flex items-center justify-between mb-8">
             <p className="text-sm text-slate-600 font-medium">

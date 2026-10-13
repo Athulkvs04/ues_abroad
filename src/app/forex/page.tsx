@@ -14,7 +14,8 @@ import {
   Percent,
   Sparkles,
   Zap,
-  ShieldCheck
+  ShieldCheck,
+  PhoneCall
 } from "lucide-react";
 import { PublicLayout } from "@/components/layout/PublicLayout";
 
@@ -196,14 +197,8 @@ export default function ForexPage() {
         </div>
       </section>
 
-      {/* 2. Body Area with Subtle Dot Mesh Texture — Eliminates "Empty White" Feel */}
-      <div 
-        className="relative bg-slate-50/90 min-h-screen border-b border-slate-200/80"
-        style={{
-          backgroundImage: "radial-gradient(#94a3b8 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-        }}
-      >
+      {/* 2. Clean Executive Light Body Area */}
+      <div className="relative bg-slate-50/80 min-h-screen border-b border-slate-200/80">
         {/* Section A: Supported Transfer Purposes */}
         <section id="remittance-purposes" className="py-16 sm:py-20">
           <div className="container max-w-6xl mx-auto px-4 relative z-10">
@@ -224,7 +219,7 @@ export default function ForexPage() {
               {PURPOSES.map((p, idx) => (
                 <div 
                   key={p.id}
-                  className="p-7 rounded-3xl bg-white/95 border border-slate-200/90 shadow-xs hover:border-emerald-300 hover:shadow-lg transition-all duration-300 flex flex-col justify-between group backdrop-blur-xs"
+                  className="p-7 rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:border-emerald-300 hover:shadow-lg transition-all duration-300 flex flex-col justify-between group"
                 >
                   <div>
                     <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-700 flex items-center justify-center text-sm font-bold mb-4 group-hover:scale-105 transition-transform">
@@ -245,17 +240,16 @@ export default function ForexPage() {
                 </div>
               ))}
 
-              {/* Portal Action Card */}
-              <div className="p-7 rounded-3xl bg-emerald-900 text-white shadow-md flex flex-col justify-between relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
+              {/* Portal Action Card — Clean Light Executive Design */}
+              <div className="p-7 rounded-3xl bg-emerald-50/80 border-2 border-emerald-500/30 shadow-xs flex flex-col justify-between relative overflow-hidden">
                 <div>
-                  <span className="text-[11px] font-bold text-emerald-300 uppercase tracking-wider block mb-2">
+                  <span className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider block mb-2">
                     Live Portal Access
                   </span>
-                  <h3 className="text-lg font-bold text-white">
+                  <h3 className="text-lg font-bold text-slate-900">
                     Ready to Remit Funds?
                   </h3>
-                  <p className="text-xs text-slate-300 mt-2 leading-relaxed">
+                  <p className="text-xs text-slate-600 mt-2 leading-relaxed">
                     Zero retail bank margin, zero branch visits. Calculate live rates and dispatch university wires in 15 minutes.
                   </p>
                 </div>
@@ -263,7 +257,7 @@ export default function ForexPage() {
                   href="https://uesabroad.fairexpay.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 w-full py-3 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs text-center transition-all inline-flex items-center justify-center gap-2 shadow-xs cursor-pointer"
+                  className="mt-6 w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs text-center transition-all inline-flex items-center justify-center gap-2 shadow-sm cursor-pointer"
                 >
                   <span>Launch FairexPay Portal</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -289,14 +283,14 @@ export default function ForexPage() {
               </p>
             </div>
 
-            <div className="rounded-3xl border border-slate-200/90 bg-white/95 overflow-hidden shadow-xs backdrop-blur-xs">
+            <div className="rounded-3xl border border-slate-200/90 bg-white overflow-hidden shadow-xs">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs sm:text-sm">
                   <thead>
-                    <tr className="border-b border-slate-200 bg-slate-900 text-white">
-                      <th className="py-4 px-6 font-bold uppercase tracking-wider text-[11px]">Feature</th>
-                      <th className="py-4 px-6 text-emerald-400 font-bold uppercase tracking-wider text-[11px]">FairexPay Portal</th>
-                      <th className="py-4 px-6 text-slate-400 font-bold uppercase tracking-wider text-[11px]">Traditional Retail Banks</th>
+                    <tr className="border-b border-slate-200 bg-slate-100/90 text-slate-800">
+                      <th className="py-4 px-6 font-bold uppercase tracking-wider text-[11px] text-slate-700">Feature</th>
+                      <th className="py-4 px-6 text-emerald-700 font-bold uppercase tracking-wider text-[11px]">FairexPay Portal</th>
+                      <th className="py-4 px-6 text-slate-500 font-bold uppercase tracking-wider text-[11px]">Traditional Retail Banks</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
@@ -319,69 +313,76 @@ export default function ForexPage() {
           </div>
         </section>
 
-        {/* Section C: Advisory Callback & Lead Form */}
+        {/* Section C: Advisory Callback & Lead Form — Clean Executive Light Card */}
         <section className="py-16 sm:py-20 border-t border-slate-200/80">
           <div className="container max-w-4xl mx-auto px-4 relative z-10">
-            <div className="p-8 sm:p-12 rounded-3xl bg-slate-900 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-8">
-              <div className="max-w-md">
-                <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 block mb-2">
-                  Need Guidance Before Transferring?
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                  Speak with our Forex Specialist
-                </h2>
-                <p className="text-slate-300 text-xs sm:text-sm mt-3 leading-relaxed">
-                  Have questions about university bank accounts, German blocked account codes, or LRS declarations? Our counsellors guide you free of charge.
-                </p>
-                <div className="pt-4 flex items-center gap-2 text-xs text-slate-400">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Free advisory for all UES Abroad students</span>
-                </div>
-              </div>
-
-              <div className="w-full md:w-80 shrink-0">
-                {leadSubmitted ? (
-                  <div className="p-6 rounded-2xl bg-white/10 border border-white/15 text-center">
-                    <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto mb-2" />
-                    <h4 className="text-sm font-bold text-white">Request Received</h4>
-                    <p className="text-xs text-slate-300 mt-1">Our forex desk will contact you on WhatsApp/phone shortly.</p>
+            <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/90 shadow-sm">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                <div className="md:col-span-6 space-y-3">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-xs font-semibold">
+                    <PhoneCall className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Free Forex Advisory</span>
                   </div>
-                ) : (
-                  <form onSubmit={handleLeadSubmit} className="space-y-3">
-                    <input
-                      type="text"
-                      required
-                      placeholder="Your Full Name *"
-                      value={leadName}
-                      onChange={(e) => setLeadName(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white text-xs placeholder:text-slate-400 focus:outline-hidden focus:border-emerald-400"
-                    />
-                    <input
-                      type="tel"
-                      required
-                      placeholder="Phone Number (WhatsApp) *"
-                      value={leadPhone}
-                      onChange={(e) => setLeadPhone(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white text-xs placeholder:text-slate-400 focus:outline-hidden focus:border-emerald-400"
-                    />
-                    <select
-                      value={leadPurpose}
-                      onChange={(e) => setLeadPurpose(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-800 border border-white/20 text-white text-xs focus:outline-hidden focus:border-emerald-400"
-                    >
-                      <option value="University Tuition Fee Wire">University Tuition Fee Wire</option>
-                      <option value="German Blocked Account (Expatrio/Fintiba)">German Blocked Account</option>
-                      <option value="Canada GIC Deposit">Canada GIC Deposit</option>
-                      <option value="Accommodation Deposit">Accommodation Deposit</option>
-                    </select>
-                    <button
-                      type="submit"
-                      className="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-xs"
-                    >
-                      Request Free Forex Callback
-                    </button>
-                  </form>
-                )}
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                    Speak with our Forex Specialist
+                  </h3>
+                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-normal">
+                    Have questions about university bank accounts, German blocked account codes, or LRS declarations? Our counsellors guide you free of charge.
+                  </p>
+                  <div className="pt-2 flex items-center gap-2 text-xs text-slate-600 font-medium">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Free advisory for all UES Abroad students</span>
+                  </div>
+                </div>
+
+                <div className="md:col-span-6">
+                  {leadSubmitted ? (
+                    <div className="bg-emerald-50/80 rounded-2xl p-6 text-center border border-emerald-200/80">
+                      <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto mb-2" />
+                      <h4 className="font-bold text-slate-900 text-sm">Request Received</h4>
+                      <p className="text-xs text-slate-600 mt-1">Our forex desk will contact you on WhatsApp/phone shortly.</p>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleLeadSubmit} className="space-y-3 bg-slate-50/80 p-6 rounded-2xl border border-slate-200/70">
+                      <div>
+                        <input
+                          type="text"
+                          required
+                          placeholder="Your Full Name *"
+                          value={leadName}
+                          onChange={(e) => setLeadName(e.target.value)}
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-900 placeholder:text-slate-400 text-xs focus:outline-hidden focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600"
+                        />
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        <input
+                          type="tel"
+                          required
+                          placeholder="Phone Number (WhatsApp) *"
+                          value={leadPhone}
+                          onChange={(e) => setLeadPhone(e.target.value)}
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-900 placeholder:text-slate-400 text-xs focus:outline-hidden focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600"
+                        />
+                        <select
+                          value={leadPurpose}
+                          onChange={(e) => setLeadPurpose(e.target.value)}
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-800 text-xs focus:outline-hidden focus:border-emerald-600"
+                        >
+                          <option value="University Tuition Fee Wire">Tuition Wire</option>
+                          <option value="German Blocked Account (Expatrio/Fintiba)">Blocked Account</option>
+                          <option value="Canada GIC Deposit">Canada GIC</option>
+                          <option value="Accommodation Deposit">Accommodation</option>
+                        </select>
+                      </div>
+                      <button
+                        type="submit"
+                        className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer"
+                      >
+                        Request Free Forex Callback
+                      </button>
+                    </form>
+                  )}
+                </div>
               </div>
             </div>
           </div>

@@ -194,14 +194,8 @@ export default function AccommodationPage() {
         </div>
       </section>
 
-      {/* 2. Body Area with Subtle Dot Mesh Texture — Eliminates "Empty White" Feel */}
-      <div 
-        className="relative bg-slate-50/90 min-h-screen border-b border-slate-200/80"
-        style={{
-          backgroundImage: "radial-gradient(#94a3b8 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-        }}
-      >
+      {/* 2. Clean Executive Light Body Area */}
+      <div className="relative bg-slate-50/80 min-h-screen border-b border-slate-200/80">
         {/* Section A: Why UES Abroad Uses the Dedicated Portal */}
         <section id="why-portal" className="py-16 sm:py-20">
           <div className="container max-w-6xl mx-auto px-4 relative z-10">
@@ -282,7 +276,7 @@ export default function AccommodationPage() {
                 href={AMBER_PORTAL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs uppercase tracking-wide transition-all shadow-xs shrink-0 self-start sm:self-auto"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wide transition-all shadow-xs shrink-0 self-start sm:self-auto"
               >
                 <span>Browse All 250+ Cities</span>
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -358,47 +352,49 @@ export default function AccommodationPage() {
           </div>
         </section>
 
-        {/* Section D: Compact Counselor Assistance Callback */}
-        <section className="py-14 border-t border-slate-200/80">
+        {/* Section D: Compact Counselor Assistance Callback — Clean Executive Light Card */}
+        <section className="py-16 border-t border-slate-200/80">
           <div className="container max-w-4xl mx-auto px-4 relative z-10">
-            <div className="bg-slate-900 rounded-3xl p-7 sm:p-10 text-white shadow-xl relative overflow-hidden">
+            <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/90 shadow-sm">
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
                 <div className="md:col-span-6 space-y-3">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
-                    <PhoneCall className="w-3.5 h-3.5" />
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-xs font-semibold">
+                    <PhoneCall className="w-3.5 h-3.5 text-emerald-600" />
                     <span>Personalized Guidance</span>
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
                     Prefer Counselor Assistance?
                   </h3>
-                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
+                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-normal">
                     If you have specific lease dates, roommate preferences, or need help shortlisting halls near your faculty, request a free callback.
                   </p>
-                  <div className="pt-2 flex items-center gap-2 text-xs text-slate-400">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <div className="pt-2 flex items-center gap-2 text-xs text-slate-600 font-medium">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span>100% Free advisory for UES Abroad students</span>
                   </div>
                 </div>
 
                 <div className="md:col-span-6">
                   {leadSubmitted ? (
-                    <div className="bg-white/10 rounded-2xl p-6 text-center border border-white/15">
-                      <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto mb-2" />
-                      <h4 className="font-bold text-white text-sm">Request Received</h4>
-                      <p className="text-xs text-slate-300 mt-1">
+                    <div className="bg-emerald-50/80 rounded-2xl p-6 text-center border border-emerald-200/80">
+                      <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto mb-2" />
+                      <h4 className="font-bold text-slate-900 text-sm">Request Received</h4>
+                      <p className="text-xs text-slate-600 mt-1">
                         Our housing desk will connect with you via WhatsApp/phone within 24 hours.
                       </p>
                     </div>
                   ) : (
-                    <form onSubmit={handleLeadSubmit} className="space-y-3">
-                      <input
-                        type="text"
-                        required
-                        value={leadName}
-                        onChange={(e) => setLeadName(e.target.value)}
-                        placeholder="Your Name *"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-xs focus:outline-hidden focus:border-emerald-400"
-                      />
+                    <form onSubmit={handleLeadSubmit} className="space-y-3 bg-slate-50/80 p-6 rounded-2xl border border-slate-200/70">
+                      <div>
+                        <input
+                          type="text"
+                          required
+                          value={leadName}
+                          onChange={(e) => setLeadName(e.target.value)}
+                          placeholder="Your Name *"
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-900 placeholder:text-slate-400 text-xs focus:outline-hidden focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600"
+                        />
+                      </div>
                       <div className="grid grid-cols-2 gap-2.5">
                         <input
                           type="tel"
@@ -406,12 +402,12 @@ export default function AccommodationPage() {
                           value={leadPhone}
                           onChange={(e) => setLeadPhone(e.target.value)}
                           placeholder="Phone / WhatsApp *"
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-xs focus:outline-hidden focus:border-emerald-400"
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-900 placeholder:text-slate-400 text-xs focus:outline-hidden focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600"
                         />
                         <select
                           value={leadCountry}
                           onChange={(e) => setLeadCountry(e.target.value)}
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-slate-800 border border-white/20 text-white text-xs focus:outline-hidden focus:border-emerald-400"
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-800 text-xs focus:outline-hidden focus:border-emerald-600"
                         >
                           <option value="United Kingdom">United Kingdom</option>
                           <option value="Ireland">Ireland</option>
@@ -424,7 +420,7 @@ export default function AccommodationPage() {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer disabled:opacity-60"
+                        className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer disabled:opacity-60"
                       >
                         {isSubmitting ? "Submitting..." : "Request Housing Callback"}
                       </button>
