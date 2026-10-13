@@ -11,7 +11,8 @@ import {
   ChevronDown, 
   Compass, 
   Calendar, 
-  GraduationCap
+  GraduationCap,
+  Calculator
 } from "lucide-react";
 import { useTenant } from "@/components/providers/TenantProvider";
 
@@ -67,8 +68,8 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
     {
       label: "Smart Decision Center",
       desc: "Eligibility checker, cost calculator & university compare",
-      href: "/#decision-section",
-      icon: Compass,
+      href: "/tools",
+      icon: Calculator,
     },
     {
       label: "Services Ecosystem",

@@ -6,7 +6,7 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { TrustSection } from "@/components/home/TrustSection";
 import { DestinationsSection } from "@/components/home/DestinationsSection";
 import { ExplorerSection } from "@/components/home/ExplorerSection";
-import { DecisionSection } from "@/components/home/DecisionSection";
+import { DecisionTeaserSection } from "@/components/home/DecisionTeaserSection";
 import { ServicesBentoSection } from "@/components/home/ServicesBentoSection";
 import { JourneySection } from "@/components/home/JourneySection";
 import { SeminarSection } from "@/components/home/SeminarSection";
@@ -43,8 +43,8 @@ export default function HomePage() {
       {/* 4. UNIVERSITY EXPLORER (CURATED 6 CARDS WITH LINK TO /universities) */}
       <ExplorerSection onOpenConsultModal={handleOpenModal} />
 
-      {/* 5. SMART DECISION CENTER (5 INTERACTIVE TOOLS) */}
-      <DecisionSection onOpenConsultModal={handleOpenModal} />
+      {/* 5. SMART DECISION CENTER TEASER (LINKS TO /tools) */}
+      <DecisionTeaserSection onOpenConsultModal={handleOpenModal} />
 
       {/* 6. RELOCATION & STUDENT SERVICES BENTO (ACCOMMODATION, FOREX, VISA, EXAM PREP) */}
       <ServicesBentoSection onOpenConsultModal={handleOpenModal} />

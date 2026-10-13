@@ -71,6 +71,7 @@ export function Footer() {
               {[
                 { label: "University Directory", href: "/universities" },
                 { label: "Student Accommodation", href: "/accommodation", badge: "Verified" },
+                { label: "Smart Decision Center", href: "/tools" },
                 { label: "Study Abroad Blogs", href: "/blogs" },
                 { label: "Forex & Remittance", href: "/forex", badge: "FairexPay" },
                 { label: "All Study Destinations", href: "/destinations" },
