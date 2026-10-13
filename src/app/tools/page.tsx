@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { 
   Calculator, 
@@ -315,40 +316,49 @@ export default function DecisionToolsPage() {
 
   return (
     <PublicLayout onOpenConsultModal={() => handleOpenModal("Tools Page Header")}>
-      {/* 1. Executive Light Hero Header */}
-      <section className="bg-slate-900 text-white py-16 sm:py-20 border-b border-slate-800">
-        <div className="container max-w-6xl mx-auto px-4">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 text-xs font-semibold mb-4">
-              <Calculator className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Smart Decision Center • Interactive Admissions Tools</span>
-            </div>
+      {/* 1. Dramatic Authentic Black Hero Header with Seamless Scrim */}
+      <section className="relative overflow-hidden min-h-[440px] lg:min-h-[480px] flex items-center bg-black text-white border-b border-neutral-800">
+        {/* Full-bleed Real High-Resolution Campus Architecture Landscape */}
+        <div className="absolute inset-0 pointer-events-none select-none">
+          <Image
+            src="/universities/oxford_radcliffe_hero.webp"
+            alt="International Academic Campus and Library Architecture"
+            fill
+            priority
+            className="object-cover object-[center_35%] lg:object-[65%_35%]"
+          />
+          {/* Smooth seamless left scrim: provides authentic contrast directly on pure black canvas */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 via-50% to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
+        </div>
 
+        <div className="container max-w-6xl mx-auto px-4 py-16 lg:py-20 relative z-10">
+          <div className="max-w-2xl">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.15]">
               Plan Your Admissions, Budget &amp;{" "}
               <span className="text-emerald-400">Intake Roadmap</span>
             </h1>
 
-            <p className="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed font-normal max-w-2xl">
+            <p className="mt-5 text-sm sm:text-base text-neutral-200 leading-relaxed font-normal max-w-xl">
               Evaluate your academic eligibility across 500+ global universities, calculate true living costs in INR, compare study destinations side-by-side, and map your application milestones.
             </p>
 
-            <div className="mt-8 pt-6 border-t border-slate-800 grid grid-cols-2 sm:grid-cols-4 gap-4 text-slate-200 text-xs font-medium">
+            <div className="mt-10 pt-6 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-4 text-neutral-200 text-xs font-medium">
               <div>
                 <strong className="block text-white text-base font-extrabold">5 Core Tools</strong>
-                <span className="text-slate-400 text-[11px]">Free For All Students</span>
+                <span className="text-neutral-400 text-[11px]">Free For All Students</span>
               </div>
               <div>
                 <strong className="block text-emerald-400 text-base font-extrabold">Live Currency</strong>
-                <span className="text-slate-400 text-[11px]">USD, EUR, GBP to INR</span>
+                <span className="text-neutral-400 text-[11px]">USD, EUR, GBP to INR</span>
               </div>
               <div>
                 <strong className="block text-white text-base font-extrabold">6 Destinations</strong>
-                <span className="text-slate-400 text-[11px]">PSW &amp; PR Benchmarks</span>
+                <span className="text-neutral-400 text-[11px]">PSW &amp; PR Benchmarks</span>
               </div>
               <div>
                 <strong className="block text-white text-base font-extrabold">1-on-1 Review</strong>
-                <span className="text-slate-400 text-[11px]">Verified by Counsellors</span>
+                <span className="text-neutral-400 text-[11px]">Verified by Counsellors</span>
               </div>
             </div>
           </div>
@@ -564,7 +574,7 @@ export default function DecisionToolsPage() {
                     <button
                       type="button"
                       onClick={() => handleOpenModal(`Eligibility Review (${eligResult.matchRate}%)`)}
-                      className="w-full mt-6 py-3 rounded-xl bg-slate-900 hover:bg-emerald-600 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-xs cursor-pointer"
+                      className="w-full mt-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer"
                     >
                       Discuss These Matches with a UES Counselor
                     </button>
