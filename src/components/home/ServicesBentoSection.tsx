@@ -22,8 +22,16 @@ interface ServicesBentoSectionProps {
 
 export function ServicesBentoSection({ onOpenConsultModal }: ServicesBentoSectionProps) {
   return (
-    <section id="services-section" className="py-20 lg:py-24 bg-slate-50/70 border-b border-slate-200/80">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services-section" className="py-20 lg:py-24 bg-slate-50/80 border-b border-slate-200/80 relative">
+      {/* Subtle dot mesh background for depth */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-25" 
+        style={{
+          backgroundImage: "radial-gradient(#94a3b8 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }} 
+      />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-4 shadow-xs">
