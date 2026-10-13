@@ -31,7 +31,7 @@ export default function TermsOfServicePage() {
           <section>
             <h2 className="text-xl font-bold text-slate-900 mb-3">1. Acceptance of Terms</h2>
             <p className="text-sm leading-relaxed">
-              These Terms of Service ("Terms") constitute a legally binding agreement between you ("User", "you") and UES Abroad ("we", "us", "our", "Company"). By using any part of our platform — including the website, consultation booking tools, course finder, forex calculator, accommodation listings, or blog articles — you acknowledge that you have read, understood, and agreed to be bound by these Terms and our Privacy Policy.
+              These Terms of Service ("Terms") constitute a legally binding agreement between you ("User", "you") and UES Abroad ("we", "us", "our", "Company"). By using any part of our platform — including the website, consultation booking tools, course finder, forex remittance portal, accommodation portal, or blog articles — you acknowledge that you have read, understood, and agreed to be bound by these Terms and our Privacy Policy.
             </p>
           </section>
 
@@ -44,7 +44,7 @@ export default function TermsOfServicePage() {
               <li>Profile eligibility assessment and shortlisting</li>
               <li>Statement of Purpose (SOP) and application document assistance</li>
               <li>Visa application guidance and interview preparation</li>
-              <li>Student accommodation search and liaison services</li>
+              <li>Student accommodation booking liaison via authorized partners (Amber / studentacco.com)</li>
               <li>Foreign currency exchange facilitation via RBI-authorized partners</li>
               <li>Pre-departure orientation and post-arrival alumni support</li>
               <li>Educational content, blogs, and study abroad resources</li>

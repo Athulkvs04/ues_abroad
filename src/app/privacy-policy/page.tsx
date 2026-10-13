@@ -46,7 +46,7 @@ export default function PrivacyPolicyPage() {
             <ul className="list-disc pl-5 space-y-2 text-sm leading-relaxed">
               <li>To respond to your consultation requests and provide personalised study abroad guidance.</li>
               <li>To generate course, university, and accommodation recommendations tailored to your profile.</li>
-              <li>To connect you with our partnered universities, accommodation providers, and forex service partners (e.g., FairexPay).</li>
+              <li>To connect you with our partnered universities, accommodation providers (e.g., Amber / studentacco.com), and forex service partners (e.g., FairexPay).</li>
               <li>To send you relevant updates about seminars, visa changes, scholarship deadlines, and study abroad news (only with your consent).</li>
               <li>To improve the platform's features, user experience, and content based on aggregate usage analytics.</li>
               <li>To comply with legal obligations, prevent fraud, and maintain platform security.</li>

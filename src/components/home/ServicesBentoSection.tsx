@@ -48,9 +48,9 @@ export function ServicesBentoSection({ onOpenConsultModal }: ServicesBentoSectio
                 <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-700 shadow-xs">
                   <Building2 className="w-6 h-6" />
                 </div>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-semibold border border-emerald-200/60">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-900 text-xs font-bold border border-emerald-300">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  1.2M+ Verified Beds
+                  Official Amber Portal
                 </span>
               </div>
 
@@ -58,7 +58,7 @@ export function ServicesBentoSection({ onOpenConsultModal }: ServicesBentoSectio
                 Verified Student Accommodation
               </h3>
               <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                Book safe, fully-furnished student residences and studios within walking distance of your university campus before boarding your flight.
+                Book safe, fully-furnished student residences and studios near top universities worldwide through our dedicated Amber portal with price match guarantees.
               </p>
 
               {/* City tags */}
@@ -93,26 +93,35 @@ export function ServicesBentoSection({ onOpenConsultModal }: ServicesBentoSectio
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Zero deposit options available</span>
+                  <span>Price match guarantee on PBSA</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>No-visa, no-pay guarantee</span>
+                  <span>No-visa, no-pay 100% refund</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>24/7 security &amp; CCTV monitoring</span>
+                  <span>1M+ verified beds in 250+ cities</span>
                 </div>
               </div>
             </div>
 
-            <div className="pt-2">
+            <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
+              <a
+                href="https://uesabroad.studentacco.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-sm transition-all group/btn w-full sm:w-auto"
+              >
+                <span>Launch Amber Housing Portal</span>
+                <ExternalLink className="w-4 h-4 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+              </a>
               <Link
                 href="/accommodation"
-                className="inline-flex items-center justify-between w-full sm:w-auto gap-4 px-6 py-3.5 rounded-2xl bg-slate-900 hover:bg-emerald-700 text-white font-bold text-sm shadow-sm transition-all group/btn"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm transition-all w-full sm:w-auto text-center"
               >
-                <span>Browse Student Accommodation</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                <span>Housing Hub &amp; FAQs</span>
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>

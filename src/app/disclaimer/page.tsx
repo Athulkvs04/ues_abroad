@@ -56,7 +56,7 @@ export default function DisclaimerPage() {
           <section>
             <h2 className="text-xl font-bold text-slate-900 mb-3">Third-Party Services</h2>
             <p className="text-sm leading-relaxed">
-              UES Abroad may recommend or facilitate connections with third-party services including, but not limited to, accommodation providers, Forex/currency exchange partners, test preparation centres, and insurance providers. These recommendations are provided in good faith as value-added services. UES Abroad is not responsible for the quality, reliability, availability, or outcomes of any third-party service provider's offerings. Your engagement with any third party is at your own discretion and risk.
+              UES Abroad may recommend or facilitate connections with third-party services including, but not limited to, accommodation providers (e.g., Amber / studentacco.com), Forex/currency exchange partners (e.g., FairexPay), test preparation centres, and insurance providers. These recommendations are provided in good faith as value-added services. UES Abroad is not responsible for the quality, reliability, availability, or outcomes of any third-party service provider's offerings. Your engagement with any third party is at your own discretion and risk.
             </p>
           </section>
 
