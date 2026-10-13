@@ -6,15 +6,9 @@ import {
   ExternalLink, 
   CheckCircle2, 
   ArrowRight, 
-  Clock, 
   ChevronDown, 
-  Building2, 
   Globe2, 
-  FileCheck, 
   Percent,
-  Sparkles,
-  Zap,
-  ShieldCheck,
   PhoneCall
 } from "lucide-react";
 import { PublicLayout } from "@/components/layout/PublicLayout";
@@ -83,7 +77,7 @@ const COMPARISON_POINTS = [
 const FAQS = [
   {
     q: "How does the dedicated FairexPay portal work?",
-    a: "UES Abroad has integrated directly with FairexPay (an RBI Authorised Dealer Category-II partner). When you launch the portal at uesabroad.fairexpay.com, you get real-time institutional wholesale exchange rates, paperless documentation, and direct remittance to your foreign university or blocked account provider."
+    a: "UES Abroad has partnered with FairexPay to provide students with a secure international wire portal. When you launch the portal at uesabroad.fairexpay.com, you access real-time wholesale exchange rates, paperless LRS documentation, and direct remittance to your foreign university or blocked account provider."
   },
   {
     q: "Why do we use the FairexPay portal instead of displaying rates here?",
@@ -137,24 +131,19 @@ export default function ForexPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-black/30" />
         </div>
 
-        <div className="container max-w-6xl mx-auto px-4 py-16 lg:py-20 relative z-10">
+        <div className="container max-w-6xl mx-auto px-4 py-20 lg:py-24 relative z-10">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 text-xs font-semibold mb-5 backdrop-blur-xs">
-              <Sparkles className="w-4 h-4 text-emerald-400" />
-              <span>Official FairexPay Integration • RBI Authorised Category-II Dealer</span>
-            </div>
-
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.15]">
               Student Forex &amp;{" "}
               <span className="text-emerald-400">International Wire Portal</span>
             </h1>
 
-            <p className="mt-4 text-sm sm:text-base text-slate-200 leading-relaxed font-normal max-w-xl">
-              Lock live interbank wholesale exchange rates for university tuition, German blocked accounts (Expatrio/Fintiba), and Canada GIC with zero bank markups and paperless compliance.
+            <p className="mt-5 text-sm sm:text-base text-slate-200 leading-relaxed font-normal max-w-xl">
+              Lock live wholesale exchange rates for university tuition, German blocked accounts (Expatrio, Coracle, Fintiba), and Canada GIC with zero retail markups and paperless compliance.
             </p>
 
             {/* Direct Gateway Launch CTA Row */}
-            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 max-w-lg">
+            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 max-w-lg">
               <a
                 href="https://uesabroad.fairexpay.com"
                 target="_blank"
@@ -175,7 +164,7 @@ export default function ForexPage() {
             </div>
 
             {/* Quick Metrics Bar directly on canvas */}
-            <div className="mt-8 pt-6 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-4 text-slate-200 text-xs font-medium">
+            <div className="mt-10 pt-6 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-4 text-slate-200 text-xs font-medium">
               <div>
                 <strong className="block text-emerald-400 text-base font-extrabold">0% Spread</strong>
                 <span className="text-slate-400 text-[11px]">Interbank Wholesale</span>

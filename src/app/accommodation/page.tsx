@@ -7,14 +7,12 @@ import {
   ShieldCheck, 
   CheckCircle2, 
   Clock, 
-  Globe2, 
   MapPin, 
   ChevronDown, 
   PhoneCall, 
   HelpCircle,
   Eye,
   BadgePercent,
-  Sparkles,
   ArrowRight
 } from "lucide-react";
 import { PublicLayout } from "@/components/layout/PublicLayout";
@@ -134,24 +132,19 @@ export default function AccommodationPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-black/30" />
         </div>
 
-        <div className="container max-w-6xl mx-auto px-4 py-16 lg:py-20 relative z-10">
+        <div className="container max-w-6xl mx-auto px-4 py-20 lg:py-24 relative z-10">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 text-xs font-semibold mb-5 backdrop-blur-xs">
-              <Sparkles className="w-4 h-4 text-emerald-400" />
-              <span>Official Amber Student Integration • 1M+ Verified Beds</span>
-            </div>
-
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.15]">
               Pre-Book Verified Student Housing <br />
               <span className="text-emerald-400">Via Dedicated Amber Portal</span>
             </h1>
 
-            <p className="mt-4 text-sm sm:text-base text-slate-200 leading-relaxed font-normal max-w-xl">
+            <p className="mt-5 text-sm sm:text-base text-slate-200 leading-relaxed font-normal max-w-xl">
               Skip unverified classifieds and deposit fraud. Access 1M+ verified student rooms, private studios, and student residences near 5,000+ top campuses with guaranteed partner pricing.
             </p>
 
             {/* Direct Gateway Launch CTA Row */}
-            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 max-w-lg">
+            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 max-w-lg">
               <a
                 href={AMBER_PORTAL_URL}
                 target="_blank"
@@ -172,7 +165,7 @@ export default function AccommodationPage() {
             </div>
 
             {/* Quick Metrics Bar directly on canvas */}
-            <div className="mt-8 pt-6 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-4 text-slate-200 text-xs font-medium">
+            <div className="mt-10 pt-6 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-4 text-slate-200 text-xs font-medium">
               <div>
                 <strong className="block text-white text-base font-extrabold">1,000,000+</strong>
                 <span className="text-slate-400 text-[11px]">Verified Beds</span>
