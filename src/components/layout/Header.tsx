@@ -10,7 +10,6 @@ import {
   ArrowRight, 
   ChevronDown, 
   Compass, 
-  Calendar, 
   GraduationCap,
   Calculator
 } from "lucide-react";
@@ -82,12 +81,6 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
       desc: "8-step roadmap from profile to campus arrival",
       href: "/#journey-section",
       icon: GraduationCap,
-    },
-    {
-      label: "Live Seminars & Events",
-      desc: "Interactive university fairs and webinars",
-      href: "/#seminar-section",
-      icon: Calendar,
     },
   ];
 

@@ -9,7 +9,6 @@ import { ExplorerSection } from "@/components/home/ExplorerSection";
 import { DecisionTeaserSection } from "@/components/home/DecisionTeaserSection";
 import { ServicesBentoSection } from "@/components/home/ServicesBentoSection";
 import { JourneySection } from "@/components/home/JourneySection";
-import { SeminarSection } from "@/components/home/SeminarSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { BlogsSection } from "@/components/home/BlogsSection";
 import { FinalCtaSection } from "@/components/home/FinalCtaSection";
@@ -52,16 +51,13 @@ export default function HomePage() {
       {/* 7. OUR STUDENT JOURNEY (8-STEP ROADMAP) */}
       <JourneySection />
 
-      {/* 8. LIVE UPCOMING SEMINARS & MASTERCLASSES */}
-      <SeminarSection onOpenConsultModal={handleOpenModal} />
-
-      {/* 9. TESTIMONIALS & STUDENT SUCCESS STORIES */}
+      {/* 8. TESTIMONIALS & STUDENT SUCCESS STORIES */}
       <TestimonialsSection />
 
-      {/* 10. EDITORIAL INSIGHTS & BLOGS (WITH LINK TO /blogs) */}
+      {/* 9. EDITORIAL INSIGHTS & BLOGS (WITH LINK TO /blogs) */}
       <BlogsSection onOpenConsultModal={handleOpenModal} />
 
-      {/* 11. FINAL HIGH-IMPACT CONSULTATION CTA */}
+      {/* 10. FINAL HIGH-IMPACT CONSULTATION CTA */}
       <FinalCtaSection onOpenConsultModal={handleOpenModal} />
 
       {/* LEAD CAPTURE POPUP MODAL */}

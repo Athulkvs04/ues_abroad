@@ -191,7 +191,7 @@ export const tenantConfig: TenantConfig = {
     enablePrepCenter: true,
     enableAccommodation: true,
     enableForex: true,
-    enableSeminars: true,
+    enableSeminars: false,
     enableBlogs: true,
     enableResourceVault: true,
     enableTestimonials: true,
@@ -241,7 +241,7 @@ export const tenantConfig: TenantConfig = {
           { label: "GRE & GMAT", href: "/preparation/gre" },
           { label: "German Language", href: "/preparation/german" },
           { label: "SOP & Visa Guides", href: "/resources" },
-          { label: "Upcoming Seminars", href: "/seminars" },
+          { label: "Smart Decision Tools", href: "/tools" },
         ],
       },
       {
