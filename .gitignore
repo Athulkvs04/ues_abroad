@@ -47,3 +47,5 @@ _prototype/
 _prototypezip.zip
 _temp_proto/
 /v3/
+*.pdf
+/scripts/

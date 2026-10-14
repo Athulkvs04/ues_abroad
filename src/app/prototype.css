@@ -264,7 +264,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .hero-details p {
     font-size: 1.125rem;
-    color: var(--text-secondary);
+    color: #ffffff;
     line-height: 1.6;
     margin-bottom: 2.5rem;
 }
@@ -1479,6 +1479,30 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 @media (max-width: 640px) {
+    .hero-details h1 {
+        font-size: 2.25rem !important;
+        line-height: 1.18 !important;
+        margin-bottom: 1rem !important;
+    }
+    .hero-details p {
+        font-size: 0.95rem !important;
+        line-height: 1.55 !important;
+        margin-bottom: 1.5rem !important;
+        color: #f8fafc !important;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
+    }
+    .hero-button-row {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 0.75rem !important;
+    }
+    .hero-button-row .btn-primary-glow,
+    .hero-button-row .btn-secondary-glow {
+        width: 100% !important;
+        text-align: center !important;
+        justify-content: center !important;
+        padding: 0.85rem 1.25rem !important;
+    }
     .destinations-grid, .university-cards-grid, .seminars-cards-grid, .resources-grid-layout, .blogs-grid-layout, .admin-stats-strip, .timeline-grid-board, .admin-kanban-board-layout, .footer-grid-layout {
         grid-template-columns: 1fr;
     }

@@ -48,7 +48,7 @@ export function HeroSection({ onOpenConsultModal }: HeroSectionProps) {
             Your Global Education <br />
             <span className="accent-text">Journey Starts Here.</span>
           </h1>
-          <p className="text-slate-300 max-w-xl">
+          <p className="!text-white max-w-xl text-base sm:text-lg leading-relaxed">
             Expert guidance from counselling to campus. Unlock admissions into world-class global universities with end-to-end mentoring.
           </p>
           <div className="hero-button-row">
