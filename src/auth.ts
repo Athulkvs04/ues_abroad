@@ -87,16 +87,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return session;
     },
     async redirect({ url, baseUrl }) {
-      // Always keep redirects internal to prevent open redirects or host leaks
-      if (url.startsWith("/")) return url;
+      const base = baseUrl || process.env.NEXTAUTH_URL || "http://localhost:3000";
+      // Allows relative callback URLs
+      if (url.startsWith("/")) return `${base}${url}`;
       try {
-        const parsed = new URL(url);
-        // If it belongs to the same origin, return just the path
-        if (parsed.origin === baseUrl) return parsed.pathname + parsed.search;
-        return "/admin/dashboard";
+        if (new URL(url).origin === new URL(base).origin) return url;
       } catch {
-        return "/admin/dashboard";
+        // Fallback to dashboard
       }
+      return `${base}/admin/dashboard`;
     },
   },
   pages: {
