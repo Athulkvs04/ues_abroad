@@ -13,7 +13,8 @@ import {
   LogOut, 
   Globe,
   Menu,
-  X
+  X,
+  Newspaper
 } from "lucide-react";
 import { useTenant } from "@/components/providers/TenantProvider";
 
@@ -32,6 +33,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { label: "Lead CRM", href: "/admin/leads", icon: Users },
     { label: "Universities", href: "/admin/universities", icon: GraduationCap },
     { label: "Courses", href: "/admin/courses", icon: BookOpen },
+    { label: "Blogs & Editorial", href: "/admin/blogs", icon: Newspaper },
     { label: "Site Settings", href: "/admin/settings", icon: Settings },
   ];
 

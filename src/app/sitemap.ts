@@ -1,10 +1,11 @@
 import { MetadataRoute } from "next";
+import { getAllBlogs } from "@/data/blogs";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://uesabroad.com";
   const now = new Date();
 
-  return [
+  const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: now,
@@ -36,6 +37,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/tools`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/blogs`,
       lastModified: now,
       changeFrequency: "daily",
@@ -60,4 +67,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
   ];
+
+  const blogRoutes: MetadataRoute.Sitemap = getAllBlogs().map((blog) => ({
+    url: `${baseUrl}/blogs/${blog.slug}`,
+    lastModified: new Date(blog.date || now),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...blogRoutes];
 }
+

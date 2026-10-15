@@ -64,8 +64,47 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    name: config.name,
+    legalName: config.legalName,
+    url: "https://uesabroad.com",
+    logo: "https://uesabroad.com/icon-512.png",
+    image: "https://uesabroad.com/campus_quad_hero.webp",
+    description: config.description,
+    telephone: config.contact.phone,
+    email: config.contact.emailAdmissions,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "1st Floor V Square, Head Post Office Road",
+      addressLocality: "Palakkad",
+      addressRegion: "Kerala",
+      postalCode: "678001",
+      addressCountry: "IN",
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "240",
+    },
+    sameAs: [
+      config.socials.instagram,
+      config.socials.linkedin,
+      config.socials.youtube,
+      config.socials.facebook,
+      config.socials.twitter,
+    ].filter(Boolean),
+  };
+
   return (
     <html lang="en" className={`${outfit.variable} ${inter.variable} antialiased scroll-smooth`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-body selection:bg-primary/30 selection:text-white">
         <TenantProvider config={config}>
           <div className="flex-1 flex flex-col">{children}</div>

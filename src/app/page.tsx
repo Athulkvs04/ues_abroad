@@ -1,71 +1,50 @@
-"use client";
+import type { Metadata } from "next";
+import { HomePageClient } from "@/components/home/HomePageClient";
 
-import React, { useState } from "react";
-import { PublicLayout } from "@/components/layout/PublicLayout";
-import { HeroSection } from "@/components/home/HeroSection";
-import { TrustSection } from "@/components/home/TrustSection";
-import { DestinationsSection } from "@/components/home/DestinationsSection";
-import { ExplorerSection } from "@/components/home/ExplorerSection";
-import { DecisionTeaserSection } from "@/components/home/DecisionTeaserSection";
-import { ServicesBentoSection } from "@/components/home/ServicesBentoSection";
-import { JourneySection } from "@/components/home/JourneySection";
-import { TestimonialsSection } from "@/components/home/TestimonialsSection";
-import { BlogsSection } from "@/components/home/BlogsSection";
-import { FinalCtaSection } from "@/components/home/FinalCtaSection";
-import { LeadModal } from "@/components/home/LeadModal";
+export const metadata: Metadata = {
+  title: "UES Abroad | Premier Study Abroad Consultants & Global University Admissions",
+  description:
+    "Official overseas education consultancy helping students secure admissions with scholarships across top global universities in UK, Germany, Ireland, Australia, Canada, and USA.",
+  keywords: [
+    "Study Abroad Consultants",
+    "Overseas Education",
+    "Study in UK",
+    "Study in Germany Free Tuition",
+    "Study in Ireland Tech Careers",
+    "Study in Australia PR Pathway",
+    "Study in Canada SDS Visa",
+    "Study Abroad Palakkad",
+    "Study Abroad Calicut",
+    "Global University Admissions",
+  ],
+  alternates: {
+    canonical: "https://uesabroad.com",
+  },
+  openGraph: {
+    title: "UES Abroad | Premier Study Abroad Consultants & Global Admissions",
+    description:
+      "Expert guidance from counselling to campus. Unlock admissions into world-class global universities with end-to-end mentoring.",
+    url: "https://uesabroad.com",
+    siteName: "UES Abroad",
+    images: [
+      {
+        url: "/campus_quad_hero.webp",
+        width: 1200,
+        height: 630,
+        alt: "UES Abroad Global University Admissions Campus Quad",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "UES Abroad | Premier Study Abroad Consultants",
+    description: "Expert guidance from counselling to campus across 500+ global partner universities.",
+    images: ["/campus_quad_hero.webp"],
+  },
+};
 
 export default function HomePage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalSource, setModalSource] = useState<string | undefined>(undefined);
-
-  const handleOpenModal = (source?: string) => {
-    setModalSource(source);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setModalSource(undefined);
-  };
-
-  return (
-    <PublicLayout onOpenConsultModal={() => handleOpenModal("Header Counselling")}>
-      {/* 1. HERO SECTION */}
-      <HeroSection onOpenConsultModal={() => handleOpenModal("Hero Booking")} />
-
-      {/* 2. TRUST STATISTICS & UNIVERSITY MARQUEE */}
-      <TrustSection />
-
-      {/* 3. STUDY DESTINATIONS (CURATED HUB WITH LINK TO /destinations) */}
-      <DestinationsSection onOpenConsultModal={handleOpenModal} />
-
-      {/* 4. UNIVERSITY EXPLORER (CURATED 6 CARDS WITH LINK TO /universities) */}
-      <ExplorerSection onOpenConsultModal={handleOpenModal} />
-
-      {/* 5. SMART DECISION CENTER TEASER (LINKS TO /tools) */}
-      <DecisionTeaserSection onOpenConsultModal={handleOpenModal} />
-
-      {/* 6. RELOCATION & STUDENT SERVICES BENTO (ACCOMMODATION, FOREX, VISA, EXAM PREP) */}
-      <ServicesBentoSection onOpenConsultModal={handleOpenModal} />
-
-      {/* 7. OUR STUDENT JOURNEY (8-STEP ROADMAP) */}
-      <JourneySection />
-
-      {/* 8. TESTIMONIALS & STUDENT SUCCESS STORIES */}
-      <TestimonialsSection />
-
-      {/* 9. EDITORIAL INSIGHTS & BLOGS (WITH LINK TO /blogs) */}
-      <BlogsSection onOpenConsultModal={handleOpenModal} />
-
-      {/* 10. FINAL HIGH-IMPACT CONSULTATION CTA */}
-      <FinalCtaSection onOpenConsultModal={handleOpenModal} />
-
-      {/* LEAD CAPTURE POPUP MODAL */}
-      <LeadModal 
-        isOpen={isModalOpen} 
-        onClose={handleCloseModal} 
-        source={modalSource} 
-      />
-    </PublicLayout>
-  );
+  return <HomePageClient />;
 }

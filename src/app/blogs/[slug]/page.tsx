@@ -46,13 +46,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: `${blog.title} | UES Abroad Guides`,
     description: blog.excerpt,
     keywords: [...blog.tags, blog.category, "UES Abroad", "Study Abroad Palakkad", "Study Abroad Calicut"],
+    alternates: {
+      canonical: `https://uesabroad.com/blogs/${slug}`,
+    },
     openGraph: {
       title: blog.title,
       description: blog.excerpt,
+      url: `https://uesabroad.com/blogs/${slug}`,
       images: [{ url: blog.coverImage, width: 1200, height: 630, alt: blog.title }],
       type: "article",
       publishedTime: blog.date,
       authors: [blog.author.name],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: blog.title,
+      description: blog.excerpt,
+      images: [blog.coverImage],
     },
   };
 }
@@ -66,6 +76,32 @@ export default async function BlogPostPage({ params }: PageProps) {
   }
 
   const related = getRelatedBlogs(slug, 3);
+
+  const blogJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: blog.title,
+    description: blog.excerpt,
+    image: `https://uesabroad.com${blog.coverImage}`,
+    datePublished: blog.date,
+    author: {
+      "@type": "Person",
+      name: blog.author.name,
+      jobTitle: blog.author.role,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "UES Abroad",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://uesabroad.com/icon-512.png",
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://uesabroad.com/blogs/${slug}`,
+    },
+  };
 
   // Simple formatting helper for markdown headings, lists, and paragraphs
   const renderFormattedContent = (content: string) => {
@@ -132,6 +168,10 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   return (
     <PublicLayout>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
+      />
       <div className="min-h-screen bg-white">
       {/* Editorial Header */}
       <div className="bg-slate-50/70 border-b border-slate-200/80 pt-28 pb-12">
