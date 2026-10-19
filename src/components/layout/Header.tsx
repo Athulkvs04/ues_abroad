@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -13,14 +14,12 @@ import {
   GraduationCap,
   Calculator
 } from "lucide-react";
-import { useTenant } from "@/components/providers/TenantProvider";
 
 interface HeaderProps {
   onOpenConsultModal?: () => void;
 }
 
 export function Header({ onOpenConsultModal }: HeaderProps) {
-  const tenant = useTenant();
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const [isScrolled, setIsScrolled] = useState(false);
@@ -97,22 +96,17 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
         <div className="flex items-center min-w-[170px]">
           <Link 
             href={isHomePage ? "#hero-section" : "/"} 
-            className="inline-flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-emerald-500/50 rounded-xl py-1 px-1.5"
+            className="inline-flex items-center group focus:outline-none focus:ring-2 focus:ring-emerald-500/50 rounded-xl py-1 px-1.5"
             aria-label="UES Abroad Homepage"
           >
-            <div className="flex gap-1.5 h-7 items-center">
-              <span className="block w-1.5 h-full bg-[#0A7D45] rounded-sm transition-transform group-hover:scale-y-110 duration-300" />
-              <span className="block w-1.5 h-full bg-[#00B050] rounded-sm transition-transform group-hover:scale-y-110 duration-300 delay-75" />
-              <span className="block w-1.5 h-full bg-[#92D050] rounded-sm transition-transform group-hover:scale-y-110 duration-300 delay-150" />
-            </div>
-            <div className="flex flex-col leading-tight text-left">
-              <span className="text-xl font-heading font-extrabold text-slate-900 dark:text-white tracking-tight">
-                {tenant.name.split(" ")[0] || "UES"}
-              </span>
-              <span className="text-[10px] font-heading font-bold text-slate-500 dark:text-slate-400 tracking-widest uppercase">
-                {tenant.name.split(" ").slice(1).join(" ") || "Abroad"}
-              </span>
-            </div>
+            <Image
+              src="/ues-logo.png"
+              alt="UES Abroad – lets UPGRADE"
+              width={160}
+              height={78}
+              priority
+              className="h-11 w-auto object-contain"
+            />
           </Link>
         </div>
 
