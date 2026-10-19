@@ -1,11 +1,29 @@
 export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { checkDatabaseConnection } from "@/lib/db-status";
 
-
-
-// GET /api/admin/stats - Dynamic Neon DB Metrics
+// GET /api/admin/stats - Live database metrics
 export async function GET() {
+  const isDbConnected = await checkDatabaseConnection();
+
+  if (!isDbConnected) {
+    return NextResponse.json({
+      success: true,
+      isDbConnected: false,
+      message: "Database not connected",
+      stats: {
+        totalLeads: 0,
+        totalUniversities: 0,
+        totalCourses: 0,
+        avgScore: 0,
+        newLeads: 0,
+        accommodationCount: 0,
+        forexCount: 0,
+      },
+    });
+  }
+
   try {
     const [totalLeads, totalUniversities, totalCourses, leadScoreAgg, newLeads, accommodationCount, forexCount] =
       await Promise.all([
@@ -20,10 +38,11 @@ export async function GET() {
         prisma.forexReferral.count(),
       ]);
 
-    const avgScore = Math.round(leadScoreAgg._avg.score || 75);
+    const avgScore = leadScoreAgg._avg.score ? Math.round(leadScoreAgg._avg.score) : 0;
 
     return NextResponse.json({
       success: true,
+      isDbConnected: true,
       stats: {
         totalLeads,
         totalUniversities,
@@ -35,19 +54,20 @@ export async function GET() {
       },
     });
   } catch (error) {
-    console.warn("Database not connected, returning catalog stats fallback:", error);
+    console.error("Error fetching admin stats from database:", error);
     return NextResponse.json({
       success: true,
+      isDbConnected: false,
+      message: "Database query failed",
       stats: {
-        totalLeads: 8,
-        totalUniversities: 90,
-        totalCourses: 450,
-        avgScore: 82,
-        newLeads: 3,
-        accommodationCount: 4,
-        forexCount: 2,
+        totalLeads: 0,
+        totalUniversities: 0,
+        totalCourses: 0,
+        avgScore: 0,
+        newLeads: 0,
+        accommodationCount: 0,
+        forexCount: 0,
       },
-      isFallback: true,
     });
   }
 }

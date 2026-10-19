@@ -22,6 +22,7 @@ import {
   DollarSign,
   Save,
   CheckCircle,
+  Database,
 } from "lucide-react";
 
 interface UserStaff {
@@ -491,7 +492,13 @@ export default function AdminLeadsPage() {
                 <p className="text-sm">Loading student leads from Neon PostgreSQL...</p>
               </div>
             ) : filteredLeads.length === 0 ? (
-              <div className="p-12 text-center text-slate-500">No student leads found.</div>
+              <div className="p-16 text-center text-slate-500">
+                <Database className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+                <h3 className="text-base font-bold text-slate-700">No Student Leads in Database</h3>
+                <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto leading-relaxed">
+                  When visitors submit inquiries on the public site or when you record leads manually, they will appear here live.
+                </p>
+              </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm text-slate-700">

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { 
@@ -17,7 +17,9 @@ import {
   Sparkles,
   BookOpen,
   RefreshCw,
-  AlertCircle
+  AlertCircle,
+  Upload,
+  ImageIcon
 } from "lucide-react";
 import { BlogPost } from "@/data/blogs";
 
@@ -31,6 +33,105 @@ const CATEGORIES = [
   "Scholarships",
   "Visa Guides",
 ] as const;
+
+function ImageUploader({
+  label,
+  value,
+  onChange,
+  folder,
+}: {
+  label: string;
+  value: string;
+  onChange: (url: string) => void;
+  folder: string;
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setError("");
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("folder", folder);
+
+    try {
+      const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
+      const data = await res.json();
+      if (data.success) {
+        onChange(data.url);
+      } else {
+        setError(data.error || "Upload failed");
+      }
+    } catch {
+      setError("Upload failed. Please try again.");
+    } finally {
+      setUploading(false);
+      if (inputRef.current) inputRef.current.value = "";
+    }
+  };
+
+  return (
+    <div>
+      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">{label}</label>
+      
+      {/* Preview */}
+      {value && (
+        <div className="relative mb-2 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 h-36 w-full">
+          <Image
+            src={value}
+            alt="Preview"
+            fill
+            className="object-cover"
+          />
+          <button
+            type="button"
+            onClick={() => onChange("")}
+            className="absolute top-2 right-2 p-1.5 rounded-lg bg-slate-900/80 text-white hover:bg-rose-600 transition-colors shadow-sm"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
+      
+      <div className="flex items-center gap-2">
+        <input
+          type="text"
+          placeholder="/blogs/cover.webp or click upload →"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="flex-1 px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+        />
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleUpload}
+          className="hidden"
+        />
+        <button
+          type="button"
+          onClick={() => inputRef.current?.click()}
+          disabled={uploading}
+          className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 disabled:opacity-50"
+        >
+          {uploading ? (
+            <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+          ) : (
+            <Upload className="w-3.5 h-3.5" />
+          )}
+          {uploading ? "Uploading..." : "Browse"}
+        </button>
+      </div>
+      {error && <p className="text-rose-500 text-xs mt-1">{error}</p>}
+    </div>
+  );
+}
 
 export default function AdminBlogsPage() {
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
@@ -56,6 +157,7 @@ export default function AdminBlogsPage() {
     authorRole: "Senior Study Abroad Counselor",
     readTime: "5 min read",
     tags: "",
+    keyTakeaways: "",
     featured: false,
   });
 
@@ -105,6 +207,7 @@ export default function AdminBlogsPage() {
       authorRole: "Senior Study Abroad Counselor",
       readTime: "5 min read",
       tags: "Study Abroad, Admissions",
+      keyTakeaways: "Early applications maximize admission and scholarship probability.\nEnglish proficiency (IELTS/PTE) or MOI certificate required.\nExpert counselor guidance ensures accurate visa documentation.",
       featured: false,
     });
     setIsModalOpen(true);
@@ -124,6 +227,7 @@ export default function AdminBlogsPage() {
       authorRole: blog.author.role,
       readTime: blog.readTime,
       tags: blog.tags.join(", "),
+      keyTakeaways: blog.keyTakeaways ? blog.keyTakeaways.join("\n") : "",
       featured: Boolean(blog.featured),
     });
     setIsModalOpen(true);
@@ -135,7 +239,6 @@ export default function AdminBlogsPage() {
     setFormData((prev) => ({
       ...prev,
       title: val,
-      // Only auto-update slug if creating new
       slug: editingBlog ? prev.slug : val.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
     }));
   };
@@ -162,6 +265,7 @@ export default function AdminBlogsPage() {
         authorRole: formData.authorRole,
         readTime: formData.readTime,
         tags: formData.tags.split(",").map((t) => t.trim()).filter(Boolean),
+        keyTakeaways: formData.keyTakeaways.split("\n").map((t) => t.trim()).filter(Boolean),
         featured: formData.featured,
       };
 
@@ -218,33 +322,36 @@ export default function AdminBlogsPage() {
   };
 
   return (
-    <div className="p-6 lg:p-10 space-y-8 max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200/80 pb-6">
+    <div className="space-y-6">
+      {/* Top Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200/80">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
-            <BookOpen className="w-8 h-8 text-emerald-600" />
-            Editorial &amp; Blog CMS
-          </h1>
+          <div className="flex items-center gap-2">
+            <span className="p-2 rounded-xl bg-emerald-50 text-emerald-700">
+              <BookOpen className="w-5 h-5" />
+            </span>
+            <h1 className="text-2xl font-black text-slate-900 tracking-tight">Blog &amp; Study Guides CMS</h1>
+          </div>
           <p className="text-slate-500 text-sm mt-1">
-            Publish study guides, visa roadmaps, scholarship announcements, and country updates.
+            Author and publish expert visa roadmaps, university spotlights, and country guides with live photo upload.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
-          <button
-            onClick={fetchBlogs}
-            className="p-2.5 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-600 transition-colors"
-            title="Refresh articles"
+          <Link
+            href="/blogs"
+            target="_blank"
+            className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-semibold text-xs inline-flex items-center gap-2 hover:bg-slate-50 transition-colors"
           >
-            <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
-          </button>
+            <ExternalLink className="w-3.5 h-3.5" />
+            View Public Site
+          </Link>
           <button
             onClick={handleOpenCreateModal}
-            className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm flex items-center gap-2 shadow-xs transition-colors"
+            className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs inline-flex items-center gap-2 shadow-xs transition-colors"
           >
             <Plus className="w-4 h-4" />
-            New Article
+            Add New Article
           </button>
         </div>
       </div>
@@ -322,9 +429,9 @@ export default function AdminBlogsPage() {
       ) : filteredBlogs.length === 0 ? (
         <div className="py-16 text-center bg-white rounded-2xl border border-slate-200/80 p-8">
           <BookOpen className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-          <h3 className="text-base font-bold text-slate-800">No articles found</h3>
-          <p className="text-slate-500 text-sm mt-1 max-w-sm mx-auto">
-            Try adjusting your search query or create your first study abroad editorial article.
+          <h3 className="text-base font-bold text-slate-800">No Articles in Database</h3>
+          <p className="text-slate-500 text-xs mt-1 max-w-sm mx-auto leading-relaxed">
+            Database is in standby mode. Connect your database and click &quot;Create Article&quot; to publish your first editorial guide.
           </p>
           <button
             onClick={handleOpenCreateModal}
@@ -349,62 +456,64 @@ export default function AdminBlogsPage() {
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-3 left-3 flex items-center gap-2">
-                  <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-white/95 text-slate-800 shadow-xs backdrop-blur-xs">
-                    {blog.category}
+                <span className={`absolute top-3 left-3 text-[10px] font-bold px-2.5 py-1 rounded-md backdrop-blur-md border ${blog.categoryColor}`}>
+                  {blog.category}
+                </span>
+                {blog.featured && (
+                  <span className="absolute top-3 right-3 text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-500 text-white shadow-xs flex items-center gap-1">
+                    <Sparkles className="w-3 h-3" />
+                    Featured
                   </span>
-                  {blog.featured && (
-                    <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-500 text-white shadow-xs flex items-center gap-1">
-                      <Sparkles className="w-3 h-3" />
-                      Featured
-                    </span>
-                  )}
-                </div>
+                )}
               </div>
 
               {/* Body */}
-              <div className="p-5 flex-1 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-3 text-xs text-slate-400 mb-2">
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5" />
-                      {blog.date}
-                    </span>
-                    <span>•</span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5" />
-                      {blog.readTime}
-                    </span>
-                  </div>
-
-                  <h3 className="font-bold text-slate-900 text-base leading-snug line-clamp-2 mb-2 group-hover:text-emerald-700 transition-colors">
-                    {blog.title}
-                  </h3>
-
-                  <p className="text-slate-500 text-xs line-clamp-2 leading-relaxed">
-                    {blog.excerpt}
-                  </p>
+              <div className="p-5 flex flex-col flex-1">
+                <div className="flex items-center gap-3 text-xs text-slate-400 mb-2">
+                  <span className="flex items-center gap-1">
+                    <Calendar className="w-3 h-3" />
+                    {blog.date}
+                  </span>
+                  <span>•</span>
+                  <span className="flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    {blog.readTime}
+                  </span>
                 </div>
 
-                {/* Footer & Actions */}
-                <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
-                  <span className="text-xs font-medium text-slate-600 flex items-center gap-1.5 truncate max-w-[140px]">
-                    <User className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                <h3 className="text-base font-bold text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-2 mb-2 leading-snug">
+                  {blog.title}
+                </h3>
+
+                <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed mb-4 flex-1">
+                  {blog.excerpt}
+                </p>
+
+                {/* Author Info */}
+                <div className="flex items-center gap-2 mb-4 pt-3 border-t border-slate-100">
+                  <div className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold flex items-center justify-center">
+                    {blog.author.name.slice(0, 2).toUpperCase()}
+                  </div>
+                  <span className="text-xs font-medium text-slate-600 truncate">
                     {blog.author.name}
                   </span>
+                </div>
+
+                {/* Actions */}
+                <div className="flex items-center justify-between pt-2">
+                  <Link
+                    href={`/blogs/${blog.slug}`}
+                    target="_blank"
+                    className="text-xs font-bold text-emerald-700 hover:text-emerald-800 inline-flex items-center gap-1"
+                  >
+                    Preview
+                    <ExternalLink className="w-3 h-3" />
+                  </Link>
 
                   <div className="flex items-center gap-1">
-                    <Link
-                      href={`/blogs/${blog.slug}`}
-                      target="_blank"
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-slate-50 transition-colors"
-                      title="View live article"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                    </Link>
                     <button
                       onClick={() => handleOpenEditModal(blog)}
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors"
                       title="Edit article"
                     >
                       <Edit3 className="w-4 h-4" />
@@ -424,18 +533,18 @@ export default function AdminBlogsPage() {
         </div>
       )}
 
-      {/* Modal / Drawer for Create & Edit */}
+      {/* Create / Edit Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs">
-          <div className="bg-white w-full max-w-2xl rounded-2xl shadow-xl border border-slate-200 max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-            {/* Modal Header */}
-            <div className="p-6 border-b border-slate-100 flex items-center justify-between">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200">
+            {/* Header */}
+            <div className="p-6 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white z-10">
               <div>
-                <h2 className="text-lg font-bold text-slate-900">
+                <h3 className="text-lg font-black text-slate-900">
                   {editingBlog ? "Edit Article" : "Create New Article"}
-                </h2>
+                </h3>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  Publish authoritative study abroad insights directly to /blogs.
+                  Fill in all guide details, upload cover image, and save to publish live on the website.
                 </p>
               </div>
               <button
@@ -446,25 +555,26 @@ export default function AdminBlogsPage() {
               </button>
             </div>
 
-            {/* Modal Body */}
-            <form onSubmit={handleSubmit} className="p-6 overflow-y-auto space-y-4 flex-1">
-              {statusMessage && (
-                <div
-                  className={`p-3.5 rounded-xl text-xs font-semibold flex items-center gap-2 ${
-                    statusMessage.type === "success"
-                      ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-                      : "bg-rose-50 text-rose-800 border border-rose-200"
-                  }`}
-                >
-                  {statusMessage.type === "success" ? (
-                    <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
-                  ) : (
-                    <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
-                  )}
-                  <span>{statusMessage.text}</span>
-                </div>
-              )}
+            {/* Status notification */}
+            {statusMessage && (
+              <div
+                className={`mx-6 mt-4 p-3.5 rounded-xl text-xs font-semibold flex items-center gap-2 ${
+                  statusMessage.type === "success"
+                    ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+                    : "bg-rose-50 text-rose-800 border border-rose-200"
+                }`}
+              >
+                {statusMessage.type === "success" ? (
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                ) : (
+                  <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+                )}
+                <span>{statusMessage.text}</span>
+              </div>
+            )}
 
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="p-6 space-y-5">
               {/* Title */}
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
@@ -531,35 +641,15 @@ export default function AdminBlogsPage() {
                 />
               </div>
 
-              {/* Cover Image & Read Time */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Cover Image Path
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.coverImage}
-                    onChange={(e) => setFormData({ ...formData, coverImage: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
-                  />
-                </div>
+              {/* Cover Image Uploader */}
+              <ImageUploader
+                label="Article Cover Image"
+                value={formData.coverImage}
+                onChange={(url) => setFormData({ ...formData, coverImage: url })}
+                folder="blogs"
+              />
 
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Read Time
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g., 6 min read"
-                    value={formData.readTime}
-                    onChange={(e) => setFormData({ ...formData, readTime: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
-                  />
-                </div>
-              </div>
-
-              {/* Author & Tags */}
+              {/* Read Time & Author */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
@@ -575,26 +665,54 @@ export default function AdminBlogsPage() {
 
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Tags (Comma Separated)
+                    Estimated Read Time
                   </label>
                   <input
                     type="text"
-                    placeholder="Germany, Tuition, Visa"
-                    value={formData.tags}
-                    onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+                    placeholder="e.g., 6 min read"
+                    value={formData.readTime}
+                    onChange={(e) => setFormData({ ...formData, readTime: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
                   />
                 </div>
               </div>
 
+              {/* Tags */}
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  Tags (Comma Separated)
+                </label>
+                <input
+                  type="text"
+                  placeholder="Germany, Tuition, Visa, Scholarships"
+                  value={formData.tags}
+                  onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                />
+              </div>
+
+              {/* Key Highlights / Takeaways */}
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  Key Highlights / Takeaways Box (One per line)
+                </label>
+                <textarea
+                  rows={3}
+                  placeholder="Enter bullet points displayed in the green summary box at the top of the article:&#10;• Full tuition waivers available for international students&#10;• Post-study work permit up to 3 years&#10;• Free application shortlisting through UES Abroad"
+                  value={formData.keyTakeaways}
+                  onChange={(e) => setFormData({ ...formData, keyTakeaways: e.target.value })}
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                />
+              </div>
+
               {/* Content (Markdown) */}
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                  Article Content (Supports Markdown headings and bullets) *
+                  Article Content (Supports Markdown headings ## and bullets - ) *
                 </label>
                 <textarea
                   required
-                  rows={8}
+                  rows={10}
                   placeholder="Write the full guide here. Use ## for section headings and - for bullet points..."
                   value={formData.content}
                   onChange={(e) => setFormData({ ...formData, content: e.target.value })}
@@ -628,10 +746,10 @@ export default function AdminBlogsPage() {
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm shadow-xs transition-colors disabled:opacity-50 flex items-center gap-2"
+                  className="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-xs transition-colors disabled:opacity-50 inline-flex items-center gap-2"
                 >
                   {isSaving && <RefreshCw className="w-4 h-4 animate-spin" />}
-                  {editingBlog ? "Save Changes" : "Publish Article"}
+                  {isSaving ? "Saving..." : editingBlog ? "Update Article" : "Publish Article"}
                 </button>
               </div>
             </form>

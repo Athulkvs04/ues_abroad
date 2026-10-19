@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import Image from "next/image";
 import {
   GraduationCap,
   Plus,
@@ -13,6 +14,14 @@ import {
   X,
   Save,
   BookOpen,
+  Upload,
+  ImageIcon,
+  Award,
+  DollarSign,
+  FileText,
+  Star,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 
 interface Country {
@@ -24,11 +33,18 @@ interface Country {
 interface University {
   id: string;
   name: string;
+  slug: string;
   locationCity: string;
   globalRanking: number | null;
   approxTuitionYearly: number;
   approxLivingYearly: number;
   overview: string;
+  admissionReqs: string;
+  scholarshipInfo: string;
+  logoUrl: string | null;
+  bannerUrl: string | null;
+  isPartner: boolean;
+  isPublished: boolean;
   country: {
     id: string;
     name: string;
@@ -37,6 +53,138 @@ interface University {
   _count: {
     courses: number;
   };
+}
+
+interface UniversityFormData {
+  name: string;
+  countryId: string;
+  locationCity: string;
+  globalRanking: string;
+  approxTuitionYearly: string;
+  approxLivingYearly: string;
+  overview: string;
+  admissionReqs: string;
+  scholarshipInfo: string;
+  logoUrl: string;
+  bannerUrl: string;
+  isPartner: boolean;
+  isPublished: boolean;
+}
+
+const EMPTY_FORM: UniversityFormData = {
+  name: "",
+  countryId: "",
+  locationCity: "",
+  globalRanking: "",
+  approxTuitionYearly: "25000",
+  approxLivingYearly: "12000",
+  overview: "",
+  admissionReqs: "",
+  scholarshipInfo: "",
+  logoUrl: "",
+  bannerUrl: "",
+  isPartner: true,
+  isPublished: true,
+};
+
+// Reusable image upload component
+function ImageUploader({
+  label,
+  value,
+  onChange,
+  folder,
+  aspect = "landscape",
+}: {
+  label: string;
+  value: string;
+  onChange: (url: string) => void;
+  folder: string;
+  aspect?: "landscape" | "square";
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setError("");
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("folder", folder);
+
+    try {
+      const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
+      const data = await res.json();
+      if (data.success) {
+        onChange(data.url);
+      } else {
+        setError(data.error || "Upload failed");
+      }
+    } catch {
+      setError("Upload failed. Please try again.");
+    } finally {
+      setUploading(false);
+      if (inputRef.current) inputRef.current.value = "";
+    }
+  };
+
+  return (
+    <div>
+      <label className="block text-slate-700 font-semibold mb-1.5 text-xs">{label}</label>
+      
+      {/* Preview */}
+      {value && (
+        <div className={`relative mb-2 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 ${
+          aspect === "landscape" ? "h-32" : "h-20 w-20"
+        }`}>
+          <Image
+            src={value}
+            alt="Preview"
+            fill
+            className="object-cover"
+          />
+          <button
+            type="button"
+            onClick={() => onChange("")}
+            className="absolute top-1.5 right-1.5 p-1 rounded-lg bg-slate-900/70 text-white hover:bg-rose-600 transition-colors"
+          >
+            <X className="w-3 h-3" />
+          </button>
+        </div>
+      )}
+      
+      <div className="flex items-center gap-2">
+        <input
+          type="text"
+          placeholder="/universities/campus.webp or upload →"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-sky-500"
+        />
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp,image/avif"
+          onChange={handleUpload}
+          className="hidden"
+        />
+        <button
+          type="button"
+          onClick={() => inputRef.current?.click()}
+          disabled={uploading}
+          className="px-3 py-2 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 text-xs font-semibold flex items-center gap-1.5 transition-colors disabled:opacity-50"
+        >
+          {uploading ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Upload className="w-3.5 h-3.5" />}
+          {uploading ? "Uploading..." : "Upload"}
+        </button>
+      </div>
+      {error && <p className="text-rose-600 text-[11px] mt-1">{error}</p>}
+    </div>
+  );
 }
 
 export default function AdminUniversitiesPage() {
@@ -51,17 +199,8 @@ export default function AdminUniversitiesPage() {
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
   // Forms
-  const [addForm, setAddForm] = useState({
-    name: "",
-    countryId: "",
-    locationCity: "",
-    globalRanking: "",
-    approxTuitionYearly: "25000",
-    approxLivingYearly: "12000",
-    overview: "",
-  });
-
-  const [editForm, setEditForm] = useState<Partial<University>>({});
+  const [addForm, setAddForm] = useState<UniversityFormData>({ ...EMPTY_FORM });
+  const [editForm, setEditForm] = useState<UniversityFormData>({ ...EMPTY_FORM });
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -111,13 +250,8 @@ export default function AdminUniversitiesPage() {
         setUniversities([data.university, ...universities]);
         setShowAddModal(false);
         setAddForm({
-          name: "",
+          ...EMPTY_FORM,
           countryId: countries[0]?.id || "",
-          locationCity: "",
-          globalRanking: "",
-          approxTuitionYearly: "25000",
-          approxLivingYearly: "12000",
-          overview: "",
         });
       }
     } catch (err) {
@@ -171,6 +305,190 @@ export default function AdminUniversitiesPage() {
       uni.locationCity.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  // Shared form fields renderer
+  const renderFormFields = (
+    form: UniversityFormData,
+    setForm: React.Dispatch<React.SetStateAction<UniversityFormData>>,
+    isEdit = false
+  ) => (
+    <>
+      {/* University Name */}
+      <div>
+        <label className="block text-slate-700 font-semibold mb-1 text-xs">University Name *</label>
+        <input
+          type="text"
+          required
+          placeholder="e.g. University of Manchester"
+          value={form.name}
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
+          className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-sky-500"
+        />
+      </div>
+
+      {/* Country & City */}
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <label className="block text-slate-700 font-semibold mb-1 text-xs">Destination Country</label>
+          <select
+            value={form.countryId}
+            onChange={(e) => setForm({ ...form, countryId: e.target.value })}
+            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-xs focus:bg-white focus:outline-none focus:border-sky-500"
+          >
+            {countries.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="block text-slate-700 font-semibold mb-1 text-xs">Campus City *</label>
+          <input
+            type="text"
+            required
+            placeholder="e.g. Manchester"
+            value={form.locationCity}
+            onChange={(e) => setForm({ ...form, locationCity: e.target.value })}
+            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-sky-500"
+          />
+        </div>
+      </div>
+
+      {/* Ranking, Tuition, Living */}
+      <div className="grid grid-cols-3 gap-3">
+        <div>
+          <label className="block text-slate-700 font-semibold mb-1 text-xs">
+            <Award className="w-3 h-3 inline mr-1 text-amber-500" />
+            Global Ranking
+          </label>
+          <input
+            type="number"
+            placeholder="e.g. 28"
+            value={form.globalRanking}
+            onChange={(e) => setForm({ ...form, globalRanking: e.target.value })}
+            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-sky-500"
+          />
+        </div>
+        <div>
+          <label className="block text-slate-700 font-semibold mb-1 text-xs">
+            <DollarSign className="w-3 h-3 inline mr-1 text-emerald-500" />
+            Tuition / Yr
+          </label>
+          <input
+            type="number"
+            placeholder="25000"
+            value={form.approxTuitionYearly}
+            onChange={(e) => setForm({ ...form, approxTuitionYearly: e.target.value })}
+            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-sky-500"
+          />
+        </div>
+        <div>
+          <label className="block text-slate-700 font-semibold mb-1 text-xs">
+            <DollarSign className="w-3 h-3 inline mr-1 text-blue-500" />
+            Living / Yr
+          </label>
+          <input
+            type="number"
+            placeholder="12000"
+            value={form.approxLivingYearly}
+            onChange={(e) => setForm({ ...form, approxLivingYearly: e.target.value })}
+            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-sky-500"
+          />
+        </div>
+      </div>
+
+      {/* Logo & Banner Image Upload */}
+      <div className="grid grid-cols-2 gap-3">
+        <ImageUploader
+          label="University Logo"
+          value={form.logoUrl}
+          onChange={(url) => setForm({ ...form, logoUrl: url })}
+          folder="universities"
+          aspect="square"
+        />
+        <ImageUploader
+          label="Campus Banner Image"
+          value={form.bannerUrl}
+          onChange={(url) => setForm({ ...form, bannerUrl: url })}
+          folder="universities"
+          aspect="landscape"
+        />
+      </div>
+
+      {/* Overview */}
+      <div>
+        <label className="block text-slate-700 font-semibold mb-1 text-xs">
+          <FileText className="w-3 h-3 inline mr-1 text-slate-400" />
+          Overview Description *
+        </label>
+        <textarea
+          required
+          rows={3}
+          placeholder="A comprehensive overview of the university, its academic strengths, campus life, and international student support..."
+          value={form.overview}
+          onChange={(e) => setForm({ ...form, overview: e.target.value })}
+          className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-sky-500"
+        />
+      </div>
+
+      {/* Admission Requirements */}
+      <div>
+        <label className="block text-slate-700 font-semibold mb-1 text-xs">
+          <BookOpen className="w-3 h-3 inline mr-1 text-sky-500" />
+          Admission Requirements
+        </label>
+        <textarea
+          rows={2}
+          placeholder="Minimum GPA, English proficiency (IELTS/TOEFL), SOP, LOR, portfolio requirements..."
+          value={form.admissionReqs}
+          onChange={(e) => setForm({ ...form, admissionReqs: e.target.value })}
+          className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-sky-500"
+        />
+      </div>
+
+      {/* Scholarship Info */}
+      <div>
+        <label className="block text-slate-700 font-semibold mb-1 text-xs">
+          <Star className="w-3 h-3 inline mr-1 text-amber-500" />
+          Scholarship Information
+        </label>
+        <textarea
+          rows={2}
+          placeholder="Merit-based scholarships, need-based aid, application deadlines, eligibility criteria..."
+          value={form.scholarshipInfo}
+          onChange={(e) => setForm({ ...form, scholarshipInfo: e.target.value })}
+          className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-sky-500"
+        />
+      </div>
+
+      {/* Toggle Row */}
+      <div className="flex items-center gap-6 pt-1">
+        <label className="flex items-center gap-2 cursor-pointer text-xs">
+          <input
+            type="checkbox"
+            checked={form.isPartner}
+            onChange={(e) => setForm({ ...form, isPartner: e.target.checked })}
+            className="w-4 h-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
+          />
+          <span className="font-medium text-slate-700">Official Partner University</span>
+        </label>
+
+        <label className="flex items-center gap-2 cursor-pointer text-xs">
+          <input
+            type="checkbox"
+            checked={form.isPublished}
+            onChange={(e) => setForm({ ...form, isPublished: e.target.checked })}
+            className="w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+          />
+          <span className="font-medium text-slate-700 flex items-center gap-1">
+            {form.isPublished ? <Eye className="w-3 h-3 text-emerald-600" /> : <EyeOff className="w-3 h-3 text-slate-400" />}
+            Published (Visible on site)
+          </span>
+        </label>
+      </div>
+    </>
+  );
+
   return (
     <div className="space-y-6 animate-fadeIn pb-12">
       {/* Top Header */}
@@ -181,7 +499,7 @@ export default function AdminUniversitiesPage() {
             University Catalog CMS
           </h1>
           <p className="text-xs sm:text-sm text-slate-600 mt-1">
-            Full 100% CRUD control over partner universities, global rankings, and tuition fees in Neon DB
+            Full CRUD control over partner universities, images, admission requirements, and scholarships
           </p>
         </div>
 
@@ -220,27 +538,52 @@ export default function AdminUniversitiesPage() {
         {loading ? (
           <div className="p-12 text-center text-slate-500">
             <RefreshCw className="w-6 h-6 animate-spin mx-auto text-sky-600 mb-2" />
-            <p className="text-sm">Loading university catalog from Neon PostgreSQL...</p>
+            <p className="text-sm">Loading university catalog...</p>
           </div>
         ) : filtered.length === 0 ? (
-          <div className="p-12 text-center text-slate-500">No universities found.</div>
+          <div className="p-16 text-center text-slate-500">
+            <GraduationCap className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+            <h3 className="text-base font-bold text-slate-700">No Universities in Database</h3>
+            <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto leading-relaxed">
+              No institution records found. Connect your database and click &quot;Add University&quot; above to configure your partner directory.
+            </p>
+          </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm text-slate-700">
               <thead className="bg-slate-50/90 text-xs uppercase font-semibold text-slate-600 border-b border-slate-200">
                 <tr>
-                  <th className="px-6 py-4">University Name</th>
+                  <th className="px-6 py-4">University</th>
                   <th className="px-6 py-4">Country & City</th>
                   <th className="px-6 py-4">Global Rank</th>
                   <th className="px-6 py-4">Tuition Fee / Yr</th>
-                  <th className="px-6 py-4">Active Courses</th>
+                  <th className="px-6 py-4">Status</th>
+                  <th className="px-6 py-4">Courses</th>
                   <th className="px-6 py-4 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {filtered.map((uni) => (
                   <tr key={uni.id} className="hover:bg-slate-50/80 transition-colors">
-                    <td className="px-6 py-4 font-semibold text-slate-900">{uni.name}</td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        {uni.logoUrl ? (
+                          <div className="w-9 h-9 rounded-lg overflow-hidden border border-slate-200 shrink-0 relative bg-white">
+                            <Image src={uni.logoUrl} alt="" fill className="object-contain p-0.5" />
+                          </div>
+                        ) : (
+                          <div className="w-9 h-9 rounded-lg bg-sky-50 border border-sky-200 flex items-center justify-center shrink-0">
+                            <GraduationCap className="w-4 h-4 text-sky-600" />
+                          </div>
+                        )}
+                        <div>
+                          <span className="font-semibold text-slate-900 block">{uni.name}</span>
+                          {uni.isPartner && (
+                            <span className="text-[10px] font-bold text-sky-600 uppercase tracking-wider">Partner</span>
+                          )}
+                        </div>
+                      </div>
+                    </td>
                     <td className="px-6 py-4">
                       <div className="text-slate-800 flex items-center gap-1.5 font-medium">
                         <Globe className="w-3.5 h-3.5 text-sky-600" />
@@ -258,10 +601,21 @@ export default function AdminUniversitiesPage() {
                       {uni.country.currencySymbol}
                       {uni.approxTuitionYearly.toLocaleString()}
                     </td>
+                    <td className="px-6 py-4">
+                      {uni.isPublished ? (
+                        <span className="inline-flex items-center gap-1 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full text-[11px] font-bold text-emerald-700">
+                          <Eye className="w-3 h-3" /> Live
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full text-[11px] font-bold text-slate-500">
+                          <EyeOff className="w-3 h-3" /> Draft
+                        </span>
+                      )}
+                    </td>
                     <td className="px-6 py-4 text-slate-600">
                       <span className="inline-flex items-center gap-1 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-700">
                         <BookOpen className="w-3 h-3 text-sky-600" />
-                        {uni._count?.courses || 0} Courses
+                        {uni._count?.courses || 0}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right space-x-2">
@@ -270,11 +624,18 @@ export default function AdminUniversitiesPage() {
                           setEditingUni(uni);
                           setEditForm({
                             name: uni.name,
+                            countryId: uni.country.id,
                             locationCity: uni.locationCity,
-                            globalRanking: uni.globalRanking || 0,
-                            approxTuitionYearly: uni.approxTuitionYearly,
-                            approxLivingYearly: uni.approxLivingYearly,
-                            overview: uni.overview,
+                            globalRanking: uni.globalRanking?.toString() || "",
+                            approxTuitionYearly: uni.approxTuitionYearly.toString(),
+                            approxLivingYearly: uni.approxLivingYearly.toString(),
+                            overview: uni.overview || "",
+                            admissionReqs: uni.admissionReqs || "",
+                            scholarshipInfo: uni.scholarshipInfo || "",
+                            logoUrl: uni.logoUrl || "",
+                            bannerUrl: uni.bannerUrl || "",
+                            isPartner: uni.isPartner,
+                            isPublished: uni.isPublished,
                           });
                         }}
                         className="p-1.5 rounded-lg text-slate-400 hover:text-sky-600 hover:bg-sky-50 border border-transparent hover:border-sky-200 transition-colors"
@@ -301,8 +662,8 @@ export default function AdminUniversitiesPage() {
       {/* ADD UNIVERSITY MODAL */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-3xl w-full max-w-md p-6 space-y-5 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div className="bg-white border border-slate-200 rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl">
+            <div className="flex items-center justify-between border-b border-slate-100 p-6 shrink-0">
               <h3 className="text-lg font-heading font-bold text-slate-900 flex items-center gap-2">
                 <Plus className="w-5 h-5 text-sky-600" />
                 Add Partner University
@@ -312,83 +673,10 @@ export default function AdminUniversitiesPage() {
               </button>
             </div>
 
-            <form onSubmit={handleCreate} className="space-y-4 text-xs">
-              <div>
-                <label className="block text-slate-700 font-semibold mb-1">University Name *</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. University of Manchester"
-                  value={addForm.name}
-                  onChange={(e) => setAddForm({ ...addForm, name: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-sky-500"
-                />
-              </div>
+            <form onSubmit={handleCreate} className="p-6 space-y-4 text-xs overflow-y-auto flex-1">
+              {renderFormFields(addForm, setAddForm)}
 
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-slate-700 font-semibold mb-1">Destination Country</label>
-                  <select
-                    value={addForm.countryId}
-                    onChange={(e) => setAddForm({ ...addForm, countryId: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:bg-white focus:outline-none focus:border-sky-500"
-                  >
-                    {countries.map((c) => (
-                      <option key={c.id} value={c.id}>
-                        {c.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-slate-700 font-semibold mb-1">Campus City</label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Manchester"
-                    value={addForm.locationCity}
-                    onChange={(e) => setAddForm({ ...addForm, locationCity: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-sky-500"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-slate-700 font-semibold mb-1">Global Ranking (#)</label>
-                  <input
-                    type="number"
-                    placeholder="e.g. 28"
-                    value={addForm.globalRanking}
-                    onChange={(e) => setAddForm({ ...addForm, globalRanking: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-sky-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-slate-700 font-semibold mb-1">Tuition Fee / Yr</label>
-                  <input
-                    type="number"
-                    placeholder="25000"
-                    value={addForm.approxTuitionYearly}
-                    onChange={(e) => setAddForm({ ...addForm, approxTuitionYearly: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-sky-500"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-slate-700 font-semibold mb-1">Overview Description</label>
-                <textarea
-                  rows={2}
-                  placeholder="Overview info..."
-                  value={addForm.overview}
-                  onChange={(e) => setAddForm({ ...addForm, overview: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-sky-500"
-                />
-              </div>
-
-              <div className="pt-2 flex gap-3">
+              <div className="pt-2 flex gap-3 border-t border-slate-100">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
@@ -411,8 +699,8 @@ export default function AdminUniversitiesPage() {
       {/* EDIT UNIVERSITY MODAL */}
       {editingUni && (
         <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-3xl w-full max-w-md p-6 space-y-5 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div className="bg-white border border-slate-200 rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl">
+            <div className="flex items-center justify-between border-b border-slate-100 p-6 shrink-0">
               <h3 className="text-lg font-heading font-bold text-slate-900 flex items-center gap-2">
                 <Edit3 className="w-5 h-5 text-sky-600" />
                 Edit University
@@ -422,50 +710,10 @@ export default function AdminUniversitiesPage() {
               </button>
             </div>
 
-            <form onSubmit={handleSaveEdit} className="space-y-4 text-xs">
-              <div>
-                <label className="block text-slate-700 font-semibold mb-1">University Name</label>
-                <input
-                  type="text"
-                  value={editForm.name || ""}
-                  onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:bg-white focus:outline-none focus:border-sky-500"
-                />
-              </div>
+            <form onSubmit={handleSaveEdit} className="p-6 space-y-4 text-xs overflow-y-auto flex-1">
+              {renderFormFields(editForm, setEditForm, true)}
 
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-slate-700 font-semibold mb-1">Campus City</label>
-                  <input
-                    type="text"
-                    value={editForm.locationCity || ""}
-                    onChange={(e) => setEditForm({ ...editForm, locationCity: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:bg-white focus:outline-none focus:border-sky-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-slate-700 font-semibold mb-1">Global Ranking (#)</label>
-                  <input
-                    type="number"
-                    value={editForm.globalRanking || 0}
-                    onChange={(e) => setEditForm({ ...editForm, globalRanking: parseInt(e.target.value) })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:bg-white focus:outline-none focus:border-sky-500"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-slate-700 font-semibold mb-1">Tuition Fee / Yr</label>
-                <input
-                  type="number"
-                  value={editForm.approxTuitionYearly || 0}
-                  onChange={(e) => setEditForm({ ...editForm, approxTuitionYearly: parseFloat(e.target.value) })}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:bg-white focus:outline-none focus:border-sky-500"
-                />
-              </div>
-
-              <div className="pt-2 flex gap-3">
+              <div className="pt-2 flex gap-3 border-t border-slate-100">
                 <button
                   type="button"
                   onClick={() => setEditingUni(null)}
@@ -495,7 +743,7 @@ export default function AdminUniversitiesPage() {
             </div>
             <h3 className="text-lg font-heading font-bold text-slate-900">Delete University?</h3>
             <p className="text-xs text-slate-600 leading-relaxed">
-              This will permanently delete this university and its associated degree courses from Neon PostgreSQL.
+              This will permanently delete this university and its associated degree courses from the database.
             </p>
             <div className="flex gap-3 pt-2">
               <button

@@ -5,6 +5,7 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { FloatingActions } from "./FloatingActions";
 import { LeadModal } from "@/components/home/LeadModal";
+import { SmartLeadPopup } from "@/components/modals/SmartLeadPopup";
 
 interface PublicLayoutProps {
   children: React.ReactNode;
@@ -40,12 +41,15 @@ export function PublicLayout({ children, onOpenConsultModal }: PublicLayoutProps
       {/* 4. Floating Actions (WhatsApp, Scroll Top, Theme Toggle) */}
       <FloatingActions />
 
-      {/* 5. Consultation Lead Modal */}
+      {/* 5. Consultation Lead Modal (manual trigger) */}
       <LeadModal
         isOpen={internalModalOpen}
         onClose={() => setInternalModalOpen(false)}
         source={modalSource}
       />
+
+      {/* 6. Smart Timed & Scroll Lead Capture Pop-up */}
+      <SmartLeadPopup />
     </div>
   );
 }

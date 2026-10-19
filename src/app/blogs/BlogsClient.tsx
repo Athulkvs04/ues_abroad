@@ -12,7 +12,7 @@ import {
   ChevronRight,
   GraduationCap
 } from "lucide-react";
-import { blogsData } from "@/data/blogs";
+import { blogsData, BlogPost } from "@/data/blogs";
 import { PublicLayout } from "@/components/layout/PublicLayout";
 
 const categories = [
@@ -26,16 +26,20 @@ const categories = [
   "Visa Guides",
 ];
 
-export default function BlogsPage() {
+export default function BlogsPage({ initialBlogs }: { initialBlogs?: BlogPost[] } = {}) {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
+  const blogsList = useMemo(() => {
+    return initialBlogs && initialBlogs.length > 0 ? initialBlogs : blogsData;
+  }, [initialBlogs]);
+
   const featuredBlog = useMemo(() => {
-    return blogsData.find((b) => b.featured) || blogsData[0];
-  }, []);
+    return blogsList.find((b) => b.featured) || blogsList[0];
+  }, [blogsList]);
 
   const filteredBlogs = useMemo(() => {
-    return blogsData.filter((blog) => {
+    return blogsList.filter((blog) => {
       const matchesCategory =
         selectedCategory === "All" || blog.category === selectedCategory;
 

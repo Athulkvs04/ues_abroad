@@ -23,6 +23,10 @@ import {
 import { ShareBar } from "./ShareBar";
 import { PublicLayout } from "@/components/layout/PublicLayout";
 
+import { getPublicBlogBySlug } from "@/lib/blogs-store";
+
+export const dynamic = "force-dynamic";
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
@@ -33,7 +37,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const blog = getBlogBySlug(slug);
+  const blog = (await getPublicBlogBySlug(slug)) || getBlogBySlug(slug);
 
   if (!blog) {
     return {
@@ -69,7 +73,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params;
-  const blog = getBlogBySlug(slug);
+  const blog = (await getPublicBlogBySlug(slug)) || getBlogBySlug(slug);
 
   if (!blog) {
     notFound();

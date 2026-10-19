@@ -42,6 +42,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogsPage() {
-  return <BlogsClient />;
+import { getAdminBlogs } from "@/lib/blogs-store";
+
+export default async function BlogsPage() {
+  const blogs = await getAdminBlogs();
+  return <BlogsClient initialBlogs={blogs} />;
 }

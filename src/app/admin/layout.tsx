@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
@@ -14,14 +14,32 @@ import {
   Globe,
   Menu,
   X,
-  Newspaper
+  Newspaper,
+  Database,
+  AlertTriangle,
+  CheckCircle2
 } from "lucide-react";
 import { useTenant } from "@/components/providers/TenantProvider";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const tenant = useTenant();
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isDbConnected, setIsDbConnected] = useState<boolean | null>(null);
+
+  // Check database connectivity
+  useEffect(() => {
+    async function checkDb() {
+      try {
+        const res = await fetch("/api/admin/stats");
+        const data = await res.json();
+        setIsDbConnected(Boolean(data.isDbConnected));
+      } catch {
+        setIsDbConnected(false);
+      }
+    }
+    checkDb();
+  }, [pathname]);
 
   // If on login page, render clean without admin sidebar
   if (pathname === "/admin/login") {
@@ -134,7 +152,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <Menu className="w-6 h-6" />
           </button>
 
-          <div className="flex items-center gap-4 ml-auto">
+          <div className="flex items-center gap-3 sm:gap-4 ml-auto">
+            {/* Database Status Indicator */}
+            {isDbConnected !== null && (
+              <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${
+                isDbConnected
+                  ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                  : "bg-amber-50 text-amber-800 border-amber-200"
+              }`}>
+                <span className={`w-2 h-2 rounded-full ${isDbConnected ? "bg-emerald-500 animate-pulse" : "bg-amber-500"}`} />
+                <span>{isDbConnected ? "DB Connected" : "DB Not Connected"}</span>
+              </div>
+            )}
+
             <div className="text-right hidden sm:block">
               <span className="text-sm font-semibold text-slate-900 block leading-tight">
                 Super Admin
@@ -148,7 +178,31 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 p-4 sm:p-8 overflow-y-auto bg-slate-50">{children}</main>
+        <main className="flex-1 p-4 sm:p-8 overflow-y-auto bg-slate-50">
+          {/* Global DB Not Connected Banner */}
+          {isDbConnected === false && (
+            <div className="mb-6 p-4 rounded-2xl bg-amber-50/90 border border-amber-200 text-amber-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs animate-fadeIn">
+              <div className="flex items-start sm:items-center gap-3">
+                <div className="p-2 rounded-xl bg-amber-100 text-amber-800 shrink-0 mt-0.5 sm:mt-0">
+                  <Database className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold flex items-center gap-1.5">
+                    <span>Database Not Connected</span>
+                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-amber-200/70 text-amber-900">
+                      Standby Mode
+                    </span>
+                  </h4>
+                  <p className="text-xs text-amber-800/90 mt-0.5">
+                    The admin panel is accessible across all tabs, but no dummy data is displayed. Configure <code className="font-mono bg-amber-100 px-1 py-0.5 rounded text-amber-900 font-bold">DATABASE_URL</code> in your environment variables to save and view live student leads, universities, and courses.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {children}
+        </main>
       </div>
     </div>
   );

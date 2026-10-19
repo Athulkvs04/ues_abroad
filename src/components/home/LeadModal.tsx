@@ -6,10 +6,11 @@ import { ArrowRight, CheckCircle2, GraduationCap, Home, DollarSign, FileCheck, X
 interface LeadModalProps {
   isOpen: boolean;
   onClose: () => void;
+  title?: string;
   source?: string;
 }
 
-export function LeadModal({ isOpen, onClose, source }: LeadModalProps) {
+export function LeadModal({ isOpen, onClose, title, source }: LeadModalProps) {
   const [step, setStep] = useState<1 | 2>(1);
   const [service, setService] = useState("admissions");
   const [country, setCountry] = useState("usa");
@@ -56,6 +57,11 @@ export function LeadModal({ isOpen, onClose, source }: LeadModalProps) {
       });
 
       setSuccess(true);
+      try {
+        sessionStorage.setItem("ues_lead_submitted", "true");
+      } catch {
+        // Ignore storage error
+      }
       setTimeout(() => {
         setSuccess(false);
         setStep(1);
@@ -107,7 +113,7 @@ export function LeadModal({ isOpen, onClose, source }: LeadModalProps) {
             <span className="text-slate-500 font-medium">Step {step} of 2</span>
           </div>
           <h3 className="text-xl sm:text-3xl font-heading font-extrabold text-slate-900 tracking-tight">
-            {source ? source : "Start Your Global Study Journey"}
+            {title || (source && !source.toLowerCase().includes("pop-up") && !source.toLowerCase().includes("scroll") && !source.toLowerCase().includes("timed") ? source : "Start Your Global Study Journey")}
           </h3>
           <p className="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed max-w-xl">
             Connect with senior international counsellors for personalized guidance across universities, visas, accommodations, and forex.

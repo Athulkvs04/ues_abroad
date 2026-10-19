@@ -306,15 +306,24 @@ const UNIVERSITIES_DATA: UniversityItem[] = [
   }
 ];
 
-export default function UniversitiesPage() {
+export default function UniversitiesPage({ initialUniversities }: { initialUniversities?: UniversityItem[] } = {}) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("all");
   const [selectedDiscipline, setSelectedDiscipline] = useState("all");
   const [selectedBudget, setSelectedBudget] = useState("all");
   const [sortBy, setSortBy] = useState<"ranking" | "tuition_asc" | "tuition_desc">("ranking");
 
+  const allUniversities = useMemo(() => {
+    if (initialUniversities && initialUniversities.length > 0) {
+      const dbNames = new Set(initialUniversities.map((u) => u.name.toLowerCase()));
+      const remainingBuiltIns = UNIVERSITIES_DATA.filter((u) => !dbNames.has(u.name.toLowerCase()));
+      return [...initialUniversities, ...remainingBuiltIns];
+    }
+    return UNIVERSITIES_DATA;
+  }, [initialUniversities]);
+
   const filteredUnis = useMemo(() => {
-    return UNIVERSITIES_DATA.filter((uni) => {
+    return allUniversities.filter((uni) => {
       // Search
       if (searchTerm.trim()) {
         const q = searchTerm.toLowerCase();

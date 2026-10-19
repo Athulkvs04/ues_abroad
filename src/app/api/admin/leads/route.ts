@@ -1,11 +1,21 @@
 export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-
-
+import { checkDatabaseConnection } from "@/lib/db-status";
 
 // GET /api/admin/leads - Fetch all student leads
 export async function GET() {
+  const isDbConnected = await checkDatabaseConnection();
+
+  if (!isDbConnected) {
+    return NextResponse.json({
+      success: true,
+      isDbConnected: false,
+      message: "Database not connected",
+      leads: [],
+    });
+  }
+
   try {
     const leads = await prisma.lead.findMany({
       orderBy: { createdAt: "desc" },
@@ -13,65 +23,39 @@ export async function GET() {
         notes: {
           orderBy: { createdAt: "desc" },
         },
+        assignedTo: {
+          select: { id: true, name: true, email: true },
+        },
       },
     });
 
-    return NextResponse.json({ success: true, leads });
+    return NextResponse.json({
+      success: true,
+      isDbConnected: true,
+      leads,
+    });
   } catch (error) {
-    console.warn("Database not connected, returning sample leads fallback:", error);
-    const fallbackLeads = [
-      {
-        id: "lead-sample-1",
-        name: "Aarav Sharma",
-        email: "aarav.sharma@example.com",
-        phone: "+91 98765 12340",
-        source: "COURSE_FINDER",
-        status: "NEW",
-        score: 85,
-        targetCountry: "United Kingdom",
-        targetDegree: "M.Sc. Computer Science",
-        budgetApprox: 2500000,
-        cgpa: 8.8,
-        createdAt: new Date().toISOString(),
-        notes: [{ id: "n1", content: "Interested in Fall 2026 intake, top 10 UK universities", author: "System", createdAt: new Date().toISOString() }],
-      },
-      {
-        id: "lead-sample-2",
-        name: "Pooja Patel",
-        email: "pooja.patel@example.com",
-        phone: "+91 98234 56781",
-        source: "1:1 Expert Call",
-        status: "CONTACTED",
-        score: 92,
-        targetCountry: "Germany",
-        targetDegree: "M.Sc. Automotive Engineering",
-        budgetApprox: 1200000,
-        cgpa: 9.1,
-        createdAt: new Date(Date.now() - 3600000 * 2).toISOString(),
-        notes: [{ id: "n2", content: "Discussed public university APS certificate requirements", author: "Senior Counselor", createdAt: new Date().toISOString() }],
-      },
-      {
-        id: "lead-sample-3",
-        name: "Rohan Iyer",
-        email: "rohan.iyer@example.com",
-        phone: "+91 98450 99881",
-        source: "FOREX",
-        status: "COUNSELLING_SCHEDULED",
-        score: 78,
-        targetCountry: "United States",
-        targetDegree: "MBA",
-        budgetApprox: 4500000,
-        cgpa: 8.2,
-        createdAt: new Date(Date.now() - 3600000 * 6).toISOString(),
-        notes: [],
-      }
-    ];
-    return NextResponse.json({ success: true, leads: fallbackLeads, isFallback: true });
+    console.error("Database query failed for leads:", error);
+    return NextResponse.json({
+      success: true,
+      isDbConnected: false,
+      message: "Database query failed",
+      leads: [],
+    });
   }
 }
 
 // POST /api/admin/leads - Manually create a new lead
 export async function POST(req: Request) {
+  const isDbConnected = await checkDatabaseConnection();
+
+  if (!isDbConnected) {
+    return NextResponse.json(
+      { success: false, isDbConnected: false, error: "Database not connected. Please connect DATABASE_URL to persist leads." },
+      { status: 503 }
+    );
+  }
+
   try {
     const body = await req.json();
     const { name, email, phone, targetCountry, targetDegree, source, status, notes } = body;

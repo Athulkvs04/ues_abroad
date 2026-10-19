@@ -39,6 +39,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const defaultAdminEmail = (process.env.ADMIN_EMAIL || "admin@uesabroad.com").trim().toLowerCase();
         const defaultAdminPassword = (process.env.ADMIN_PASSWORD || "admin123").trim();
 
+        if (process.env.NODE_ENV === "production" && (!process.env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD === "admin123")) {
+          console.warn("[SECURITY ALERT] Default ADMIN_PASSWORD is in use in production. Please set a secure custom ADMIN_PASSWORD in your deployment environment variables.");
+        }
+
         if (email.trim().toLowerCase() === defaultAdminEmail && password.trim() === defaultAdminPassword) {
           return {
             id: "super-admin-id",

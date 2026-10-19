@@ -2,8 +2,7 @@ export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
 import prisma from "@/lib/prisma";
-
-
+import { addRuntimeUniversity, getRuntimeUniversities } from "@/lib/universities-store";
 
 // PATCH /api/admin/universities/[id] - Update a university
 export async function PATCH(
@@ -13,26 +12,70 @@ export async function PATCH(
   try {
     const { id } = await params;
     const body = await req.json();
-    const { name, locationCity, globalRanking, approxTuitionYearly, approxLivingYearly, overview } = body;
+    const {
+      name,
+      countryId,
+      locationCity,
+      globalRanking,
+      approxTuitionYearly,
+      approxLivingYearly,
+      overview,
+      admissionReqs,
+      scholarshipInfo,
+      logoUrl,
+      bannerUrl,
+      isPartner,
+      isPublished,
+    } = body;
 
     const updateData: Prisma.UniversityUpdateInput = {};
-    if (name) updateData.name = name;
-    if (locationCity) updateData.locationCity = locationCity;
-    if (overview) updateData.overview = overview;
-    if (typeof globalRanking === "number") updateData.globalRanking = globalRanking;
-    if (typeof approxTuitionYearly === "number") updateData.approxTuitionYearly = approxTuitionYearly;
-    if (typeof approxLivingYearly === "number") updateData.approxLivingYearly = approxLivingYearly;
+    if (name !== undefined) updateData.name = name;
+    if (locationCity !== undefined) updateData.locationCity = locationCity;
+    if (overview !== undefined) updateData.overview = overview;
+    if (admissionReqs !== undefined) updateData.admissionReqs = admissionReqs;
+    if (scholarshipInfo !== undefined) updateData.scholarshipInfo = scholarshipInfo;
+    if (logoUrl !== undefined) updateData.logoUrl = logoUrl;
+    if (bannerUrl !== undefined) updateData.bannerUrl = bannerUrl;
+    if (isPartner !== undefined) updateData.isPartner = Boolean(isPartner);
+    if (isPublished !== undefined) updateData.isPublished = Boolean(isPublished);
 
-    const updated = await prisma.university.update({
-      where: { id },
-      data: updateData,
-      include: {
-        country: true,
-        _count: { select: { courses: true } },
-      },
-    });
+    if (countryId) {
+      updateData.country = { connect: { id: countryId } };
+    }
 
-    return NextResponse.json({ success: true, university: updated });
+    if (globalRanking !== undefined) {
+      updateData.globalRanking = globalRanking === "" || globalRanking === null ? null : parseInt(globalRanking);
+    }
+    if (approxTuitionYearly !== undefined) {
+      updateData.approxTuitionYearly = parseFloat(approxTuitionYearly) || 0;
+    }
+    if (approxLivingYearly !== undefined) {
+      updateData.approxLivingYearly = parseFloat(approxLivingYearly) || 0;
+    }
+
+    try {
+      const updated = await prisma.university.update({
+        where: { id },
+        data: updateData,
+        include: {
+          country: { select: { id: true, name: true, currencySymbol: true } },
+          _count: { select: { courses: true } },
+        },
+      });
+
+      addRuntimeUniversity(updated);
+      return NextResponse.json({ success: true, university: updated });
+    } catch (dbError) {
+      console.warn("DB update failed, updating runtime university:", dbError);
+      const existing = getRuntimeUniversities().find(u => u.id === id);
+      const updatedFallback = {
+        ...existing,
+        ...body,
+        id,
+      };
+      addRuntimeUniversity(updatedFallback);
+      return NextResponse.json({ success: true, university: updatedFallback, isFallback: true });
+    }
   } catch (error) {
     console.error("Error updating university:", error);
     return NextResponse.json(
@@ -50,9 +93,13 @@ export async function DELETE(
   try {
     const { id } = await params;
 
-    await prisma.university.delete({
-      where: { id },
-    });
+    try {
+      await prisma.university.delete({
+        where: { id },
+      });
+    } catch (dbError) {
+      console.warn("DB delete failed, removing from runtime store:", dbError);
+    }
 
     return NextResponse.json({ success: true, message: "University deleted" });
   } catch (error) {

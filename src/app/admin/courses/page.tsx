@@ -220,7 +220,13 @@ export default function AdminCoursesPage() {
             <p className="text-sm">Loading course catalog from Neon PostgreSQL...</p>
           </div>
         ) : filtered.length === 0 ? (
-          <div className="p-12 text-center text-slate-500">No courses found matching filter.</div>
+          <div className="p-16 text-center text-slate-500">
+            <BookOpen className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+            <h3 className="text-base font-bold text-slate-700">No Degree Courses in Database</h3>
+            <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto leading-relaxed">
+              No programs found. Connect your database and click &quot;Add Course&quot; above to configure your degree catalog.
+            </p>
+          </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm text-slate-700">
