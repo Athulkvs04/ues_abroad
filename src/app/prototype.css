@@ -1117,12 +1117,14 @@ h1, h2, h3, h4, h5, h6 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(9, 11, 17, 0.4);
+    background: rgba(9, 11, 17, 0.6);
     backdrop-filter: blur(8px);
     z-index: 200;
     display: none;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 .modal-overlay.active {
     display: flex;

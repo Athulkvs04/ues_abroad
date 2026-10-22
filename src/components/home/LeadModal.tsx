@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowRight, CheckCircle2, GraduationCap, Home, DollarSign, FileCheck, X, AlertTriangle } from "lucide-react";
 
 interface LeadModalProps {
@@ -23,6 +23,29 @@ export function LeadModal({ isOpen, onClose, title, source }: LeadModalProps) {
   const [success, setSuccess] = useState(false);
 
   const [formError, setFormError] = useState<string | null>(null);
+
+  const resetAndClose = () => {
+    setStep(1);
+    setSuccess(false);
+    onClose();
+  };
+
+  // Lock body scroll and handle Escape key on mobile and desktop
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") resetAndClose();
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        document.body.style.overflow = "unset";
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -79,12 +102,6 @@ export function LeadModal({ isOpen, onClose, title, source }: LeadModalProps) {
     }
   };
 
-  const resetAndClose = () => {
-    setStep(1);
-    setSuccess(false);
-    onClose();
-  };
-
   const services = [
     { id: "admissions", label: "University Admissions", desc: "Shortlisting, SOPs & University Applications", icon: GraduationCap },
     { id: "housing", label: "Student Accommodation", desc: "Verified Student Dorms & Shared Apartments", icon: Home },
@@ -93,29 +110,37 @@ export function LeadModal({ isOpen, onClose, title, source }: LeadModalProps) {
   ];
 
   return (
-    <div className="modal-overlay active fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[9999] overflow-y-auto p-3 sm:p-6 flex items-start justify-center">
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-2xl max-w-2xl sm:max-w-3xl w-full relative overflow-hidden text-slate-800 my-4 sm:my-8">
-        <button 
-          onClick={resetAndClose} 
-          className="absolute top-4 right-4 sm:top-6 sm:right-6 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors font-bold z-10 cursor-pointer"
-          aria-label="Close modal"
-        >
-          <X className="w-4 h-4" />
-        </button>
-        
-        {/* Header Bar - Clean Light Luxury Styling */}
-        <div className="bg-slate-50 border-b border-slate-200/90 px-6 py-6 sm:px-10 sm:py-8 pr-14 sm:pr-16">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-emerald-800 mb-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-100/70 border border-emerald-200 whitespace-nowrap text-[11px] sm:text-xs">
+    <div 
+      onClick={(e) => {
+        if (e.target === e.currentTarget) resetAndClose();
+      }}
+      className="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-[9999] overflow-y-auto overscroll-contain p-2 sm:p-6 flex flex-col items-center justify-start"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-2xl max-w-2xl sm:max-w-3xl w-full relative flex flex-col text-slate-800 my-2 sm:my-8 overflow-hidden">
+        {/* Header Bar - Sticky so close button is ALWAYS accessible on mobile */}
+        <div className="bg-slate-50 border-b border-slate-200/90 px-4 py-4 sm:px-10 sm:py-6 pr-14 sm:pr-16 sticky top-0 z-20 rounded-t-2xl sm:rounded-t-3xl">
+          <button 
+            type="button"
+            onClick={resetAndClose} 
+            className="absolute top-3.5 right-3.5 sm:top-5 sm:right-6 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-200/80 hover:bg-slate-300 text-slate-700 flex items-center justify-center transition-all font-bold cursor-pointer touch-manipulation shadow-xs"
+            aria-label="Close modal"
+          >
+            <X className="w-4 h-4 sm:w-5 sm:h-5" />
+          </button>
+          
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-emerald-800 mb-1.5 sm:mb-2">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100/70 border border-emerald-200 whitespace-nowrap text-[11px] sm:text-xs">
               1-on-1 Advisory
             </span>
             <span>•</span>
             <span className="text-slate-500 font-medium">Step {step} of 2</span>
           </div>
-          <h3 className="text-xl sm:text-3xl font-heading font-extrabold text-slate-900 tracking-tight">
+          <h3 className="text-lg sm:text-2xl font-heading font-extrabold text-slate-900 tracking-tight leading-snug">
             {title || (source && !source.toLowerCase().includes("pop-up") && !source.toLowerCase().includes("scroll") && !source.toLowerCase().includes("timed") ? source : "Start Your Global Study Journey")}
           </h3>
-          <p className="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed max-w-xl">
+          <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed max-w-xl">
             Connect with senior international counsellors for personalized guidance across universities, visas, accommodations, and forex.
           </p>
         </div>
@@ -136,7 +161,7 @@ export function LeadModal({ isOpen, onClose, title, source }: LeadModalProps) {
           </div>
         ) : step === 1 ? (
           /* STEP 1: DISCOVERY & PREFERENCES */
-          <form onSubmit={handleNextStep} className="p-5 sm:p-10 space-y-6 sm:space-y-8">
+          <form onSubmit={handleNextStep} className="p-4 sm:p-10 space-y-5 sm:space-y-8">
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">
                 1. What is your primary study objective?
