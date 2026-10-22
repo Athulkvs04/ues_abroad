@@ -30,21 +30,36 @@ export function LeadModal({ isOpen, onClose, title, source }: LeadModalProps) {
     onClose();
   };
 
-  // Lock body scroll and handle Escape key on mobile and desktop
+  // Comprehensive iOS & Android background scroll lock
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-      const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.key === "Escape") resetAndClose();
-      };
-      window.addEventListener("keydown", handleKeyDown);
-      return () => {
-        document.body.style.overflow = "unset";
-        window.removeEventListener("keydown", handleKeyDown);
-      };
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    if (!isOpen) return;
+
+    const scrollY = window.scrollY;
+    const originalStyles = {
+      overflow: document.body.style.overflow,
+      position: document.body.style.position,
+      top: document.body.style.top,
+      width: document.body.style.width,
+    };
+
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") resetAndClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalStyles.overflow;
+      document.body.style.position = originalStyles.position;
+      document.body.style.top = originalStyles.top;
+      document.body.style.width = originalStyles.width;
+      window.scrollTo(0, scrollY);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [isOpen]);
 
   if (!isOpen) return null;
@@ -114,13 +129,16 @@ export function LeadModal({ isOpen, onClose, title, source }: LeadModalProps) {
       onClick={(e) => {
         if (e.target === e.currentTarget) resetAndClose();
       }}
-      className="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-[9999] overflow-y-auto overscroll-contain p-2 sm:p-6 flex flex-col items-center justify-start"
+      className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-3 sm:p-6"
       role="dialog"
       aria-modal="true"
     >
-      <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-2xl max-w-2xl sm:max-w-3xl w-full relative flex flex-col text-slate-800 my-2 sm:my-8 overflow-hidden">
-        {/* Header Bar - Sticky so close button is ALWAYS accessible on mobile */}
-        <div className="bg-slate-50 border-b border-slate-200/90 px-4 py-4 sm:px-10 sm:py-6 pr-14 sm:pr-16 sticky top-0 z-20 rounded-t-2xl sm:rounded-t-3xl">
+      <div 
+        onClick={(e) => e.stopPropagation()}
+        className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-2xl max-w-2xl sm:max-w-3xl w-full flex flex-col max-h-[90dvh] sm:max-h-[88vh] overflow-hidden text-slate-800 relative"
+      >
+        {/* Header Bar - Fixed & shrink-0 at top of modal */}
+        <div className="shrink-0 bg-slate-50 border-b border-slate-200/90 px-4 py-4 sm:px-10 sm:py-6 pr-14 sm:pr-16 relative">
           <button 
             type="button"
             onClick={resetAndClose} 
@@ -144,6 +162,9 @@ export function LeadModal({ isOpen, onClose, title, source }: LeadModalProps) {
             Connect with senior international counsellors for personalized guidance across universities, visas, accommodations, and forex.
           </p>
         </div>
+
+        {/* Scrollable Form Content - Independent scroll container */}
+        <div className="flex-1 overflow-y-auto overscroll-contain p-4 sm:p-10" style={{ WebkitOverflowScrolling: "touch" }}>
 
         {success ? (
           <div className="text-center p-8 sm:p-16 space-y-5">
@@ -337,6 +358,7 @@ export function LeadModal({ isOpen, onClose, title, source }: LeadModalProps) {
             </div>
           </form>
         )}
+        </div>
       </div>
     </div>
   );
