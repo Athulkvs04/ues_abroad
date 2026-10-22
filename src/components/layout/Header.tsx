@@ -12,7 +12,8 @@ import {
   ChevronDown, 
   Compass, 
   GraduationCap,
-  Calculator
+  Calculator,
+  FileText
 } from "lucide-react";
 
 interface HeaderProps {
@@ -63,6 +64,12 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
 
   // Secondary items grouped into a sleek dropdown
   const moreResources = [
+    {
+      label: "AI SOP Generator",
+      desc: "Draft & download university-specific SOPs with AI",
+      href: "/sop",
+      icon: FileText,
+    },
     {
       label: "Smart Decision Center",
       desc: "Eligibility checker, cost calculator & university compare",
