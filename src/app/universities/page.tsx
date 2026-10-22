@@ -2,25 +2,25 @@ import type { Metadata } from "next";
 import UniversitiesClient from "./UniversitiesClient";
 
 export const metadata: Metadata = {
-  title: "Top Universities Worldwide & Course Directory | UES Abroad",
+  title: "AI Course Finder & Global University Matcher | UES Abroad",
   description:
-    "Explore 500+ world-class partner universities across the UK, USA, Canada, Germany, Ireland, and Australia. Search by QS ranking, tuition fees, scholarships, and courses.",
+    "Match your profile with 500+ world-class partner universities using our AI course finder. Search programs by degree, zero tuition, QS ranking, and international scholarships across Germany, UK, USA, Australia, and Canada.",
   keywords: [
+    "AI Course Finder",
+    "AI University Matcher",
+    "Study Abroad Course Search",
     "Global University Directory",
-    "Study Abroad Universities",
-    "QS World Ranking Universities",
-    "UK Universities Admissions",
-    "German Technical Universities TU9",
-    "Australian Group of Eight Go8",
+    "Tuition Free Universities in Germany",
+    "UK Universities Admissions AI",
     "Scholarships for International Students",
   ],
   alternates: {
     canonical: "https://uesabroad.com/universities",
   },
   openGraph: {
-    title: "Explore 500+ Top Global Universities | UES Abroad",
+    title: "AI Course Finder & Global University Matcher | UES Abroad",
     description:
-      "Filter universities by QS rank, country, discipline, and tuition. Unlock direct application access with scholarship mentoring.",
+      "Instant AI-driven matching for undergraduate & postgraduate courses across UK, Germany, USA, Australia, and Canada. Check scholarships & fee waivers.",
     url: "https://uesabroad.com/universities",
     siteName: "UES Abroad",
     images: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         url: "/universities/oxford_radcliffe_hero.webp",
         width: 1200,
         height: 630,
-        alt: "Top Global Universities Directory",
+        alt: "AI Course Finder & Global University Matcher",
       },
     ],
     locale: "en_US",
@@ -36,8 +36,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Global University Finder | UES Abroad",
-    description: "Search 500+ universities worldwide. Filter by tuition, ranking, and scholarship opportunities.",
+    title: "AI Course Finder | UES Abroad",
+    description: "Search 500+ global universities & courses with AI-powered matching, tuition insights, and scholarship waivers.",
     images: ["/universities/oxford_radcliffe_hero.webp"],
   },
 };

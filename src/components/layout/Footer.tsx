@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
 import { useTenant } from "@/components/providers/TenantProvider";
 
@@ -18,17 +19,16 @@ export function Footer() {
           <div className="space-y-4">
             <Link 
               href="/" 
-              className="inline-flex items-center gap-2 group focus:outline-none"
+              className="inline-flex items-center group focus:outline-none"
               aria-label="UES Abroad Homepage"
             >
-              <div className="flex gap-1 h-6 items-center">
-                <span className="block w-1.5 h-full bg-[#0A7D45] rounded-sm" />
-                <span className="block w-1.5 h-full bg-[#00B050] rounded-sm" />
-                <span className="block w-1.5 h-full bg-[#92D050] rounded-sm" />
-              </div>
-              <span className="text-2xl font-heading font-extrabold text-white tracking-tight">
-                {tenant.name.split(" ")[0] || "UES"} <span className="text-primary">{tenant.name.split(" ").slice(1).join(" ") || "Abroad"}</span>
-              </span>
+              <Image
+                src="/ues-logo-white.png"
+                alt="UES Abroad – lets UPGRADE"
+                width={170}
+                height={80}
+                className="h-11 w-auto object-contain"
+              />
             </Link>
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
               A premier global admissions consultancy helping students fulfill their academic goals with end-to-end guidance modules, visa counseling, and university placement.
