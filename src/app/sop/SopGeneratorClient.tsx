@@ -9,7 +9,6 @@ import {
   Copy, 
   Check, 
   RotateCcw, 
-  GraduationCap, 
   CheckCircle2, 
   ArrowRight, 
   Bot, 
@@ -560,11 +559,6 @@ export default function SopGeneratorClient() {
 
         <div className="container max-w-6xl mx-auto px-4 py-16 relative z-10">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 text-xs font-semibold mb-5 backdrop-blur-xs">
-              <GraduationCap className="w-4 h-4 text-emerald-400" />
-              <span>AI Statement of Purpose Generator</span>
-            </div>
-
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
               Draft &amp; Download Your University{" "}
               <span className="text-emerald-400">Statement of Purpose</span>

@@ -825,12 +825,6 @@ export default function UniversitiesClient({ initialUniversities }: Universities
 
         <div className="container max-w-6xl mx-auto px-4 py-16 lg:py-20 relative z-10">
           <div className="max-w-2xl">
-            {/* Header Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 text-xs font-semibold mb-5 backdrop-blur-xs">
-              <Bot className="w-4 h-4 text-emerald-400" />
-              <span>AI Course Finder &amp; University Admissions</span>
-            </div>
-
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
               AI Course Finder for{" "}
               <span className="text-emerald-400">Global University Admissions</span>

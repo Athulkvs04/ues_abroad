@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { 
-  Globe2, 
   Briefcase, 
   CheckCircle2, 
   ArrowRight,
@@ -184,11 +183,6 @@ export default function DestinationsPage() {
 
         <div className="container max-w-6xl mx-auto px-4 py-16 lg:py-20 relative z-10">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 text-xs font-semibold mb-5 backdrop-blur-xs">
-              <Globe2 className="w-4 h-4 text-emerald-400" />
-              <span>Global Country Guides &amp; Admissions Roadmap</span>
-            </div>
-            
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
               Compare Premier World <span className="text-emerald-400">Study Destinations</span>
             </h1>
