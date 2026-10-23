@@ -261,122 +261,130 @@ export function CvBuilderClient() {
       .map((item) => (item.endsWith(".") ? item : `${item}.`));
   };
 
+  /* ── Build Plain-Text CV Helper ── */
+  const buildPlainText = React.useCallback((): string => {
+    const bannerDivider = "=".repeat(78);
+    const sectionDivider = "-".repeat(78);
+    const sections: string[] = [];
+
+    // Header
+    sections.push(bannerDivider);
+    sections.push(`${(fullName || "YOUR NAME").toUpperCase()}`);
+    sections.push(`${[email, phone, location].filter(Boolean).join("  |  ")}`);
+    sections.push(bannerDivider, "");
+
+    // Objective
+    if (objective.trim()) {
+      sections.push("CAREER OBJECTIVE");
+      sections.push(sectionDivider);
+      sections.push(objective.trim(), "");
+    }
+
+    // Education
+    const validEdu = education.filter((e) => e.degree.trim());
+    if (validEdu.length > 0) {
+      sections.push("EDUCATION");
+      sections.push(sectionDivider);
+      validEdu.forEach((edu) => {
+        const leftLine = edu.degree;
+        const rightLine = edu.year || "";
+        const pad = Math.max(2, 78 - leftLine.length - rightLine.length);
+        sections.push(`${leftLine}${" ".repeat(pad)}${rightLine}`);
+
+        const subLeft = edu.institution;
+        const subRight = edu.grade ? `Grade: ${edu.grade}` : "";
+        const subPad = Math.max(2, 78 - subLeft.length - subRight.length);
+        sections.push(`${subLeft}${" ".repeat(subPad)}${subRight}`, "");
+      });
+    }
+
+    // Experience
+    const validExp = experience.filter((e) => e.role.trim());
+    if (validExp.length > 0) {
+      sections.push("PROFESSIONAL EXPERIENCE");
+      sections.push(sectionDivider);
+      validExp.forEach((exp) => {
+        const leftLine = `${exp.role} — ${exp.company || "Company"}`;
+        const rightLine = exp.duration || "";
+        const pad = Math.max(2, 78 - leftLine.length - rightLine.length);
+        sections.push(`${leftLine}${" ".repeat(pad)}${rightLine}`);
+
+        const bullets = parseHighlights(exp.highlights);
+        bullets.forEach((b) => {
+          sections.push(`  • ${b}`);
+        });
+        sections.push("");
+      });
+    }
+
+    // Skills
+    if (skills.trim()) {
+      sections.push("TECHNICAL SKILLS & COMPETENCIES");
+      sections.push(sectionDivider);
+      sections.push(
+        skills
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean)
+          .join("  |  "),
+        ""
+      );
+    }
+
+    // Certifications
+    if (certifications.trim()) {
+      sections.push("CERTIFICATIONS & ACHIEVEMENTS");
+      sections.push(sectionDivider);
+      certifications.split(",").forEach((cert) => {
+        if (cert.trim()) sections.push(`  • ${cert.trim()}`);
+      });
+      sections.push("");
+    }
+
+    // Languages
+    if (languages.trim()) {
+      sections.push("LANGUAGES");
+      sections.push(sectionDivider);
+      sections.push(languages.trim(), "");
+    }
+
+    sections.push(bannerDivider);
+    return sections.join("\n");
+  }, [fullName, email, phone, location, objective, education, experience, skills, certifications, languages]);
+
   /* ── Generate Plain-Text CV ── */
   const handleGenerate = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setIsGenerating(true);
 
     setTimeout(() => {
-      const bannerDivider = "=".repeat(78);
-      const sectionDivider = "-".repeat(78);
-      const sections: string[] = [];
-
-      // Header
-      sections.push(bannerDivider);
-      sections.push(`${(fullName || "YOUR NAME").toUpperCase()}`);
-      sections.push(`${[email, phone, location].filter(Boolean).join("  |  ")}`);
-      sections.push(bannerDivider, "");
-
-      // Objective
-      if (objective.trim()) {
-        sections.push("CAREER OBJECTIVE");
-        sections.push(sectionDivider);
-        sections.push(objective.trim(), "");
-      }
-
-      // Education
-      const validEdu = education.filter((e) => e.degree.trim());
-      if (validEdu.length > 0) {
-        sections.push("EDUCATION");
-        sections.push(sectionDivider);
-        validEdu.forEach((edu) => {
-          const leftLine = edu.degree;
-          const rightLine = edu.year || "";
-          const pad = Math.max(2, 78 - leftLine.length - rightLine.length);
-          sections.push(`${leftLine}${" ".repeat(pad)}${rightLine}`);
-
-          const subLeft = edu.institution;
-          const subRight = edu.grade ? `Grade: ${edu.grade}` : "";
-          const subPad = Math.max(2, 78 - subLeft.length - subRight.length);
-          sections.push(`${subLeft}${" ".repeat(subPad)}${subRight}`, "");
-        });
-      }
-
-      // Experience
-      const validExp = experience.filter((e) => e.role.trim());
-      if (validExp.length > 0) {
-        sections.push("PROFESSIONAL EXPERIENCE");
-        sections.push(sectionDivider);
-        validExp.forEach((exp) => {
-          const leftLine = `${exp.role} — ${exp.company || "Company"}`;
-          const rightLine = exp.duration || "";
-          const pad = Math.max(2, 78 - leftLine.length - rightLine.length);
-          sections.push(`${leftLine}${" ".repeat(pad)}${rightLine}`);
-
-          const bullets = parseHighlights(exp.highlights);
-          bullets.forEach((b) => {
-            sections.push(`  • ${b}`);
-          });
-          sections.push("");
-        });
-      }
-
-      // Skills
-      if (skills.trim()) {
-        sections.push("TECHNICAL SKILLS & COMPETENCIES");
-        sections.push(sectionDivider);
-        sections.push(
-          skills
-            .split(",")
-            .map((s) => s.trim())
-            .filter(Boolean)
-            .join("  |  "),
-          ""
-        );
-      }
-
-      // Certifications
-      if (certifications.trim()) {
-        sections.push("CERTIFICATIONS & ACHIEVEMENTS");
-        sections.push(sectionDivider);
-        certifications.split(",").forEach((cert) => {
-          if (cert.trim()) sections.push(`  • ${cert.trim()}`);
-        });
-        sections.push("");
-      }
-
-      // Languages
-      if (languages.trim()) {
-        sections.push("LANGUAGES");
-        sections.push(sectionDivider);
-        sections.push(languages.trim(), "");
-      }
-
-      sections.push(bannerDivider);
-
-      setGeneratedCv(sections.join("\n"));
+      setGeneratedCv(buildPlainText());
       setIsGenerating(false);
-    }, 300);
+    }, 200);
   };
 
   /* ── Clipboard ── */
   const handleCopy = () => {
-    if (!generatedCv) return;
-    navigator.clipboard.writeText(generatedCv);
+    const text = generatedCv || buildPlainText();
+    navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   /* ── TXT Download ── */
   const handleDownloadTxt = () => {
-    if (!generatedCv) return;
-    const blob = new Blob([generatedCv], { type: "text/plain;charset=utf-8" });
+    const text = generatedCv || buildPlainText();
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
     link.download = `CV_${(fullName || "Applicant").replace(/\s+/g, "_")}.txt`;
+    document.body.appendChild(link);
     link.click();
-    URL.revokeObjectURL(url);
+    setTimeout(() => {
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }, 250);
   };
 
   /* ── Word (.doc) Download with Clean Table Structure ── */
@@ -513,8 +521,12 @@ export function CvBuilderClient() {
     const link = document.createElement("a");
     link.href = url;
     link.download = `CV_${(fullName || "Applicant").replace(/\s+/g, "_")}.doc`;
+    document.body.appendChild(link);
     link.click();
-    URL.revokeObjectURL(url);
+    setTimeout(() => {
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }, 250);
   };
 
   /* ── Dedicated Clean Print Function ── */
@@ -1138,7 +1150,7 @@ export function CvBuilderClient() {
                       {/* CV Header */}
                       <div className="text-center pb-3 border-b-2 border-slate-900">
                         <h2 className="text-xl sm:text-2xl font-bold tracking-wider uppercase text-slate-900">
-                          {fullName || "YOUR FULL NAME"}
+                          {(fullName || "YOUR FULL NAME").toUpperCase()}
                         </h2>
                         <div className="mt-1.5 flex flex-wrap justify-center items-center gap-2 text-xs text-slate-600">
                           {email && <span>{email}</span>}
@@ -1321,10 +1333,7 @@ export function CvBuilderClient() {
 
                   <button
                     type="button"
-                    onClick={() => {
-                      if (!generatedCv) handleGenerate();
-                      setTimeout(handleDownloadTxt, 100);
-                    }}
+                    onClick={handleDownloadTxt}
                     className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer"
                   >
                     <Download className="w-3.5 h-3.5" />
@@ -1342,10 +1351,7 @@ export function CvBuilderClient() {
 
                   <button
                     type="button"
-                    onClick={() => {
-                      if (!generatedCv) handleGenerate();
-                      setTimeout(handleCopy, 100);
-                    }}
+                    onClick={handleCopy}
                     className="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer"
                   >
                     {copied ? (
