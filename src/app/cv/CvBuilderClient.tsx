@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import {
   FileText,
@@ -745,55 +744,45 @@ export function CvBuilderClient() {
   /* ────────────── RENDER ────────────── */
   return (
     <PublicLayout>
-      {/* ──── 1. Hero Banner ──── */}
-      <section className="relative overflow-hidden min-h-[420px] flex items-center bg-slate-950 text-white border-b border-slate-800">
-        <div className="absolute inset-0 pointer-events-none select-none">
-          <Image
-            src="/universities/oxford_radcliffe_hero.webp"
-            alt="Historic Oxford University Architecture"
-            fill
-            priority
-            className="object-cover object-[center_28%] lg:object-[68%_28%]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/75 via-42% to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-black/30" />
-        </div>
+      {/* ──── 1. Clean & Functional Workbench Header ──── */}
+      <section className="bg-white border-b border-slate-200/90 pt-8 pb-7">
+        <div className="container max-w-6xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-5">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold mb-3">
+                <FileText className="w-3.5 h-3.5 text-emerald-700" />
+                <span>University Admission Toolkit</span>
+              </div>
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
+                Build &amp; Download Your Clean{" "}
+                <span className="text-emerald-700">Academic CV</span>
+              </h1>
+              <p className="mt-2 text-sm sm:text-base text-slate-600 font-normal max-w-2xl leading-relaxed">
+                Create an admission-ready Curriculum Vitae tailored for university applications across the UK, USA, Germany, Canada, Australia, and Ireland.
+              </p>
+            </div>
 
-        <div className="container max-w-6xl mx-auto px-4 py-20 lg:py-24 relative z-10">
-          <div className="max-w-2xl">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Build &amp; Download Your Clean{" "}
-              <span className="text-emerald-400">Academic CV</span>
-            </h1>
-
-            <p className="mt-5 text-sm sm:text-base lg:text-lg text-slate-200/90 leading-relaxed font-normal max-w-xl">
-              Create an admission-ready Curriculum Vitae tailored for university applications across the UK, USA, Germany, Canada, Australia, and Ireland. Download in clean Word (.doc), text, or print directly to PDF.
-            </p>
-
-            <div className="mt-8 pt-6 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-4 text-slate-200 text-xs sm:text-sm font-medium max-w-xl">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Clean A4 Formatting</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Word &amp; TXT Download</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Direct PDF / Print</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Free Counselor Review</span>
-              </div>
+            {/* Quick Feature Badges */}
+            <div className="flex flex-wrap md:flex-col lg:flex-row gap-2 sm:gap-2.5 text-xs font-medium text-slate-600 shrink-0">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                Standard A4 Formatting
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                Word &amp; TXT Download
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                Direct PDF Print
+              </span>
             </div>
           </div>
         </div>
       </section>
 
       {/* ──── 2. Interactive CV Builder Workspace ──── */}
-      <section className="py-14 lg:py-20 bg-slate-50 min-h-screen">
+      <section className="py-8 sm:py-10 bg-slate-50/80 min-h-screen">
         <div className="container max-w-6xl mx-auto px-4">
 
           {/* Quick Preset Selector */}
