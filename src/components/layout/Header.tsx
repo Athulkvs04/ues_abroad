@@ -13,7 +13,8 @@ import {
   Compass, 
   GraduationCap,
   Calculator,
-  FileText
+  FileText,
+  UserCircle
 } from "lucide-react";
 
 interface HeaderProps {
@@ -56,7 +57,7 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
   // 5 core direct links - clean, focused, high-intent
   const primaryNavLinks = [
     { label: "Destinations", href: "/destinations" },
-    { label: "Universities", href: "/universities" },
+    { label: "AI Course Finder", href: "/universities" },
     { label: "Accommodation", href: "/accommodation" },
     { label: "Forex", href: "/forex" },
     { label: "Blogs", href: "/blogs" },
@@ -69,6 +70,12 @@ export function Header({ onOpenConsultModal }: HeaderProps) {
       desc: "Draft & download university-specific SOPs with AI",
       href: "/sop",
       icon: FileText,
+    },
+    {
+      label: "AI CV Builder",
+      desc: "Build & download a professional academic CV",
+      href: "/cv",
+      icon: UserCircle,
     },
     {
       label: "Smart Decision Center",

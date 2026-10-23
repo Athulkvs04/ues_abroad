@@ -69,8 +69,9 @@ export function Footer() {
             </h4>
             <ul className="space-y-3 list-none">
               {[
-                { label: "University Directory", href: "/universities" },
+                { label: "AI Course Finder", href: "/universities", badge: "AI Match" },
                 { label: "AI SOP Generator", href: "/sop", badge: "AI Tool" },
+                { label: "AI CV Builder", href: "/cv", badge: "AI Tool" },
                 { label: "Student Accommodation", href: "/accommodation", badge: "Verified" },
                 { label: "Smart Decision Center", href: "/tools" },
                 { label: "Study Abroad Blogs", href: "/blogs" },

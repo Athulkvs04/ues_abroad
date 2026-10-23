@@ -63,3 +63,57 @@
 ::-webkit-scrollbar-thumb {
   @apply bg-slate-300 dark:bg-slate-700 rounded-full hover:bg-slate-400 dark:hover:bg-slate-600 transition-colors;
 }
+
+/* Print Rules - Hide all navigation, banners, chrome and isolate printable documents */
+@media print {
+  /* Hide all website chrome, headers, footers, sidebars and floating elements */
+  header,
+  footer,
+  nav,
+  aside,
+  .no-print,
+  [data-no-print],
+  button,
+  .fixed,
+  .sticky {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 10pt !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* When printing on CV page or with printable doc */
+  body:has(#cv-printable-doc) * {
+    visibility: hidden;
+  }
+
+  #cv-printable-doc,
+  #cv-printable-doc * {
+    visibility: visible !important;
+  }
+
+  #cv-printable-doc {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #ffffff !important;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 15mm 18mm 15mm 18mm;
+  }
+}
