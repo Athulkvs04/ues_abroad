@@ -745,35 +745,35 @@ export function CvBuilderClient() {
   return (
     <PublicLayout>
       {/* ──── 1. Clean & Functional Workbench Header ──── */}
-      <section className="bg-emerald-50/50 border-y border-emerald-100/80 py-9 sm:py-10">
+      <section className="bg-neutral-950 text-white border-y border-neutral-800 py-10 sm:py-12">
         <div className="container max-w-6xl mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-5">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-emerald-800 border border-emerald-200/80 shadow-2xs text-xs font-semibold mb-3">
-                <FileText className="w-3.5 h-3.5 text-emerald-700" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-900 text-emerald-400 border border-neutral-800 text-xs font-semibold mb-3">
+                <FileText className="w-3.5 h-3.5 text-emerald-400" />
                 <span>University Admission Toolkit</span>
               </div>
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                 Build &amp; Download Your Clean{" "}
-                <span className="text-emerald-700">Academic CV</span>
+                <span className="text-emerald-400">Academic CV</span>
               </h1>
-              <p className="mt-2 text-sm sm:text-base text-slate-600 font-normal max-w-2xl leading-relaxed">
+              <p className="mt-2 text-sm sm:text-base text-neutral-300 font-normal max-w-2xl leading-relaxed">
                 Create an admission-ready Curriculum Vitae tailored for university applications across the UK, USA, Germany, Canada, Australia, and Ireland.
               </p>
             </div>
 
             {/* Quick Feature Badges */}
-            <div className="flex flex-wrap md:flex-col lg:flex-row gap-2 sm:gap-2.5 text-xs font-medium text-slate-700 shrink-0">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-emerald-200/80 shadow-2xs text-slate-700">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+            <div className="flex flex-wrap md:flex-col lg:flex-row gap-2 sm:gap-2.5 text-xs font-medium text-neutral-300 shrink-0">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-200">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                 Standard A4 Formatting
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-emerald-200/80 shadow-2xs text-slate-700">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-200">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                 Word &amp; TXT Download
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-emerald-200/80 shadow-2xs text-slate-700">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-200">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                 Direct PDF Print
               </span>
             </div>
