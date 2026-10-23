@@ -186,6 +186,74 @@ async function runTests() {
     const footerCvBuilder = await page.locator("footer a:has-text('AI CV Builder')").isVisible();
     assert(footerCvBuilder, "Footer contains 'AI CV Builder' with AI Tool badge");
 
+    // ══════════════════════════════════════════════
+    // TEST SUITE 4: AI SOP GENERATOR (/sop)
+    // ══════════════════════════════════════════════
+    console.log("\n📄 Suite 4: Testing AI SOP Generator (/sop)...");
+    await page.goto("http://localhost:3000/sop", { waitUntil: "networkidle" });
+
+    // 4.1 Hero Header & Branding
+    const sopTitle = await page.textContent("h1");
+    assert(sopTitle?.includes("Statement of Purpose") ?? false, "SOP Generator hero title renders correctly");
+
+    // 4.2 Presets Rendered
+    const sopPresets = await page.$$("div.bg-white.rounded-2xl div.flex.flex-wrap.gap-2 button");
+    assert(sopPresets.length >= 4, `SOP Presets rendered: found ${sopPresets.length} templates`);
+
+    // 4.3 Form Inputs - Applicant Name
+    const sopNameInput = await page.inputValue("input[placeholder='e.g. Aditya Sharma']");
+    assert(sopNameInput === "Aditya Sharma", "Default SOP preset populated Applicant Full Name");
+
+    // 4.4 Switch to Data Science Preset (Priya Menon)
+    await page.click("button:has-text('Data Science & Analytics')");
+    await page.waitForTimeout(300);
+    const switchedName = await page.inputValue("input[placeholder='e.g. Aditya Sharma']");
+    assert(switchedName === "Priya Menon", "Switching SOP preset updates applicant name to Priya Menon");
+
+    // 4.5 Formatted Document View
+    const sopDoc = await page.$("#sop-printable-doc");
+    assert(sopDoc !== null, "Formatted Document A4 Preview (#sop-printable-doc) is visible");
+    const sopText = await sopDoc?.textContent();
+    assert(sopText?.includes("Priya Menon") ?? false, "SOP Document preview displays applicant name in letterhead");
+    assert(sopText?.includes("Cornell University") ?? false, "SOP Document preview displays Cornell University");
+    assert(sopText?.includes("1. Academic Motivation") ?? false, "SOP Document preview displays 5-paragraph numbered structure");
+
+    // 4.6 Mode Switcher: Toggle to Raw Text
+    await page.click("button:has-text('Edit Raw Text')");
+    await page.waitForTimeout(300);
+    const sopTextarea = await page.$("textarea[rows='20']");
+    assert(sopTextarea !== null, "SOP Raw Text editor textarea renders when toggled");
+
+    // 4.7 Toggle back to Formatted View
+    await page.click("button:has-text('Formatted View')");
+    await page.waitForTimeout(300);
+    const sopDocBack = await page.$("#sop-printable-doc");
+    assert(sopDocBack !== null, "Toggling back restores SOP Formatted Document View");
+
+    // 4.8 Test Word Download Trigger
+    const [sopWord] = await Promise.all([
+      page.waitForEvent("download"),
+      page.click("button:has-text('Download Word')"),
+    ]);
+    const sopDocFileName = sopWord.suggestedFilename();
+    assert(sopDocFileName.includes(".doc"), `Download SOP Word (.doc) triggered successfully: ${sopDocFileName}`);
+
+    // 4.9 Test Text Download Trigger
+    const [sopTxt] = await Promise.all([
+      page.waitForEvent("download"),
+      page.click("button:has-text('Download Text')"),
+    ]);
+    const sopTxtFileName = sopTxt.suggestedFilename();
+    assert(sopTxtFileName.includes(".txt"), `Download SOP Text (.txt) triggered successfully: ${sopTxtFileName}`);
+
+    // 4.10 Counselor Review Modal
+    await page.click("button:has-text('Request Free Review')");
+    await page.waitForTimeout(400);
+    const sopModalHeading = await page.textContent("h3:has-text('Free SOP Review')");
+    assert(sopModalHeading !== null, "Counselor Review modal opens properly with SOP course context");
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(300);
+
     console.log(`\n🎉 Test Run Complete: ${passed} Passed, ${failed} Failed.`);
   } catch (err) {
     console.error("Test execution error:", err);

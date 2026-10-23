@@ -89,17 +89,21 @@
     print-color-adjust: exact !important;
   }
 
-  /* When printing on CV page or with printable doc */
-  body:has(#cv-printable-doc) * {
+  /* When printing on CV or SOP page with printable doc */
+  body:has(#cv-printable-doc) *,
+  body:has(#sop-printable-doc) * {
     visibility: hidden;
   }
 
   #cv-printable-doc,
-  #cv-printable-doc * {
+  #cv-printable-doc *,
+  #sop-printable-doc,
+  #sop-printable-doc * {
     visibility: visible !important;
   }
 
-  #cv-printable-doc {
+  #cv-printable-doc,
+  #sop-printable-doc {
     position: absolute !important;
     left: 0 !important;
     top: 0 !important;
