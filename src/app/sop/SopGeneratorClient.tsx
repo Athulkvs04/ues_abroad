@@ -557,18 +557,18 @@ export default function SopGeneratorClient() {
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-black/30" />
         </div>
 
-        <div className="container max-w-6xl mx-auto px-4 py-16 relative z-10">
+        <div className="container max-w-6xl mx-auto px-4 py-20 lg:py-24 relative z-10">
           <div className="max-w-2xl">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
               Draft &amp; Download Your University{" "}
               <span className="text-emerald-400">Statement of Purpose</span>
             </h1>
 
-            <p className="mt-4 text-sm sm:text-base text-slate-200 leading-relaxed font-normal max-w-xl">
+            <p className="mt-5 text-sm sm:text-base lg:text-lg text-slate-200/90 leading-relaxed font-normal max-w-xl">
               Construct a tailored, admission-committee-grade 5-paragraph SOP draft tailored to your target degree, destination country, and past achievements in minutes. Download in Word, plain text, or print directly to PDF.
             </p>
 
-            <div className="mt-6 pt-5 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-3 text-slate-200 text-xs font-medium max-w-xl">
+            <div className="mt-8 pt-6 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-4 text-slate-200 text-xs sm:text-sm font-medium max-w-xl">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>5-Paragraph Standard</span>
@@ -591,20 +591,20 @@ export default function SopGeneratorClient() {
       </section>
 
       {/* ──── 2. Interactive Generator Workspace ──── */}
-      <section className="py-12 bg-slate-50 min-h-screen">
+      <section className="py-14 lg:py-20 bg-slate-50 min-h-screen">
         <div className="container max-w-6xl mx-auto px-4">
 
           {/* Quick Preset Selector */}
-          <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 shadow-xs mb-8">
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <span className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
-                <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-700" />
+          <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/90 shadow-xs mb-10">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+              <span className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
+                <SlidersHorizontal className="w-4 h-4 text-emerald-700" />
                 Select a Verified Applicant Template:
               </span>
               <button
                 type="button"
                 onClick={handleReset}
-                className="text-xs font-semibold text-slate-500 hover:text-emerald-700 flex items-center gap-1 cursor-pointer"
+                className="text-xs sm:text-sm font-semibold text-slate-500 hover:text-emerald-700 flex items-center gap-1.5 cursor-pointer transition-colors"
               >
                 <RotateCcw className="w-3.5 h-3.5" /> Reset Form
               </button>
@@ -615,7 +615,7 @@ export default function SopGeneratorClient() {
                   key={p.label}
                   type="button"
                   onClick={() => applyPreset(idx)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all border cursor-pointer ${
+                  className={`px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all border cursor-pointer ${
                     selectedPreset === idx
                       ? "bg-emerald-600 text-white border-emerald-600 shadow-xs"
                       : "bg-slate-50 text-slate-700 hover:bg-emerald-50 hover:text-emerald-800 border-slate-200"
@@ -627,41 +627,41 @@ export default function SopGeneratorClient() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
             
             {/* ──── Left Form: Profile Details ──── */}
-            <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-xs space-y-4">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-xs space-y-6">
+              <div className="flex items-center justify-between pb-4 border-b border-slate-100">
                 <div className="flex items-center gap-2">
                   <User className="w-4 h-4 text-emerald-700" />
                   <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
                     Applicant Profile Inputs
                   </h2>
                 </div>
-                <span className="text-[11px] text-slate-400 font-medium">Admission Parameters</span>
+                <span className="text-xs text-slate-400 font-medium">Admission Parameters</span>
               </div>
 
-              <form onSubmit={handleGenerate} className="space-y-4">
+              <form onSubmit={handleGenerate} className="space-y-5">
                 {/* Full Name */}
                 <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">Applicant Full Name</label>
+                  <label className="text-xs font-bold text-slate-700 block mb-1.5 tracking-wide">Applicant Full Name</label>
                   <input
                     type="text"
                     required
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="e.g. Aditya Sharma"
-                    className="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600"
+                    className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600 focus:bg-white transition-colors"
                   />
                 </div>
 
                 {/* Target Degree Level */}
                 <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">Target Degree Level</label>
+                  <label className="text-xs font-bold text-slate-700 block mb-1.5 tracking-wide">Target Degree Level</label>
                   <select
                     value={degree}
                     onChange={(e) => setDegree(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600 cursor-pointer"
+                    className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600 focus:bg-white cursor-pointer transition-colors"
                   >
                     <option value="Master's (MS / MSc)">Master&apos;s (MS / MSc)</option>
                     <option value="Master of Business Administration (MBA)">Master of Business Administration (MBA)</option>
@@ -673,25 +673,25 @@ export default function SopGeneratorClient() {
 
                 {/* Target Course / Major */}
                 <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">Target Course / Major</label>
+                  <label className="text-xs font-bold text-slate-700 block mb-1.5 tracking-wide">Target Course / Major</label>
                   <input
                     type="text"
                     required
                     value={course}
                     onChange={(e) => setCourse(e.target.value)}
                     placeholder="e.g. Computer Science, Mechanical Engineering, MBA"
-                    className="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600"
+                    className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600 focus:bg-white transition-colors"
                   />
                 </div>
 
                 {/* Country & University */}
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Target Country</label>
+                    <label className="text-xs font-bold text-slate-700 block mb-1.5 tracking-wide">Target Country</label>
                     <select
                       value={country}
                       onChange={(e) => setCountry(e.target.value)}
-                      className="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600 cursor-pointer"
+                      className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600 focus:bg-white cursor-pointer transition-colors"
                     >
                       <option value="Germany">Germany</option>
                       <option value="United Kingdom">United Kingdom</option>
@@ -703,57 +703,57 @@ export default function SopGeneratorClient() {
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Target University</label>
+                    <label className="text-xs font-bold text-slate-700 block mb-1.5 tracking-wide">Target University</label>
                     <input
                       type="text"
                       value={university}
                       onChange={(e) => setUniversity(e.target.value)}
                       placeholder="e.g. TUM, Oxford, Toronto"
-                      className="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600"
+                      className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600 focus:bg-white transition-colors"
                     />
                   </div>
                 </div>
 
                 {/* Academic Background */}
                 <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">Academic Background &amp; Grades</label>
+                  <label className="text-xs font-bold text-slate-700 block mb-1.5 tracking-wide">Academic Background &amp; Grades</label>
                   <textarea
-                    rows={2}
+                    rows={3}
                     value={background}
                     onChange={(e) => setBackground(e.target.value)}
                     placeholder="e.g. B.Tech in CSE with 8.4 CGPA, focused on Data Structures & Operating Systems..."
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600 resize-none"
+                    className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600 focus:bg-white resize-none leading-relaxed transition-colors"
                   />
                 </div>
 
                 {/* Experience */}
                 <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">Work Experience / Projects</label>
+                  <label className="text-xs font-bold text-slate-700 block mb-1.5 tracking-wide">Work Experience / Projects</label>
                   <textarea
-                    rows={2}
+                    rows={3}
                     value={experience}
                     onChange={(e) => setExperience(e.target.value)}
                     placeholder="e.g. 2 years experience as software engineer, worked on scalable microservices..."
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600 resize-none"
+                    className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600 focus:bg-white resize-none leading-relaxed transition-colors"
                   />
                 </div>
 
                 {/* Career Goals */}
                 <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">Short &amp; Long-Term Career Goals</label>
+                  <label className="text-xs font-bold text-slate-700 block mb-1.5 tracking-wide">Short &amp; Long-Term Career Goals</label>
                   <textarea
-                    rows={2}
+                    rows={3}
                     value={careerGoals}
                     onChange={(e) => setCareerGoals(e.target.value)}
                     placeholder="e.g. Lead engineering teams in enterprise AI and establish an innovation lab..."
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600 resize-none"
+                    className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600 focus:bg-white resize-none leading-relaxed transition-colors"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={isGenerating}
-                  className="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="w-full py-3.5 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 mt-6"
                 >
                   <Bot className="w-4 h-4" />
                   <span>{isGenerating ? "Analyzing & Generating Draft..." : "Generate AI Statement of Purpose"}</span>
@@ -762,10 +762,10 @@ export default function SopGeneratorClient() {
             </div>
 
             {/* ──── Right Pane: Formatted Document & Export ──── */}
-            <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-xs flex flex-col justify-between min-h-[620px]">
+            <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-xs flex flex-col justify-between min-h-[660px]">
               <div>
                 {/* Preview Toolbar */}
-                <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100">
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-5 mb-5 border-b border-slate-100">
                   <div className="flex items-center gap-2">
                     <FileText className="w-4 h-4 text-emerald-700" />
                     <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
@@ -774,12 +774,12 @@ export default function SopGeneratorClient() {
                   </div>
 
                   {/* Mode Toggle (Formatted vs Raw) */}
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center bg-slate-100 p-0.5 rounded-lg text-xs font-semibold">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex items-center bg-slate-100 p-1 rounded-xl text-xs font-semibold">
                       <button
                         type="button"
                         onClick={() => setPreviewMode("document")}
-                        className={`px-2.5 py-1 rounded-md transition-all flex items-center gap-1 cursor-pointer ${
+                        className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
                           previewMode === "document"
                             ? "bg-white text-emerald-800 shadow-xs font-bold"
                             : "text-slate-600 hover:text-slate-900"
@@ -794,7 +794,7 @@ export default function SopGeneratorClient() {
                           if (!generatedSop) handleGenerate();
                           setPreviewMode("raw");
                         }}
-                        className={`px-2.5 py-1 rounded-md transition-all flex items-center gap-1 cursor-pointer ${
+                        className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
                           previewMode === "raw"
                             ? "bg-white text-emerald-800 shadow-xs font-bold"
                             : "text-slate-600 hover:text-slate-900"
@@ -805,7 +805,7 @@ export default function SopGeneratorClient() {
                       </button>
                     </div>
 
-                    <span className="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2 py-1 rounded-md hidden sm:inline-block">
+                    <span className="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-1.5 rounded-lg hidden sm:inline-block">
                       {wordCount} Words • {readingTimeMinutes}m Read
                     </span>
                   </div>
@@ -813,17 +813,17 @@ export default function SopGeneratorClient() {
 
                 {/* Formatted View (Clean Academic Paper Presentation) */}
                 {previewMode === "document" ? (
-                  <div className="mt-4">
+                  <div className="mt-2">
                     <div
                       id="sop-printable-doc"
-                      className="bg-white border border-slate-200 rounded-xl p-6 sm:p-8 shadow-xs text-slate-900 font-serif space-y-5 max-h-[640px] overflow-y-auto leading-relaxed"
+                      className="bg-white border border-slate-200 rounded-2xl p-7 sm:p-10 shadow-xs text-slate-900 font-serif space-y-6 max-h-[660px] overflow-y-auto leading-relaxed"
                     >
                       {/* Document Letterhead */}
-                      <div className="text-center pb-3 border-b-2 border-slate-900 font-sans">
+                      <div className="text-center pb-4 border-b-2 border-slate-900 font-sans">
                         <h2 className="text-xl sm:text-2xl font-bold tracking-wider uppercase text-slate-900">
                           STATEMENT OF PURPOSE
                         </h2>
-                        <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600 text-left pt-2 border-t border-slate-100">
+                        <div className="mt-2.5 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-600 text-left pt-2.5 border-t border-slate-100">
                           <div>
                             <span className="font-bold text-slate-800">Applicant:</span>{" "}
                             <span>{fullName || "Prospective Scholar"}</span>
@@ -845,7 +845,7 @@ export default function SopGeneratorClient() {
 
                       {/* Section 1 */}
                       <div>
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-1 mb-2 font-sans">
+                        <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-1.5 mb-2.5 font-sans">
                           1. Academic Motivation &amp; Research Objectives
                         </h4>
                         <p className="text-xs sm:text-sm text-slate-700 leading-relaxed text-justify">
@@ -855,7 +855,7 @@ export default function SopGeneratorClient() {
 
                       {/* Section 2 */}
                       <div>
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-1 mb-2 font-sans">
+                        <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-1.5 mb-2.5 font-sans">
                           2. Academic Foundations &amp; Technical Competence
                         </h4>
                         <p className="text-xs sm:text-sm text-slate-700 leading-relaxed text-justify">
@@ -865,7 +865,7 @@ export default function SopGeneratorClient() {
 
                       {/* Section 3 */}
                       <div>
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-1 mb-2 font-sans">
+                        <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-1.5 mb-2.5 font-sans">
                           3. Applied Professional Projects &amp; Industry Experience
                         </h4>
                         <p className="text-xs sm:text-sm text-slate-700 leading-relaxed text-justify">
@@ -875,7 +875,7 @@ export default function SopGeneratorClient() {
 
                       {/* Section 4 */}
                       <div>
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-1 mb-2 font-sans">
+                        <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-1.5 mb-2.5 font-sans">
                           4. Institutional Alignment: Why {university || "This Institution"} &amp; {country}
                         </h4>
                         <p className="text-xs sm:text-sm text-slate-700 leading-relaxed text-justify">
@@ -885,7 +885,7 @@ export default function SopGeneratorClient() {
 
                       {/* Section 5 */}
                       <div>
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-1 mb-2 font-sans">
+                        <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-1.5 mb-2.5 font-sans">
                           5. Long-Term Career Vision &amp; Professional Contribution
                         </h4>
                         <p className="text-xs sm:text-sm text-slate-700 leading-relaxed text-justify">
@@ -894,14 +894,14 @@ export default function SopGeneratorClient() {
                       </div>
                     </div>
 
-                    <p className="text-[11px] text-slate-400 italic mt-2">
+                    <p className="text-xs text-slate-400 italic mt-3">
                       Ready to submit! Download as formatted Word (.doc), text (.txt), or print directly to PDF below.
                     </p>
                   </div>
                 ) : (
                   /* Raw Monospace Text Editor View */
-                  <div className="mt-4 space-y-3">
-                    <div className="bg-slate-50 rounded-2xl p-4 border border-slate-200/80 max-h-[500px] overflow-y-auto">
+                  <div className="mt-2 space-y-3">
+                    <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200/80 max-h-[520px] overflow-y-auto">
                       <textarea
                         value={generatedSop || buildPlainSopText()}
                         onChange={(e) => setGeneratedSop(e.target.value)}
@@ -910,7 +910,7 @@ export default function SopGeneratorClient() {
                         placeholder="Click 'Generate AI Statement of Purpose' to generate text..."
                       />
                     </div>
-                    <p className="text-[11px] text-slate-400 italic">
+                    <p className="text-xs text-slate-400 italic">
                       Tip: Edits made here will be reflected when downloading as Plain Text (.txt).
                     </p>
                   </div>
@@ -918,63 +918,63 @@ export default function SopGeneratorClient() {
               </div>
 
               {/* Action Toolbar */}
-              <div className="pt-6 mt-6 border-t border-slate-100 space-y-3">
-                <div className="flex flex-wrap items-center gap-2">
+              <div className="pt-6 mt-8 border-t border-slate-100 space-y-4">
+                <div className="flex flex-wrap items-center gap-2.5">
                   <button
                     type="button"
                     onClick={handleDownloadDoc}
-                    className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="px-4.5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-xs transition-all flex items-center gap-2 cursor-pointer"
                   >
-                    <Download className="w-3.5 h-3.5" />
+                    <Download className="w-4 h-4" />
                     <span>Download Word (.doc)</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={handleDownloadTxt}
-                    className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="px-4.5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer"
                   >
-                    <Download className="w-3.5 h-3.5" />
+                    <Download className="w-4 h-4" />
                     <span>Download Text (.txt)</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={handlePrint}
-                    className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+                    className="px-4.5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer shadow-xs"
                   >
-                    <Printer className="w-3.5 h-3.5" />
+                    <Printer className="w-4 h-4" />
                     <span>Print / Save PDF</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={handleCopy}
-                    className="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer"
                   >
                     {copied ? (
-                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      <Check className="w-4 h-4 text-emerald-600" />
                     ) : (
-                      <Copy className="w-3.5 h-3.5" />
+                      <Copy className="w-4 h-4" />
                     )}
                     <span>{copied ? "Copied!" : "Copy"}</span>
                   </button>
                 </div>
 
                 {/* Counselor Polish Upsell Card */}
-                <div className="mt-4 p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div className="mt-5 p-5 sm:p-6 rounded-2xl bg-emerald-50/80 border border-emerald-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div>
-                    <h4 className="text-xs font-bold text-emerald-950">
+                    <h4 className="text-xs sm:text-sm font-bold text-emerald-950">
                       Want an admission counselor to review and refine your SOP?
                     </h4>
-                    <p className="text-[11px] text-emerald-800 leading-tight mt-0.5">
+                    <p className="text-xs text-emerald-800 leading-normal mt-1">
                       Our admissions experts review drafts for university alignment, grammar, plagiarism, and visa approval odds.
                     </p>
                   </div>
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(true)}
-                    className="px-4 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs transition-all shadow-xs shrink-0 cursor-pointer"
+                    className="px-4.5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm transition-all shadow-xs shrink-0 cursor-pointer"
                   >
                     Request Free Review
                   </button>
@@ -986,47 +986,47 @@ export default function SopGeneratorClient() {
           </div>
 
           {/* ──── Bottom Guidance Box: Standard 5-Paragraph SOP Structure ──── */}
-          <div className="mt-16 bg-white rounded-3xl p-8 border border-slate-200/90 shadow-xs">
-            <h3 className="text-lg font-bold text-slate-900 mb-3">
+          <div className="mt-20 bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-xs">
+            <h3 className="text-lg font-bold text-slate-900 mb-4">
               Standard 5-Paragraph SOP Structure Used by Top Universities
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 text-xs">
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                <span className="font-bold text-emerald-700 block mb-1">Paragraph 1</span>
-                <strong className="text-slate-900 block mb-1">Academic Hook &amp; Goal</strong>
-                <p className="text-slate-500 leading-relaxed">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-5 text-xs sm:text-sm">
+              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                <span className="font-bold text-emerald-700 block mb-1 text-xs uppercase tracking-wider">Paragraph 1</span>
+                <strong className="text-slate-900 block mb-1 font-bold">Academic Hook &amp; Goal</strong>
+                <p className="text-slate-500 leading-relaxed text-xs">
                   Introduction of intellectual passion, core discipline motivator, and why this specific graduate program.
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                <span className="font-bold text-emerald-700 block mb-1">Paragraph 2</span>
-                <strong className="text-slate-900 block mb-1">Undergraduate Studies</strong>
-                <p className="text-slate-500 leading-relaxed">
+              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                <span className="font-bold text-emerald-700 block mb-1 text-xs uppercase tracking-wider">Paragraph 2</span>
+                <strong className="text-slate-900 block mb-1 font-bold">Undergraduate Studies</strong>
+                <p className="text-slate-500 leading-relaxed text-xs">
                   Academic trajectory, foundational coursework, undergraduate thesis, and technical competencies developed.
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                <span className="font-bold text-emerald-700 block mb-1">Paragraph 3</span>
-                <strong className="text-slate-900 block mb-1">Professional Projects</strong>
-                <p className="text-slate-500 leading-relaxed">
+              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                <span className="font-bold text-emerald-700 block mb-1 text-xs uppercase tracking-wider">Paragraph 3</span>
+                <strong className="text-slate-900 block mb-1 font-bold">Professional Projects</strong>
+                <p className="text-slate-500 leading-relaxed text-xs">
                   Internships, industrial challenges overcome, leadership responsibilities, and research publications.
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                <span className="font-bold text-emerald-700 block mb-1">Paragraph 4</span>
-                <strong className="text-slate-900 block mb-1">Why This University</strong>
-                <p className="text-slate-500 leading-relaxed">
+              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                <span className="font-bold text-emerald-700 block mb-1 text-xs uppercase tracking-wider">Paragraph 4</span>
+                <strong className="text-slate-900 block mb-1 font-bold">Why This University</strong>
+                <p className="text-slate-500 leading-relaxed text-xs">
                   Specific laboratory, distinguished professors, specialized electives, and campus research ecosystems.
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                <span className="font-bold text-emerald-700 block mb-1">Paragraph 5</span>
-                <strong className="text-slate-900 block mb-1">Career Vision &amp; Return</strong>
-                <p className="text-slate-500 leading-relaxed">
+              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                <span className="font-bold text-emerald-700 block mb-1 text-xs uppercase tracking-wider">Paragraph 5</span>
+                <strong className="text-slate-900 block mb-1 font-bold">Career Vision &amp; Return</strong>
+                <p className="text-slate-500 leading-relaxed text-xs">
                   Immediate short-term and 5-year career objectives, economic value, and strong final summary statement.
                 </p>
               </div>

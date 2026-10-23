@@ -759,18 +759,18 @@ export function CvBuilderClient() {
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-black/30" />
         </div>
 
-        <div className="container max-w-6xl mx-auto px-4 py-16 relative z-10">
+        <div className="container max-w-6xl mx-auto px-4 py-20 lg:py-24 relative z-10">
           <div className="max-w-2xl">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
               Build &amp; Download Your Clean{" "}
               <span className="text-emerald-400">Academic CV</span>
             </h1>
 
-            <p className="mt-4 text-sm sm:text-base text-slate-200 leading-relaxed font-normal max-w-xl">
+            <p className="mt-5 text-sm sm:text-base lg:text-lg text-slate-200/90 leading-relaxed font-normal max-w-xl">
               Create an admission-ready Curriculum Vitae tailored for university applications across the UK, USA, Germany, Canada, Australia, and Ireland. Download in clean Word (.doc), text, or print directly to PDF.
             </p>
 
-            <div className="mt-6 pt-5 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-3 text-slate-200 text-xs font-medium max-w-xl">
+            <div className="mt-8 pt-6 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-4 text-slate-200 text-xs sm:text-sm font-medium max-w-xl">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>Clean A4 Formatting</span>
@@ -793,20 +793,20 @@ export function CvBuilderClient() {
       </section>
 
       {/* ──── 2. Interactive CV Builder Workspace ──── */}
-      <section className="py-12 bg-slate-50 min-h-screen">
+      <section className="py-14 lg:py-20 bg-slate-50 min-h-screen">
         <div className="container max-w-6xl mx-auto px-4">
 
           {/* Quick Preset Selector */}
-          <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 shadow-xs mb-8">
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <span className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
-                <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-700" />
+          <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/90 shadow-xs mb-10">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+              <span className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
+                <SlidersHorizontal className="w-4 h-4 text-emerald-700" />
                 Select a Verified Applicant Template:
               </span>
               <button
                 type="button"
                 onClick={handleReset}
-                className="text-xs font-semibold text-slate-500 hover:text-emerald-700 flex items-center gap-1 cursor-pointer"
+                className="text-xs sm:text-sm font-semibold text-slate-500 hover:text-emerald-700 flex items-center gap-1.5 cursor-pointer transition-colors"
               >
                 <RotateCcw className="w-3.5 h-3.5" /> Reset Form
               </button>
@@ -817,7 +817,7 @@ export function CvBuilderClient() {
                   key={preset.label}
                   type="button"
                   onClick={() => handleLoadPreset(idx)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all border cursor-pointer ${
+                  className={`px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all border cursor-pointer ${
                     selectedPreset === idx
                       ? "bg-emerald-600 text-white border-emerald-600 shadow-xs"
                       : "bg-slate-50 text-slate-700 hover:bg-emerald-50 hover:text-emerald-800 border-slate-200"
@@ -830,74 +830,74 @@ export function CvBuilderClient() {
           </div>
 
           {/* Builder Grid: Form on Left, Formatted Preview & Export on Right */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
 
             {/* ──── Left: Form Inputs ──── */}
-            <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-xs space-y-6">
-              <div className="border-b border-slate-100 pb-4">
+            <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-xs space-y-6">
+              <div className="border-b border-slate-100 pb-5">
                 <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
                   <User className="w-4 h-4 text-emerald-700" />
                   Your Profile &amp; Background
                 </h2>
-                <p className="text-xs text-slate-500 mt-1">
+                <p className="text-xs sm:text-sm text-slate-500 mt-1.5 leading-relaxed">
                   Enter your academic credentials and work history to generate a clean, university-aligned CV.
                 </p>
               </div>
 
-              <form onSubmit={handleGenerate} className="space-y-4">
+              <form onSubmit={handleGenerate} className="space-y-5">
                 {/* Full Name */}
                 <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">Full Name</label>
+                  <label className="text-xs font-bold text-slate-700 block mb-1.5 tracking-wide">Full Name</label>
                   <input
                     type="text"
                     required
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="e.g. Aditya Sharma"
-                    className="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600"
+                    className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600 focus:bg-white transition-colors"
                   />
                 </div>
 
                 {/* Email & Phone */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Email Address</label>
+                    <label className="text-xs font-bold text-slate-700 block mb-1.5 tracking-wide">Email Address</label>
                     <input
                       type="email"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="aditya@email.com"
-                      className="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600"
+                      className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600 focus:bg-white transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Phone Number</label>
+                    <label className="text-xs font-bold text-slate-700 block mb-1.5 tracking-wide">Phone Number</label>
                     <input
                       type="tel"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="+91 98765 43210"
-                      className="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600"
+                      className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600 focus:bg-white transition-colors"
                     />
                   </div>
                 </div>
 
                 {/* Location */}
                 <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">City, Country</label>
+                  <label className="text-xs font-bold text-slate-700 block mb-1.5 tracking-wide">City, Country</label>
                   <input
                     type="text"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     placeholder="e.g. Bangalore, India"
-                    className="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600"
+                    className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600 focus:bg-white transition-colors"
                   />
                 </div>
 
                 {/* Objective */}
                 <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">
+                  <label className="text-xs font-bold text-slate-700 block mb-1.5 tracking-wide">
                     Career Objective / Summary
                   </label>
                   <textarea
@@ -905,25 +905,25 @@ export function CvBuilderClient() {
                     value={objective}
                     onChange={(e) => setObjective(e.target.value)}
                     placeholder="2-3 sentences summarizing your academic background and goals for studying abroad..."
-                    className="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600 resize-none"
+                    className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600 focus:bg-white resize-none leading-relaxed transition-colors"
                   />
                 </div>
 
                 {/* Education Section */}
-                <fieldset className="space-y-3 pt-2">
-                  <legend className="text-xs font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-1.5 mb-1">
+                <fieldset className="space-y-4 pt-3 border-t border-slate-100">
+                  <legend className="text-xs font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-1.5 mb-2">
                     <GraduationCap className="w-3.5 h-3.5" /> Education
                   </legend>
                   {education.map((edu, idx) => (
                     <div
                       key={idx}
-                      className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2 relative"
+                      className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2.5 relative"
                     >
                       {education.length > 1 && (
                         <button
                           type="button"
                           onClick={() => removeEducation(idx)}
-                          className="absolute top-2 right-2 text-slate-400 hover:text-red-500 transition-colors cursor-pointer"
+                          className="absolute top-3 right-3 text-slate-400 hover:text-red-500 transition-colors cursor-pointer"
                           aria-label="Remove education entry"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -934,29 +934,29 @@ export function CvBuilderClient() {
                         value={edu.degree}
                         onChange={(e) => updateEducation(idx, "degree", e.target.value)}
                         placeholder="Degree (e.g. B.Tech in Computer Science)"
-                        className="w-full px-2.5 py-2 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600"
+                        className="w-full px-3 py-2 sm:py-2.5 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600"
                       />
                       <input
                         type="text"
                         value={edu.institution}
                         onChange={(e) => updateEducation(idx, "institution", e.target.value)}
                         placeholder="Institution Name"
-                        className="w-full px-2.5 py-2 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600"
+                        className="w-full px-3 py-2 sm:py-2.5 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600"
                       />
-                      <div className="grid grid-cols-2 gap-2">
+                      <div className="grid grid-cols-2 gap-2.5">
                         <input
                           type="text"
                           value={edu.year}
                           onChange={(e) => updateEducation(idx, "year", e.target.value)}
                           placeholder="Years (e.g. 2019 – 2023)"
-                          className="w-full px-2.5 py-2 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600"
+                          className="w-full px-3 py-2 sm:py-2.5 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600"
                         />
                         <input
                           type="text"
                           value={edu.grade}
                           onChange={(e) => updateEducation(idx, "grade", e.target.value)}
                           placeholder="Grade / CGPA"
-                          className="w-full px-2.5 py-2 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600"
+                          className="w-full px-3 py-2 sm:py-2.5 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600"
                         />
                       </div>
                     </div>
@@ -964,46 +964,46 @@ export function CvBuilderClient() {
                   <button
                     type="button"
                     onClick={addEducation}
-                    className="text-xs font-semibold text-emerald-700 hover:text-emerald-900 flex items-center gap-1 cursor-pointer"
+                    className="text-xs sm:text-sm font-semibold text-emerald-700 hover:text-emerald-900 flex items-center gap-1.5 cursor-pointer pt-1"
                   >
                     <Plus className="w-3.5 h-3.5" /> Add Another Qualification
                   </button>
                 </fieldset>
 
                 {/* Experience Section */}
-                <fieldset className="space-y-3 pt-2">
-                  <legend className="text-xs font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-1.5 mb-1">
+                <fieldset className="space-y-4 pt-3 border-t border-slate-100">
+                  <legend className="text-xs font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-1.5 mb-2">
                     <Briefcase className="w-3.5 h-3.5" /> Professional Experience
                   </legend>
                   {experience.map((exp, idx) => (
                     <div
                       key={idx}
-                      className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2 relative"
+                      className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2.5 relative"
                     >
                       {experience.length > 1 && (
                         <button
                           type="button"
                           onClick={() => removeExperience(idx)}
-                          className="absolute top-2 right-2 text-slate-400 hover:text-red-500 transition-colors cursor-pointer"
+                          className="absolute top-3 right-3 text-slate-400 hover:text-red-500 transition-colors cursor-pointer"
                           aria-label="Remove experience entry"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
                       )}
-                      <div className="grid grid-cols-2 gap-2">
+                      <div className="grid grid-cols-2 gap-2.5">
                         <input
                           type="text"
                           value={exp.role}
                           onChange={(e) => updateExperience(idx, "role", e.target.value)}
                           placeholder="Job Title / Role"
-                          className="w-full px-2.5 py-2 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600"
+                          className="w-full px-3 py-2 sm:py-2.5 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600"
                         />
                         <input
                           type="text"
                           value={exp.company}
                           onChange={(e) => updateExperience(idx, "company", e.target.value)}
                           placeholder="Company / Organization"
-                          className="w-full px-2.5 py-2 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600"
+                          className="w-full px-3 py-2 sm:py-2.5 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600"
                         />
                       </div>
                       <input
@@ -1011,29 +1011,29 @@ export function CvBuilderClient() {
                         value={exp.duration}
                         onChange={(e) => updateExperience(idx, "duration", e.target.value)}
                         placeholder="Duration (e.g. Jul 2023 – Present)"
-                        className="w-full px-2.5 py-2 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600"
+                        className="w-full px-3 py-2 sm:py-2.5 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600"
                       />
                       <textarea
                         rows={3}
                         value={exp.highlights}
                         onChange={(e) => updateExperience(idx, "highlights", e.target.value)}
                         placeholder="Key responsibilities and achievements (one per line or separated by periods)..."
-                        className="w-full px-2.5 py-2 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600 resize-none"
+                        className="w-full px-3 py-2 sm:py-2.5 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600 resize-none leading-relaxed"
                       />
                     </div>
                   ))}
                   <button
                     type="button"
                     onClick={addExperience}
-                    className="text-xs font-semibold text-emerald-700 hover:text-emerald-900 flex items-center gap-1 cursor-pointer"
+                    className="text-xs sm:text-sm font-semibold text-emerald-700 hover:text-emerald-900 flex items-center gap-1.5 cursor-pointer pt-1"
                   >
                     <Plus className="w-3.5 h-3.5" /> Add Another Role
                   </button>
                 </fieldset>
 
                 {/* Skills */}
-                <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">
+                <div className="pt-2">
+                  <label className="text-xs font-bold text-slate-700 block mb-1.5 tracking-wide">
                     Technical Skills &amp; Competencies
                   </label>
                   <textarea
@@ -1041,13 +1041,13 @@ export function CvBuilderClient() {
                     value={skills}
                     onChange={(e) => setSkills(e.target.value)}
                     placeholder="Comma-separated list: Python, React, Docker, AWS, SQL..."
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600 resize-none"
+                    className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600 focus:bg-white resize-none leading-relaxed transition-colors"
                   />
                 </div>
 
                 {/* Certifications */}
                 <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">
+                  <label className="text-xs font-bold text-slate-700 block mb-1.5 tracking-wide">
                     Certifications &amp; Achievements
                   </label>
                   <input
@@ -1055,19 +1055,19 @@ export function CvBuilderClient() {
                     value={certifications}
                     onChange={(e) => setCertifications(e.target.value)}
                     placeholder="Comma-separated: AWS Certified, GATE 2022..."
-                    className="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600"
+                    className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600 focus:bg-white transition-colors"
                   />
                 </div>
 
                 {/* Languages */}
                 <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">Languages</label>
+                  <label className="text-xs font-bold text-slate-700 block mb-1.5 tracking-wide">Languages</label>
                   <input
                     type="text"
                     value={languages}
                     onChange={(e) => setLanguages(e.target.value)}
                     placeholder="English (Fluent), Hindi (Native)..."
-                    className="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-emerald-600"
+                    className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm font-medium focus:outline-none focus:border-emerald-600 focus:bg-white transition-colors"
                   />
                 </div>
 
@@ -1075,7 +1075,7 @@ export function CvBuilderClient() {
                 <button
                   type="submit"
                   disabled={isGenerating}
-                  className="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="w-full py-3.5 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 mt-6"
                 >
                   <Bot className="w-4 h-4" />
                   <span>{isGenerating ? "Formatting Clean CV..." : "Generate & Preview CV"}</span>
@@ -1084,10 +1084,10 @@ export function CvBuilderClient() {
             </div>
 
             {/* ──── Right: Formatted Document Preview & Export ──── */}
-            <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-xs flex flex-col justify-between min-h-[620px]">
+            <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-xs flex flex-col justify-between min-h-[660px]">
               <div>
                 {/* Preview Toolbar */}
-                <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100">
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-5 mb-5 border-b border-slate-100">
                   <div className="flex items-center gap-2">
                     <FileText className="w-4 h-4 text-emerald-700" />
                     <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
@@ -1096,12 +1096,12 @@ export function CvBuilderClient() {
                   </div>
 
                   {/* Mode Toggle (Formatted vs Raw) */}
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center bg-slate-100 p-0.5 rounded-lg text-xs font-semibold">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex items-center bg-slate-100 p-1 rounded-xl text-xs font-semibold">
                       <button
                         type="button"
                         onClick={() => setPreviewMode("document")}
-                        className={`px-2.5 py-1 rounded-md transition-all flex items-center gap-1 cursor-pointer ${
+                        className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
                           previewMode === "document"
                             ? "bg-white text-emerald-800 shadow-xs font-bold"
                             : "text-slate-600 hover:text-slate-900"
@@ -1116,7 +1116,7 @@ export function CvBuilderClient() {
                           if (!generatedCv) handleGenerate();
                           setPreviewMode("raw");
                         }}
-                        className={`px-2.5 py-1 rounded-md transition-all flex items-center gap-1 cursor-pointer ${
+                        className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
                           previewMode === "raw"
                             ? "bg-white text-emerald-800 shadow-xs font-bold"
                             : "text-slate-600 hover:text-slate-900"
@@ -1128,7 +1128,7 @@ export function CvBuilderClient() {
                     </div>
 
                     {wordCount > 0 && (
-                      <span className="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2 py-1 rounded-md hidden sm:inline-block">
+                      <span className="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-1.5 rounded-lg hidden sm:inline-block">
                         {wordCount} Words
                       </span>
                     )}
@@ -1137,17 +1137,17 @@ export function CvBuilderClient() {
 
                 {/* Formatted View (Clean Academic A4 Document Sheet) */}
                 {previewMode === "document" ? (
-                  <div className="mt-4">
+                  <div className="mt-2">
                     <div
                       id="cv-printable-doc"
-                      className="bg-white border border-slate-200 rounded-xl p-6 sm:p-8 shadow-xs text-slate-900 font-sans space-y-4 max-h-[640px] overflow-y-auto"
+                      className="bg-white border border-slate-200 rounded-2xl p-7 sm:p-10 shadow-xs text-slate-900 font-sans space-y-6 max-h-[660px] overflow-y-auto"
                     >
                       {/* CV Header */}
-                      <div className="text-center pb-3 border-b-2 border-slate-900">
+                      <div className="text-center pb-4 border-b-2 border-slate-900">
                         <h2 className="text-xl sm:text-2xl font-bold tracking-wider uppercase text-slate-900">
                           {(fullName || "YOUR FULL NAME").toUpperCase()}
                         </h2>
-                        <div className="mt-1.5 flex flex-wrap justify-center items-center gap-2 text-xs text-slate-600">
+                        <div className="mt-2.5 flex flex-wrap justify-center items-center gap-2.5 text-xs text-slate-600">
                           {email && <span>{email}</span>}
                           {email && phone && <span>•</span>}
                           {phone && <span>{phone}</span>}
@@ -1159,10 +1159,10 @@ export function CvBuilderClient() {
                       {/* Career Objective */}
                       {objective && (
                         <div>
-                          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1 mb-2">
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1.5 mb-2.5">
                             Career Objective
                           </h4>
-                          <p className="text-xs text-slate-700 leading-relaxed text-justify">
+                          <p className="text-xs sm:text-sm text-slate-700 leading-relaxed text-justify">
                             {objective}
                           </p>
                         </div>
@@ -1171,21 +1171,21 @@ export function CvBuilderClient() {
                       {/* Education */}
                       {education.some((e) => e.degree.trim()) && (
                         <div>
-                          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1 mb-2">
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1.5 mb-2.5">
                             Education
                           </h4>
-                          <div className="space-y-2.5">
+                          <div className="space-y-3">
                             {education
                               .filter((e) => e.degree.trim())
                               .map((edu, idx) => (
-                                <div key={idx} className="text-xs">
+                                <div key={idx} className="text-xs sm:text-sm">
                                   <div className="flex justify-between items-baseline font-bold text-slate-900">
                                     <span>{edu.degree}</span>
-                                    <span className="text-[11px] font-semibold text-slate-500">
+                                    <span className="text-xs font-semibold text-slate-500">
                                       {edu.year}
                                     </span>
                                   </div>
-                                  <div className="flex justify-between items-baseline text-slate-600 italic">
+                                  <div className="flex justify-between items-baseline text-slate-600 italic mt-0.5">
                                     <span>{edu.institution}</span>
                                     {edu.grade && (
                                       <span className="not-italic font-semibold text-emerald-700">
@@ -1202,16 +1202,16 @@ export function CvBuilderClient() {
                       {/* Professional Experience */}
                       {experience.some((e) => e.role.trim()) && (
                         <div>
-                          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1 mb-2">
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1.5 mb-2.5">
                             Professional Experience
                           </h4>
-                          <div className="space-y-3">
+                          <div className="space-y-3.5">
                             {experience
                               .filter((e) => e.role.trim())
                               .map((exp, idx) => {
                                 const bullets = parseHighlights(exp.highlights);
                                 return (
-                                  <div key={idx} className="text-xs">
+                                  <div key={idx} className="text-xs sm:text-sm">
                                     <div className="flex justify-between items-baseline font-bold text-slate-900">
                                       <span>
                                         {exp.role}{" "}
@@ -1219,12 +1219,12 @@ export function CvBuilderClient() {
                                           — {exp.company || "Company"}
                                         </span>
                                       </span>
-                                      <span className="text-[11px] font-semibold text-slate-500">
+                                      <span className="text-xs font-semibold text-slate-500">
                                         {exp.duration}
                                       </span>
                                     </div>
                                     {bullets.length > 0 && (
-                                      <ul className="mt-1 space-y-1 list-disc list-inside text-slate-700 pl-1">
+                                      <ul className="mt-1.5 space-y-1.5 list-disc list-inside text-slate-700 pl-1">
                                         {bullets.map((b, bIdx) => (
                                           <li key={bIdx} className="leading-relaxed">
                                             {b}
@@ -1242,10 +1242,10 @@ export function CvBuilderClient() {
                       {/* Technical Skills */}
                       {skills.trim() && (
                         <div>
-                          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1 mb-2">
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1.5 mb-2.5">
                             Technical Skills &amp; Competencies
                           </h4>
-                          <div className="flex flex-wrap gap-1.5 pt-0.5">
+                          <div className="flex flex-wrap gap-2 pt-1">
                             {skills
                               .split(",")
                               .map((s) => s.trim())
@@ -1253,7 +1253,7 @@ export function CvBuilderClient() {
                               .map((skill, idx) => (
                                 <span
                                   key={idx}
-                                  className="px-2 py-0.5 rounded bg-slate-100 text-slate-800 text-[11px] font-medium border border-slate-200"
+                                  className="px-2.5 py-1 rounded bg-slate-100 text-slate-800 text-xs font-medium border border-slate-200"
                                 >
                                   {skill}
                                 </span>
@@ -1265,16 +1265,16 @@ export function CvBuilderClient() {
                       {/* Certifications */}
                       {certifications.trim() && (
                         <div>
-                          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1 mb-2">
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1.5 mb-2.5">
                             Certifications &amp; Achievements
                           </h4>
-                          <ul className="space-y-1 list-disc list-inside text-xs text-slate-700 pl-1">
+                          <ul className="space-y-1.5 list-disc list-inside text-xs sm:text-sm text-slate-700 pl-1">
                             {certifications
                               .split(",")
                               .map((c) => c.trim())
                               .filter(Boolean)
                               .map((cert, idx) => (
-                                <li key={idx}>{cert}</li>
+                                <li key={idx} className="leading-relaxed">{cert}</li>
                               ))}
                           </ul>
                         </div>
@@ -1283,31 +1283,31 @@ export function CvBuilderClient() {
                       {/* Languages */}
                       {languages.trim() && (
                         <div>
-                          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1 mb-2">
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1.5 mb-2.5">
                             Languages
                           </h4>
-                          <p className="text-xs text-slate-700">{languages.trim()}</p>
+                          <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">{languages.trim()}</p>
                         </div>
                       )}
                     </div>
 
-                    <p className="text-[11px] text-slate-400 italic mt-2">
+                    <p className="text-xs text-slate-400 italic mt-3">
                       Ready to export! Use the clean Word download, TXT download, or Print to PDF below.
                     </p>
                   </div>
                 ) : (
                   /* Raw Monospace Text Editor View */
-                  <div className="mt-4 space-y-3">
-                    <div className="bg-slate-50 rounded-2xl p-4 border border-slate-200/80 max-h-[500px] overflow-y-auto">
+                  <div className="mt-2 space-y-3">
+                    <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200/80 max-h-[520px] overflow-y-auto">
                       <textarea
                         value={generatedCv}
                         onChange={(e) => setGeneratedCv(e.target.value)}
                         rows={22}
-                        className="w-full bg-transparent text-slate-800 text-xs font-mono leading-relaxed focus:outline-none resize-y"
+                        className="w-full bg-transparent text-slate-800 text-xs sm:text-sm font-mono leading-relaxed focus:outline-none resize-y"
                         placeholder="Click 'Generate & Preview CV' to build raw plain text..."
                       />
                     </div>
-                    <p className="text-[11px] text-slate-400 italic">
+                    <p className="text-xs text-slate-400 italic">
                       Tip: Edits made here will be reflected when downloading as Plain Text (.txt).
                     </p>
                   </div>
@@ -1315,63 +1315,63 @@ export function CvBuilderClient() {
               </div>
 
               {/* Action Toolbar */}
-              <div className="pt-6 mt-6 border-t border-slate-100 space-y-3">
-                <div className="flex flex-wrap items-center gap-2">
+              <div className="pt-6 mt-8 border-t border-slate-100 space-y-4">
+                <div className="flex flex-wrap items-center gap-2.5">
                   <button
                     type="button"
                     onClick={handleDownloadDoc}
-                    className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="px-4.5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-xs transition-all flex items-center gap-2 cursor-pointer"
                   >
-                    <Download className="w-3.5 h-3.5" />
+                    <Download className="w-4 h-4" />
                     <span>Download Word (.doc)</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={handleDownloadTxt}
-                    className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="px-4.5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer"
                   >
-                    <Download className="w-3.5 h-3.5" />
+                    <Download className="w-4 h-4" />
                     <span>Download Text (.txt)</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={handlePrint}
-                    className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+                    className="px-4.5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer shadow-xs"
                   >
-                    <Printer className="w-3.5 h-3.5" />
+                    <Printer className="w-4 h-4" />
                     <span>Print / Save PDF</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={handleCopy}
-                    className="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer"
                   >
                     {copied ? (
-                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      <Check className="w-4 h-4 text-emerald-600" />
                     ) : (
-                      <Copy className="w-3.5 h-3.5" />
+                      <Copy className="w-4 h-4" />
                     )}
                     <span>{copied ? "Copied!" : "Copy"}</span>
                   </button>
                 </div>
 
                 {/* Counselor Upsell */}
-                <div className="mt-4 p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div className="mt-5 p-5 sm:p-6 rounded-2xl bg-emerald-50/80 border border-emerald-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div>
-                    <h4 className="text-xs font-bold text-emerald-950">
+                    <h4 className="text-xs sm:text-sm font-bold text-emerald-950">
                       Want an admission counselor to review your CV?
                     </h4>
-                    <p className="text-[11px] text-emerald-800 leading-tight mt-0.5">
+                    <p className="text-xs text-emerald-800 leading-normal mt-1">
                       Our experts review CVs for international admission guidelines, ATS keywords, and university formatting.
                     </p>
                   </div>
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(true)}
-                    className="px-4 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs transition-all shadow-xs shrink-0 cursor-pointer"
+                    className="px-4.5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm transition-all shadow-xs shrink-0 cursor-pointer"
                   >
                     Request Free Review
                   </button>
@@ -1383,11 +1383,11 @@ export function CvBuilderClient() {
           </div>
 
           {/* ──── Bottom: CV Section Guide ──── */}
-          <div className="mt-16 bg-white rounded-3xl p-8 border border-slate-200/90 shadow-xs">
-            <h3 className="text-lg font-bold text-slate-900 mb-3">
+          <div className="mt-20 bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-xs">
+            <h3 className="text-lg font-bold text-slate-900 mb-4">
               Standard Academic CV Structure for University Admissions
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5 text-xs sm:text-sm">
               {[
                 {
                   title: "Contact Info",
@@ -1414,9 +1414,9 @@ export function CvBuilderClient() {
                   desc: "Professional certificates, test scores (GATE, GRE, IELTS), and awards.",
                 },
               ].map((item) => (
-                <div key={item.title} className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                  <strong className="text-slate-900 block mb-1">{item.title}</strong>
-                  <p className="text-slate-500 leading-relaxed">{item.desc}</p>
+                <div key={item.title} className="p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                  <strong className="text-slate-900 block mb-1.5 font-bold">{item.title}</strong>
+                  <p className="text-slate-500 leading-relaxed text-xs">{item.desc}</p>
                 </div>
               ))}
             </div>
