@@ -43,6 +43,20 @@ test.describe("Admin CRUD -> Public Site Live Reflection", () => {
     // 7. Verify the new blog is visible on the public website
     const newBlog = page.locator(`text=${testBlogTitle}`);
     await expect(newBlog).toBeVisible({ timeout: 10_000 });
+
+    // 8. Clean up test blog to ensure spotless production database
+    page.on("dialog", (dialog) => dialog.accept());
+    await page.goto("/admin/blogs");
+    await page.waitForLoadState("networkidle");
+    const blogDeleteBtn = page
+      .locator("div")
+      .filter({ hasText: testBlogTitle })
+      .locator('button[title*="Delete" i]')
+      .first();
+    if (await blogDeleteBtn.isVisible({ timeout: 5000 }).catch(() => false)) {
+      await blogDeleteBtn.click();
+      await page.waitForTimeout(1000);
+    }
   });
 
   test("Adding a new university in Admin Console reflects on /universities public page", async ({ page }) => {
@@ -93,5 +107,19 @@ test.describe("Admin CRUD -> Public Site Live Reflection", () => {
     // 7. Verify the new university appears on the public website
     const newUni = page.locator(`span:has-text("${testUniName}")`).first();
     await expect(newUni).toBeVisible({ timeout: 10_000 });
+
+    // 8. Clean up test university to ensure spotless production database
+    await page.goto("/admin/universities");
+    await page.waitForLoadState("networkidle");
+    const uniRow = page.locator("tr", { hasText: testUniName });
+    const deleteUniBtn = uniRow.locator('button[title*="Delete" i]');
+    if (await deleteUniBtn.isVisible()) {
+      await deleteUniBtn.click();
+      const confirmDelete = page.locator("button", { hasText: /^Delete$/i });
+      if (await confirmDelete.isVisible()) {
+        await confirmDelete.click();
+        await page.waitForTimeout(1000);
+      }
+    }
   });
 });

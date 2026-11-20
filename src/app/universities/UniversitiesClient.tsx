@@ -574,6 +574,30 @@ interface UniversitiesClientProps {
   initialUniversities?: UniversityItem[];
 }
 
+function CourseCardBanner({
+  banner,
+  university,
+  priority,
+}: {
+  banner: string;
+  university: string;
+  priority: boolean;
+}) {
+  const [imgSrc, setImgSrc] = useState(banner || "/campus_quad_hero.webp");
+
+  return (
+    <Image
+      src={imgSrc}
+      alt={`${university} Campus`}
+      fill
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      priority={priority}
+      onError={() => setImgSrc("/campus_quad_hero.webp")}
+      className="object-cover group-hover:scale-105 transition-transform duration-500"
+    />
+  );
+}
+
 export default function UniversitiesClient({ initialUniversities }: UniversitiesClientProps) {
   // Search & Filter State
   const [searchTerm, setSearchTerm] = useState("");
@@ -1129,13 +1153,10 @@ export default function UniversitiesClient({ initialUniversities }: Universities
                     <div>
                       {/* Campus Frame */}
                       <div className="relative h-48 w-full bg-slate-100 overflow-hidden">
-                        <Image
-                          src={course.banner}
-                          alt={`${course.university} Campus`}
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        <CourseCardBanner
+                          banner={course.banner}
+                          university={course.university}
                           priority={idx < 3}
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/65 via-transparent to-transparent pointer-events-none" />
 

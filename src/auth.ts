@@ -35,43 +35,42 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         const { email, password } = parsed.data;
 
-        // Default admin credential fallback (enables access even before remote NeonDB is provisioned)
-        const defaultAdminEmail = (process.env.ADMIN_EMAIL || "admin@uesabroad.com").trim().toLowerCase();
-        const defaultAdminPassword = (process.env.ADMIN_PASSWORD || "admin123").trim();
-
-        if (process.env.NODE_ENV === "production" && (!process.env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD === "admin123")) {
-          console.warn("[SECURITY ALERT] Default ADMIN_PASSWORD is in use in production. Please set a secure custom ADMIN_PASSWORD in your deployment environment variables.");
-        }
-
-        if (email.trim().toLowerCase() === defaultAdminEmail && password.trim() === defaultAdminPassword) {
-          return {
-            id: "super-admin-id",
-            name: "Super Admin",
-            email: defaultAdminEmail,
-            role: "SUPER_ADMIN" as Role,
-          };
-        }
-
         try {
           const user = await prisma.user.findUnique({
             where: { email: email.trim().toLowerCase() },
           });
 
-          if (!user || !user.passwordHash) return null;
-
-          const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
-          if (!isPasswordValid) return null;
-
-          return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            role: user.role,
-          };
+          if (user && user.passwordHash) {
+            const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+            if (isPasswordValid) {
+              return {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+              };
+            }
+          }
         } catch (error) {
           console.error("Auth DB Error:", error);
-          return null;
         }
+
+        // Bootstrap fallback: ONLY if explicitly set in environment variables
+        if (process.env.ADMIN_EMAIL && process.env.ADMIN_PASSWORD) {
+          const envAdminEmail = process.env.ADMIN_EMAIL.trim().toLowerCase();
+          const envAdminPassword = process.env.ADMIN_PASSWORD.trim();
+
+          if (email.trim().toLowerCase() === envAdminEmail && password.trim() === envAdminPassword) {
+            return {
+              id: "super-admin-id",
+              name: "Super Admin",
+              email: envAdminEmail,
+              role: "SUPER_ADMIN" as Role,
+            };
+          }
+        }
+
+        return null;
       },
     }),
   ],

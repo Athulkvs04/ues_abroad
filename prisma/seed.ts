@@ -210,7 +210,8 @@ async function main() {
       approxTuitionYearly: 59000,
       approxLivingYearly: 18000,
       isPartner: false,
-      logoUrl: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=400&q=80",
+      logoUrl: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?auto=format&fit=crop&w=400&q=80",
+      bannerUrl: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?auto=format&fit=crop&w=800&q=80",
       courses: [
         { title: "M.S. in Electrical Engineering & Computer Science", slug: "mit-ms-eecs", degreeLevel: "MASTER", durationMonths: 24, tuitionFee: 59000, intakeMonths: ["September"], overview: "World-leading research in AI, robotics, quantum computing, and systems." },
         { title: "Master of Finance (MFin)", slug: "mit-master-of-finance", degreeLevel: "MASTER", durationMonths: 18, tuitionFee: 85000, intakeMonths: ["July"], overview: "Quantitative finance, capital markets, and financial engineering." },

@@ -12,13 +12,11 @@ import {
   Calendar, 
   ArrowLeft, 
   CheckCircle2, 
-  Share2, 
   MessageCircle, 
   PhoneCall, 
   MapPin, 
   GraduationCap, 
-  ArrowRight,
-  BookOpen
+  ArrowRight
 } from "lucide-react";
 import { ShareBar } from "./ShareBar";
 import Image from "next/image";
@@ -234,7 +232,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       </div>
 
       {/* Main Body Grid */}
-      <div className="container max-w-5xl py-12">
+      <div className="container max-w-5xl pt-12 pb-24 sm:pb-32">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           {/* Article Main Column */}
           <article className="lg:col-span-8">
@@ -355,7 +353,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
         {/* Related Articles Section */}
         {related.length > 0 && (
-          <div className="mt-16 pt-12 border-t border-slate-200">
+          <div className="mt-20 pt-16 border-t border-slate-200">
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h3 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">

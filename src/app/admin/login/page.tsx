@@ -1,14 +1,13 @@
 "use client";
 
 import React, { useState, Suspense } from "react";
-import { signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { Card } from "@/components/ui/Card";
 import { Lock, Mail, ShieldAlert, ArrowRight } from "lucide-react";
 import { useTenant } from "@/components/providers/TenantProvider";
 import { Spinner } from "@/components/ui/Spinner";
@@ -45,8 +44,8 @@ function AdminLoginForm() {
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "admin@uesabroad.com",
-      password: "admin123",
+      email: "",
+      password: "",
     },
   });
 
@@ -129,22 +128,11 @@ function AdminLoginForm() {
             </div>
           </form>
 
-          {/* Development Notice */}
+          {/* Security Notice */}
           <div className="mt-6 pt-5 border-t border-slate-100 text-center">
-            <p className="text-xs text-slate-500">
-              🛠️ <strong className="text-slate-700">Dev Credentials:</strong>{" "}
-              <code className="bg-slate-100 px-1.5 py-0.5 rounded text-slate-800">admin@uesabroad.com</code> / <code className="bg-slate-100 px-1.5 py-0.5 rounded text-slate-800">admin123</code>
+            <p className="text-xs text-slate-400">
+              Authorized personnel only. All access attempts are audited and logged.
             </p>
-            <button
-              type="button"
-              onClick={async () => {
-                await signOut({ redirect: false });
-                window.location.href = "/admin/login";
-              }}
-              className="mt-2.5 text-[11px] text-slate-400 hover:text-slate-600 transition-colors underline cursor-pointer"
-            >
-              Reset Session / Clear Stored Cookies
-            </button>
           </div>
         </div>
 

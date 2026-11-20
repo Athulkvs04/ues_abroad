@@ -42,7 +42,7 @@ test.describe("Public Pages", () => {
     await expect(page.locator("h1,h2").first()).toBeVisible();
   });
 
-  test("Individual blog post loads", async ({ page }) => {
+  test("Individual blog post loads with proper gap before footer", async ({ page }) => {
     await page.goto("/blogs");
     // Click the first blog link
     const firstBlog = page.locator("a[href^='/blogs/']").first();
@@ -51,6 +51,20 @@ test.describe("Public Pages", () => {
     if (href) {
       await page.goto(href);
       await expect(page.locator("article, h1").first()).toBeVisible();
+
+      // Check related articles section and footer separation
+      const relatedSection = page.locator("text=Related Study Guides & Insights").first();
+      const footer = page.locator("footer").first();
+      if ((await relatedSection.isVisible()) && (await footer.isVisible())) {
+        const relatedBox = await relatedSection.boundingBox();
+        const footerBox = await footer.boundingBox();
+        if (relatedBox && footerBox) {
+          // Verify footer is located below the related section with ample breathing room
+          expect(footerBox.y).toBeGreaterThan(relatedBox.y);
+          const gap = footerBox.y - relatedBox.y;
+          expect(gap).toBeGreaterThan(150); // Generous spacing
+        }
+      }
     }
   });
 

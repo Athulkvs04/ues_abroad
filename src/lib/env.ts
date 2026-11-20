@@ -11,15 +11,11 @@ const serverEnvSchema = z.object({
     .min(1)
     .default("super-secret-development-key-change-in-production-123456789"),
   NEXTAUTH_URL: z.string().url().default("http://localhost:3000"),
-  CLOUDINARY_CLOUD_NAME: z.string().default("demo-cloud"),
-  CLOUDINARY_API_KEY: z.string().default("123456789"),
-  CLOUDINARY_API_SECRET: z.string().default("demo-secret"),
   RESEND_API_KEY: z.string().default("re_123456789"),
 });
 
 const clientEnvSchema = z.object({
   NEXT_PUBLIC_APP_URL: z.string().url().default("http://localhost:3000"),
-  NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: z.string().default("demo-cloud"),
 });
 
 /**
@@ -30,7 +26,6 @@ function validateEnv() {
   const serverParse = serverEnvSchema.safeParse(process.env);
   const clientParse = clientEnvSchema.safeParse({
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   });
 
   if (!serverParse.success) {

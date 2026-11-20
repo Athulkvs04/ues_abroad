@@ -187,6 +187,30 @@ function ImageUploader({
   );
 }
 
+function UniLogo({ logoUrl }: { logoUrl: string | null }) {
+  const [hasError, setHasError] = useState(false);
+
+  if (!logoUrl || hasError) {
+    return (
+      <div className="w-9 h-9 rounded-lg bg-sky-50 border border-sky-200 flex items-center justify-center shrink-0">
+        <GraduationCap className="w-4 h-4 text-sky-600" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-9 h-9 rounded-lg overflow-hidden border border-slate-200 shrink-0 relative bg-white">
+      <Image
+        src={logoUrl}
+        alt=""
+        fill
+        className="object-contain p-0.5"
+        onError={() => setHasError(true)}
+      />
+    </div>
+  );
+}
+
 export default function AdminUniversitiesPage() {
   const [universities, setUniversities] = useState<University[]>([]);
   const [countries, setCountries] = useState<Country[]>([]);
@@ -567,15 +591,7 @@ export default function AdminUniversitiesPage() {
                   <tr key={uni.id} className="hover:bg-slate-50/80 transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
-                        {uni.logoUrl ? (
-                          <div className="w-9 h-9 rounded-lg overflow-hidden border border-slate-200 shrink-0 relative bg-white">
-                            <Image src={uni.logoUrl} alt="" fill className="object-contain p-0.5" />
-                          </div>
-                        ) : (
-                          <div className="w-9 h-9 rounded-lg bg-sky-50 border border-sky-200 flex items-center justify-center shrink-0">
-                            <GraduationCap className="w-4 h-4 text-sky-600" />
-                          </div>
-                        )}
+                        <UniLogo logoUrl={uni.logoUrl} />
                         <div>
                           <span className="font-semibold text-slate-900 block">{uni.name}</span>
                           {uni.isPartner && (
