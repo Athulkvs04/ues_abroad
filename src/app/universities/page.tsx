@@ -42,11 +42,10 @@ export const metadata: Metadata = {
   },
 };
 
-import { getAllPublicUniversities, formatDbUniversityToItem } from "@/lib/universities-store";
+import { getAllPublicUniversities } from "@/lib/universities-store";
 
 export default async function UniversitiesPage() {
   const dbUnis = await getAllPublicUniversities();
-  const formattedUnis = dbUnis.map(formatDbUniversityToItem);
 
-  return <UniversitiesClient initialUniversities={formattedUnis} />;
+  return <UniversitiesClient initialUniversities={dbUnis} />;
 }
