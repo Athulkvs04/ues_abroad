@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 interface DestinationsSectionProps {
@@ -99,11 +100,13 @@ export function DestinationsSection({ onOpenConsultModal }: DestinationsSectionP
               className="group relative rounded-2xl overflow-hidden min-h-[400px] flex flex-col justify-between p-6 shadow-md hover:shadow-premium hover:-translate-y-1.5 transition-all duration-300"
             >
               {/* Full background image */}
-              <img 
-                src={dest.image} 
-                alt={dest.name} 
-                loading="lazy" 
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" 
+              <Image
+                src={dest.image}
+                alt={dest.name}
+                loading="lazy"
+                width={800}
+                height={450}
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0"
               />
               
               {/* Dark Gradient Overlay matching Screenshot 3 */}

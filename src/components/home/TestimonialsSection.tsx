@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { Star, CheckCircle2 } from "lucide-react";
 
 function GoogleIcon({ className = "w-4 h-4" }: { className?: string }) {
@@ -49,11 +50,13 @@ function ReviewAvatar({ name, src }: { name: string; src?: string }) {
 
   if (src && !imgError) {
     return (
-      <img
+      <Image
         src={src}
         alt={name}
         onError={() => setImgError(true)}
         className="w-11 h-11 rounded-full object-cover border-2 border-slate-200 shadow-xs shrink-0"
+        width={44}
+        height={44}
         loading="lazy"
       />
     );

@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
 import prisma from "@/lib/prisma";
-import { addRuntimeUniversity, getRuntimeUniversities } from "@/lib/universities-store";
+import { addRuntimeUniversity, getRuntimeUniversities, formatDbUniversityToItem, UniversityItem } from "@/lib/universities-store";
 
 // PATCH /api/admin/universities/[id] - Update a university
 export async function PATCH(
@@ -63,18 +63,21 @@ export async function PATCH(
         },
       });
 
-      addRuntimeUniversity(updated);
+      addRuntimeUniversity(formatDbUniversityToItem(updated));
       return NextResponse.json({ success: true, university: updated });
     } catch (dbError) {
       console.warn("DB update failed, updating runtime university:", dbError);
       const existing = getRuntimeUniversities().find(u => u.id === id);
-      const updatedFallback = {
-        ...existing,
-        ...body,
-        id,
-      };
-      addRuntimeUniversity(updatedFallback);
-      return NextResponse.json({ success: true, university: updatedFallback, isFallback: true });
+      if (existing) {
+        const updatedFallback: UniversityItem = {
+          ...existing,
+          ...body,
+          id,
+        };
+        addRuntimeUniversity(updatedFallback);
+        return NextResponse.json({ success: true, university: updatedFallback, isFallback: true });
+      }
+      return NextResponse.json({ success: false, error: "University not found" }, { status: 404 });
     }
   } catch (error) {
     console.error("Error updating university:", error);

@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Search, Camera, ChevronDown, ArrowRight } from "lucide-react";
 
 const INITIAL_COUNT = 6;
@@ -395,10 +396,12 @@ export function ExplorerSection({ onOpenConsultModal }: ExplorerSectionProps) {
               >
                 {/* Campus & Student Photo Banner */}
                 <div className="relative h-44 w-full overflow-hidden bg-slate-900">
-                  <img 
-                    src={uni.banner} 
-                    alt={`${uni.name} campus`} 
+                  <Image
+                    src={uni.banner}
+                    alt={`${uni.name} campus`}
                     loading="lazy"
+                    width={800}
+                    height={450}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />

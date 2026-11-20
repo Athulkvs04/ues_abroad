@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { blogsData } from "@/data/blogs";
 import { ArrowRight, Clock } from "lucide-react";
 
@@ -62,9 +63,11 @@ export function BlogsSection({ onOpenConsultModal }: BlogsSectionProps) {
             >
               {/* Photo Cover Band */}
               <div className="h-44 w-full relative overflow-hidden bg-slate-100">
-                <img 
-                  src={blog.coverImage} 
+                <Image
+                  src={blog.coverImage}
                   alt={blog.title}
+                  width={800}
+                  height={450}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />

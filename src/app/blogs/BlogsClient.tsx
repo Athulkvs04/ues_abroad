@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import Image from "next/image";
 import Link from "next/link";
+
 import { 
   Search, 
   Clock, 
@@ -145,9 +147,11 @@ export default function BlogsPage({ initialBlogs }: { initialBlogs?: BlogPost[] 
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
                 <div className="lg:col-span-7 h-64 sm:h-80 lg:h-auto relative overflow-hidden bg-slate-900">
-                  <img
+                  <Image
                     src={featuredBlog.coverImage}
                     alt={featuredBlog.title}
+                    width={800}
+                    height={450}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
@@ -248,9 +252,11 @@ export default function BlogsPage({ initialBlogs }: { initialBlogs?: BlogPost[] 
               >
                 {/* Thumbnail */}
                 <div className="h-48 w-full relative overflow-hidden bg-slate-100">
-                  <img
+                  <Image
                     src={blog.coverImage}
                     alt={blog.title}
+                    width={800}
+                    height={450}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />

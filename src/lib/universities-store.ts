@@ -34,12 +34,13 @@ const COUNTRY_FLAGS: Record<string, string> = {
 };
 
 // In-memory runtime cache for custom universities created when DB is offline
-let runtimeCustomUniversities: any[] = [];
+let runtimeCustomUniversities: UniversityItem[] = [];
 
 export function getCountryFlag(countryName: string): string {
   return COUNTRY_FLAGS[countryName] || "🌍";
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function formatDbUniversityToItem(uni: any): UniversityItem {
   const countryName = uni.country?.name || "Global";
   const currencySymbol = uni.country?.currencySymbol || "$";
@@ -69,7 +70,7 @@ export function formatDbUniversityToItem(uni: any): UniversityItem {
   };
 }
 
-export async function getAllPublicUniversities(): Promise<any[]> {
+export async function getAllPublicUniversities(): Promise<UniversityItem[]> {
   try {
     const dbUnis = await prisma.university.findMany({
       where: { isPublished: true },
@@ -86,7 +87,7 @@ export async function getAllPublicUniversities(): Promise<any[]> {
     });
 
     if (dbUnis && dbUnis.length > 0) {
-      return [...dbUnis, ...runtimeCustomUniversities];
+      return [...dbUnis.map(formatDbUniversityToItem), ...runtimeCustomUniversities];
     }
   } catch (error) {
     console.warn("Prisma fetch failed, using runtime fallback for universities:", error);
@@ -95,7 +96,7 @@ export async function getAllPublicUniversities(): Promise<any[]> {
   return runtimeCustomUniversities;
 }
 
-export function addRuntimeUniversity(uni: any) {
+export function addRuntimeUniversity(uni: UniversityItem) {
   runtimeCustomUniversities = [uni, ...runtimeCustomUniversities.filter((u) => u.id !== uni.id)];
 }
 

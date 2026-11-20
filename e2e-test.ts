@@ -109,7 +109,7 @@ async function runTests() {
     assert(metricsBar?.includes("1,200+ Degree Courses") ?? false, "Hero metrics bar highlights degree courses count");
 
     // 2.3 Course Cards Render
-    let cards = await page.$$("div.rounded-3xl.border");
+    const cards = await page.$$("div.rounded-3xl.border");
     assert(cards.length > 5, `Initial course cards rendered: ${cards.length} programs`);
 
     // 2.4 Search Course by Keyword (e.g. "Robotics")

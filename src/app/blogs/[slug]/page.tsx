@@ -21,6 +21,7 @@ import {
   BookOpen
 } from "lucide-react";
 import { ShareBar } from "./ShareBar";
+import Image from "next/image";
 import { PublicLayout } from "@/components/layout/PublicLayout";
 
 import { getPublicBlogBySlug } from "@/lib/blogs-store";
@@ -239,9 +240,11 @@ export default async function BlogPostPage({ params }: PageProps) {
           <article className="lg:col-span-8">
             {/* Featured Image */}
             <div className="rounded-3xl overflow-hidden shadow-sm border border-slate-200 mb-8 aspect-video relative bg-slate-900">
-              <img
+              <Image
                 src={blog.coverImage}
                 alt={blog.title}
+                width={800}
+                height={450}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -379,9 +382,11 @@ export default async function BlogPostPage({ params }: PageProps) {
                   className="group bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden"
                 >
                   <div className="h-40 relative bg-slate-100 overflow-hidden">
-                    <img
+                    <Image
                       src={rel.coverImage}
                       alt={rel.title}
+                      width={800}
+                      height={450}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <span className={`absolute top-3 left-3 text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-md border ${rel.categoryColor}`}>
